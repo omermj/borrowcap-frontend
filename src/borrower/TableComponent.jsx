@@ -2,24 +2,33 @@ import Table from "react-bootstrap/Table";
 import { formatCurrency, formatDate, formatPercent } from "../helpers/format";
 import "./TableComponent.css";
 
-const TableComponent = ({ tableData }) => {
-  const headers = Object.keys(tableData[0]);
+const TableComponent = ({ headers, tableData }) => {
+  const valueTypes = Object.values(headers);
+
   return (
     <div>
       <Table className="table" striped hover bordered>
         <thead>
           <tr>
-            {headers.map((header, idx) => (
-              <th key={idx}>{header}</th>
+            {Object.keys(headers).map((headerKey, idx) => (
+              <th key={idx}>{headers[headerKey].label}</th>
             ))}
           </tr>
         </thead>
         <tbody>
           {tableData.map((row, rowIdx) => (
             <tr key={rowIdx}>
-              {Object.values(row).map((cell, cellIdx) => (
-                <td key={cellIdx}>{cell}</td>
-              ))}
+              {Object.keys(headers).map((headerKey, cellIdx) => {
+                const formatter = headers[headerKey].formatter;
+                const cellValue = row[headerKey];
+                return (
+                  <td key={cellIdx}>
+                    {typeof formatter === "function"
+                      ? formatter(cellValue)
+                      : cellValue}
+                  </td>
+                );
+              })}
             </tr>
           ))}
         </tbody>

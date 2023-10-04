@@ -3,8 +3,10 @@
 /** Helper functions to format data */
 
 function formatCurrency(num) {
-  return "$" + num.toLocaleString("en-CA", {
-    style: "decimal",
+  num = +num;
+  return num.toLocaleString('en-US', {
+    style: 'currency',
+    currency: 'USD',
     minimumFractionDigits: 2,
     maximumFractionDigits: 2,
   });
