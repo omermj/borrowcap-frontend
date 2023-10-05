@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import TableComponent from "./TableComponent";
+import TableComponent from "../common/TableComponent";
 import { formatCurrency, formatDate, formatPercent } from "../helpers/format";
 import BorrowcapApi from "../api/api";
 

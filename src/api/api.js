@@ -53,6 +53,12 @@ class BorrowcapApi {
     const res = await this.request(`users/${id}/fundedloans`);
     return res.fundedLoans;
   }
+
+  /** Get all Active Investments by InvestorId */
+  static async getActiveInvestmentsByInvestorId(id) {
+    const res = await this.request(`users/${id}/activeinvestments`);
+    return res.activeInvestments;
+  }
 }
 
 export default BorrowcapApi;
