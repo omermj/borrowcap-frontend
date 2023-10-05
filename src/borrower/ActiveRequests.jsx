@@ -3,6 +3,8 @@ import TableComponent from "./TableComponent";
 import { formatCurrency, formatDate, formatPercent } from "../helpers/format";
 import BorrowcapApi from "../api/api";
 
+/** Table showing all Active Loan Requests for logged in user */
+
 const ActiveRequests = () => {
   const [loanRequests, setLoanRequests] = useState([]);
 

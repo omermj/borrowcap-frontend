@@ -1,5 +1,6 @@
 import FundedLoans from "./ActiveLoans";
 import ActiveRequests from "./ActiveRequests";
+import QuickLinks from "./QuickLinks";
 
 /** Main Landing Page for Borrower */
 
@@ -13,6 +14,7 @@ const BorrowerMain = () => {
       <FundedLoans />
 
       {/* Quick Links */}
+      <QuickLinks />
     </div>
   );
 };

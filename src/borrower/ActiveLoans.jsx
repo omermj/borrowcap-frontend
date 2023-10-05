@@ -3,6 +3,8 @@ import TableComponent from "./TableComponent";
 import BorrowcapApi from "../api/api";
 import { formatCurrency, formatDate, formatPercent } from "../helpers/format";
 
+/** Table showing all Fundend Loans for logged in user */
+
 const FundedLoans = () => {
   const [fundedLoans, setFundedLoans] = useState([]);
   const headers = {
