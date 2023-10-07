@@ -65,6 +65,12 @@ class BorrowcapApi {
     const res = await this.request(`users/${id}/pledgedinvestments`);
     return res.pledgedInvestments;
   }
+
+  /** Get all available investments */
+  static async getAvailableInvestments() {
+    const res = await this.request(`approvedrequests/available`);
+    return res.availableInvestments;
+  }
 }
 
 export default BorrowcapApi;
