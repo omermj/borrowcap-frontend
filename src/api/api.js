@@ -71,6 +71,12 @@ class BorrowcapApi {
     const res = await this.request(`approvedrequests/available`);
     return res.availableInvestments;
   }
+
+  /** Get approved requests */
+  static async getApprovedRequests() {
+    const res = await this.request(`approvedrequests`);
+    return res.approvedRequests;
+  }
 }
 
 export default BorrowcapApi;
