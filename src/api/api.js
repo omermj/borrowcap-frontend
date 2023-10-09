@@ -77,6 +77,24 @@ class BorrowcapApi {
     const res = await this.request(`approvedrequests`);
     return res.approvedRequests;
   }
+
+  /** Get current user */
+  static async getCurrentUser(username) {
+    const res = await this.request(`users/${username}`);
+    return res.user;
+  }
+
+  /** Login user */
+  static async login(loginData) {
+    const res = await this.request(`auth/token`, loginData, "post");
+    return res.token;
+  }
+
+  /** Signup User */
+  static async signup(signupData) {
+    const res = await this.request(`auth/register`, signupData, "post");
+    return res.token;
+  }
 }
 
 export default BorrowcapApi;

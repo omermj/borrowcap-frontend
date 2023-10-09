@@ -3,10 +3,11 @@ import BorrowerMain from "../borrower/BorrowerMain";
 import Homepage from "../homepage/Homepage";
 import InvestorMain from "../investor/InvestorMain";
 import UnderwriterMain from "../underwriter/UnderwriterMain";
+import LoginForm from "../auth/LoginForm";
 
 /** Site-wide routes */
 
-function NavRoutes() {
+function NavRoutes({ login, signup }) {
   return (
     <div>
       <Routes>
@@ -14,6 +15,7 @@ function NavRoutes() {
         <Route path="/borrower" element={<BorrowerMain />} />
         <Route path="/investor" element={<InvestorMain />} />
         <Route path="/underwriter" element={<UnderwriterMain />} />
+        <Route path="/login" element={<LoginForm login={login} />} />
       </Routes>
     </div>
   );
