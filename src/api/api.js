@@ -95,6 +95,12 @@ class BorrowcapApi {
     const res = await this.request(`auth/register`, signupData, "post");
     return res.token;
   }
+
+  /** Get list of existing roles */
+  static async getRoles() {
+    const res = await this.request("roles");
+    return Object.keys(res.roles);
+  }
 }
 
 export default BorrowcapApi;

@@ -29,7 +29,6 @@ const LoginForm = ({ login }) => {
             });
           }
           setSubmitting(false);
-          console.log("wrong stuff");
         }}
       >
         {({

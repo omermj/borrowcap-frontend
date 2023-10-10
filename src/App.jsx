@@ -8,13 +8,16 @@ import { useState, useEffect } from "react";
 import jwtDecode from "jwt-decode";
 import BorrowcapApi from "./api/api";
 import UserContext from "./auth/UserContext";
+import LoadingSpinner from "./common/LoadingSpinner";
 
 // Key for storing token in localStorage
 export const TOKEN_STORAGE_ID = "jobly-token";
 
 function App() {
+  const [infoLoaded, setInfoLoaded] = useState(false);
   const [token, setToken] = useLocalStorage(TOKEN_STORAGE_ID);
   const [currentUser, setCurrentUser] = useState(null);
+  const [roles, setRoles] = useState([]);
 
   // Effect for token refresh
   useEffect(() => {
@@ -23,15 +26,17 @@ function App() {
         try {
           const { username } = jwtDecode(token);
           BorrowcapApi.token = token;
-
-          // Set currentUser
-          const currentUser = await BorrowcapApi.getCurrentUser(username);
+          let currentUser = await BorrowcapApi.getCurrentUser(username);
+          const roles = await BorrowcapApi.getRoles();
           setCurrentUser(currentUser);
+          setRoles(roles);
         } catch (e) {
           setCurrentUser(null);
         }
       }
+      setInfoLoaded(true);
     };
+    setInfoLoaded(false);
     getCurrentUser();
   }, [token]);
 
@@ -65,12 +70,14 @@ function App() {
     }
   };
 
+  if (!infoLoaded) return <LoadingSpinner />;
+
   return (
     <BrowserRouter>
       <UserContext.Provider value={{ currentUser, setCurrentUser }}>
         <>
           <Navigation logout={logout} />
-          <NavRoutes login={login} signup={signup} />
+          <NavRoutes login={login} signup={signup} roles={roles} />
         </>
       </UserContext.Provider>
     </BrowserRouter>
