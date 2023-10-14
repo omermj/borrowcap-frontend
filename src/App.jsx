@@ -18,6 +18,8 @@ function App() {
   const [token, setToken] = useLocalStorage(TOKEN_STORAGE_ID);
   const [currentUser, setCurrentUser] = useState(null);
   const [roles, setRoles] = useState([]);
+  const [purposes, setPurposes] = useState([]);
+  // const submitLoanApplication = BorrowcapApi.submitLoanApplication;
 
   // Effect for token refresh
   useEffect(() => {
@@ -26,10 +28,12 @@ function App() {
         try {
           const { username } = jwtDecode(token);
           BorrowcapApi.token = token;
-          let currentUser = await BorrowcapApi.getCurrentUser(username);
+          const currentUser = await BorrowcapApi.getCurrentUser(username);
           const roles = await BorrowcapApi.getRoles();
+          const purposes = await BorrowcapApi.getPurposes();
           setCurrentUser(currentUser);
           setRoles(roles);
+          setPurposes(purposes);
         } catch (e) {
           setCurrentUser(null);
         }
@@ -74,10 +78,17 @@ function App() {
 
   return (
     <BrowserRouter>
-      <UserContext.Provider value={{ currentUser, setCurrentUser }}>
+      <UserContext.Provider
+        value={{ currentUser, setCurrentUser, BorrowcapApi }}
+      >
         <>
           <Navigation logout={logout} />
-          <NavRoutes login={login} signup={signup} roles={roles} />
+          <NavRoutes
+            login={login}
+            signup={signup}
+            roles={roles}
+            purposes={purposes}
+          />
         </>
       </UserContext.Provider>
     </BrowserRouter>

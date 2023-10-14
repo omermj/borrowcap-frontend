@@ -6,21 +6,31 @@ import UnderwriterMain from "../underwriter/UnderwriterMain";
 import LoginForm from "../auth/LoginForm";
 import SignupForm from "../auth/SignupForm";
 import ProtectedRoute from "./ProtectedRoute";
+import LoanApplicationForm from "../borrower/LoanApplication";
+import AvailableInvestment from "../investor/AvailableInvestment";
 
 /** Site-wide routes */
 
-function NavRoutes({ login, signup, roles }) {
+function NavRoutes({ login, signup, roles, purposes }) {
   return (
     <div>
       <Routes>
         <Route path="/" element={<Homepage />} />
         <Route element={<ProtectedRoute allowedRoles={["borrower"]} />}>
           <Route path="/borrower" element={<BorrowerMain />} />
+          <Route
+            path="/borrower/apply"
+            element={<LoanApplicationForm purposes={purposes} />}
+          />
         </Route>
         <Route element={<ProtectedRoute allowedRoles={["investor"]} />}>
           <Route path="/investor" element={<InvestorMain />} />
+          <Route
+            path="/investor/availableinvestment/:id"
+            element={<AvailableInvestment />}
+          />
         </Route>
-        <Route element={<ProtectedRoute allowedRoles={["underwriter"]} />}>
+        <Route element={<ProtectedRoute allowedRoles={["admin"]} />}>
           <Route path="/underwriter" element={<UnderwriterMain />} />
         </Route>
         <Route path="/login" element={<LoginForm login={login} />} />

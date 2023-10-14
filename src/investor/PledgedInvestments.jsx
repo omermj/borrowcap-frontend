@@ -1,12 +1,14 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import TableComponent from "../common/TableComponent";
 import { formatCurrency, formatDate, formatPercent } from "../helpers/format";
 import BorrowcapApi from "../api/api";
+import UserContext from "../auth/UserContext";
 
 /** Table showing all Active Investments made by the logged in user */
 
 const PledgedInvestments = () => {
   const [data, setData] = useState([]);
+  const { currentUser } = useContext(UserContext);
 
   // Define table headers with labels and formatters
   const headers = {
@@ -22,7 +24,9 @@ const PledgedInvestments = () => {
   // get active investments on initial render
   useEffect(() => {
     async function fetchPledgedInvestments() {
-      const requests = await BorrowcapApi.getPledgedInvestmentsByInvestorId(2);
+      const requests = await BorrowcapApi.getPledgedInvestmentsByInvestorId(
+        currentUser.id
+      );
       setData(requests);
     }
     fetchPledgedInvestments();

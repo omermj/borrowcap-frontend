@@ -1,11 +1,13 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import TableComponent from "../common/TableComponent";
 import { formatCurrency, formatDate, formatPercent } from "../helpers/format";
 import BorrowcapApi from "../api/api";
+import UserContext from "../auth/UserContext";
 
 /** Table showing all Active Loan Requests for logged in user */
 
 const ActiveRequests = () => {
+  const { currentUser } = useContext(UserContext);
   const [loanRequests, setLoanRequests] = useState([]);
 
   // Define table headers with labels and formatters
@@ -25,7 +27,9 @@ const ActiveRequests = () => {
   // get active loan requests on initial render
   useEffect(() => {
     async function fetchLoanRequests() {
-      const requests = await BorrowcapApi.getLoanRequestsByBorrowerId(1);
+      const requests = await BorrowcapApi.getLoanRequestsByBorrowerId(
+        currentUser.id
+      );
       setLoanRequests(requests);
     }
     fetchLoanRequests();

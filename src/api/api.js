@@ -36,6 +36,14 @@ class BorrowcapApi {
     return res.activeRequests;
   }
 
+  /** Submit Loan Application */
+  static async submitLoanApplication(data) {
+    // const test = { ...data, borrowerId: 1 };
+    const res = await this.request(`activerequests`, data, "post");
+    console.log(res);
+    return res.loanRequest;
+  }
+
   /** Get all Active Loan Requests */
   static async getFundedLoans() {
     const res = await this.request("fundedloans");
@@ -72,10 +80,26 @@ class BorrowcapApi {
     return res.availableInvestments;
   }
 
+  /** Get details on a specific available investment */
+  static async getAvailableInvestment(id) {
+    const res = await this.request(`approvedrequests/${id}`);
+    return res.approvedRequest;
+  }
+
   /** Get approved requests */
   static async getApprovedRequests() {
     const res = await this.request(`approvedrequests`);
     return res.approvedRequests;
+  }
+
+  /** Fund Approved Request */
+  static async fundApprovedRequest(reqId, data) {
+    const res = await this.request(
+      `approvedrequests/${reqId}/fund`,
+      data,
+      "patch"
+    );
+    return res.approvedRequest;
   }
 
   /** Get current user */
@@ -100,6 +124,12 @@ class BorrowcapApi {
   static async getRoles() {
     const res = await this.request("roles");
     return Object.keys(res.roles);
+  }
+
+  /** Get list of existing loan purpose */
+  static async getPurposes() {
+    const res = await this.request("purposes");
+    return res.purposes;
   }
 }
 

@@ -1,9 +1,15 @@
-import Table from "react-bootstrap/Table";
+import { Table, Button } from "react-bootstrap";
 import { formatCurrency, formatDate, formatPercent } from "../helpers/format";
 import "./TableComponent.css";
 
 const TableComponent = ({ headers, tableData }) => {
   const valueTypes = Object.values(headers);
+
+  const TableButton = ({ link, label }) => (
+    <Button href={link} size="sm">
+      {label}
+    </Button>
+  );
 
   return (
     <div>
@@ -23,9 +29,16 @@ const TableComponent = ({ headers, tableData }) => {
                 const cellValue = row[headerKey];
                 return (
                   <td key={cellIdx}>
-                    {typeof formatter === "function"
-                      ? formatter(cellValue)
-                      : cellValue}
+                    {formatter === "button" ? (
+                      <TableButton
+                        label={headers[headerKey].label}
+                        link={`${headers[headerKey].link}/${row.id}`}
+                      />
+                    ) : typeof formatter === "function" ? (
+                      formatter(cellValue)
+                    ) : (
+                      cellValue
+                    )}
                   </td>
                 );
               })}
