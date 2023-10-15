@@ -1,4 +1,4 @@
-import FundedLoans from "./ActiveLoans";
+import FundedLoans from "./FundedLoans";
 import ActiveRequests from "./ActiveRequests";
 import QuickLinks from "../common/QuickLinks";
 import ApprovedLoans from "./ApprovedLoans";

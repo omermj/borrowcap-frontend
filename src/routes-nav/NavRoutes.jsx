@@ -12,6 +12,14 @@ import ReviewRequest from "../underwriter/ReviewRequest";
 import UserContext from "../auth/UserContext";
 import { useContext } from "react";
 import ApprovedLoan from "../borrower/ApprovedLoan";
+import ActiveRequests from "../borrower/ActiveRequests";
+import ApprovedLoans from "../borrower/ApprovedLoans";
+import FundedLoans from "../borrower/FundedLoans";
+import AvailableInvestments from "../investor/AvailableInvestments";
+import PledgedInvestments from "../investor/PledgedInvestments";
+import ActiveInvestments from "../investor/ActiveInvestments";
+import ApprovalRequests from "../underwriter/ApprovalRequests";
+import ApprovedRequests from "../underwriter/ApprovedRequests";
 
 /** Site-wide routes */
 
@@ -45,6 +53,9 @@ function NavRoutes({ login, signup, roles, purposes }) {
             path="/borrower/approvedrequests/:id"
             element={<ApprovedLoan />}
           />
+          <Route path="/borrower/activerequests" element={<ActiveRequests />} />
+          <Route path="/borrower/approvedloans" element={<ApprovedLoans />} />
+          <Route path="/borrower/fundedloans" element={<FundedLoans />} />
         </Route>
         <Route element={<ProtectedRoute allowedRoles={["investor"]} />}>
           <Route path="/investor" element={<InvestorMain />} />
@@ -52,12 +63,26 @@ function NavRoutes({ login, signup, roles, purposes }) {
             path="/investor/availableinvestment/:id"
             element={<AvailableInvestment />}
           />
+          <Route
+            path="/investor/availableinvestments"
+            element={<AvailableInvestments />}
+          />
+          <Route path="/investor/pledges" element={<PledgedInvestments />} />
+          <Route
+            path="/investor/activeinvestments"
+            element={<ActiveInvestments />}
+          />
         </Route>
         <Route element={<ProtectedRoute allowedRoles={["admin"]} />}>
           <Route path="/underwriter" element={<UnderwriterMain />} />
           <Route
             path="/underwriter/reviewrequest/:id"
             element={<ReviewRequest />}
+          />
+          <Route path="/underwriter/requests" element={<ApprovalRequests />} />
+          <Route
+            path="/underwriter/approved"
+            element={<ApprovedRequests />}
           />
         </Route>
         <Route path="/login" element={<LoginForm login={login} />} />

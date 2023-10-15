@@ -1,5 +1,5 @@
 import { Link, NavLink } from "react-router-dom";
-import { Container, Nav, Navbar } from "react-bootstrap";
+import { Container, Nav, Navbar, NavDropdown } from "react-bootstrap";
 import UserContext from "../auth/UserContext";
 import { useContext } from "react";
 
@@ -9,9 +9,16 @@ const Navigation = ({ logout }) => {
   const BorrowerNav = () => {
     return (
       <Nav className="ms-auto">
-        <Nav.Link href="/borrower/apply" >Apply for Loan</Nav.Link>
-        <Nav.Link>Applications</Nav.Link>
-        <Nav.Link>Loans</Nav.Link>
+        <Nav.Link href="/borrower/apply">Apply for Loan</Nav.Link>
+        <NavDropdown title="Applications" id="nav-dropdown">
+          <NavDropdown.Item href="/borrower/activerequests">
+            Requests
+          </NavDropdown.Item>
+          <NavDropdown.Item href="/borrower/approvedloans">
+            Approved
+          </NavDropdown.Item>
+        </NavDropdown>
+        <Nav.Link href="/borrower/fundedloans">Loans</Nav.Link>
         <Nav.Link>Wallet</Nav.Link>
         <Nav.Link onClick={logout}>Logout {currentUser.username}</Nav.Link>
       </Nav>
@@ -21,8 +28,9 @@ const Navigation = ({ logout }) => {
   const InvestorNav = () => {
     return (
       <Nav className="ms-auto">
-        <Nav.Link>Investments</Nav.Link>
-        <Nav.Link>Pledges</Nav.Link>
+        <Nav.Link href="/investor/availableinvestments">Invest</Nav.Link>
+        <Nav.Link href="/investor/pledges">Pledges</Nav.Link>
+        <Nav.Link href="/investor/activeinvestments">Investments</Nav.Link>
         <Nav.Link>Wallet</Nav.Link>
         <Nav.Link onClick={logout}>Logout {currentUser.username}</Nav.Link>
       </Nav>
@@ -32,8 +40,8 @@ const Navigation = ({ logout }) => {
   const UnderwriterNav = () => {
     return (
       <Nav className="ms-auto">
-        <Nav.Link>Requests</Nav.Link>
-        <Nav.Link>Approved</Nav.Link>
+        <Nav.Link href="/underwriter/requests">Requests</Nav.Link>
+        <Nav.Link href="/underwriter/approved">Approved</Nav.Link>
         <Nav.Link href="/" onClick={async () => await logout()}>
           Logout {currentUser.username}
         </Nav.Link>
