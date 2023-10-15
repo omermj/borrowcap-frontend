@@ -7,6 +7,11 @@ import { Form, Button } from "react-bootstrap";
 const SignupForm = ({ signup, roles }) => {
   const navigate = useNavigate();
 
+  // remove admin from signup roles
+  if (roles.indexOf("admin") !== -1) {
+    roles.splice(roles.indexOf("admin"), 1);
+  }
+
   // Validate roles checkbox
   const validate = (values) => {
     const errors = {};
@@ -39,6 +44,7 @@ const SignupForm = ({ signup, roles }) => {
         }}
         validate={validate}
         onSubmit={async (values, { setSubmitting, setErrors }) => {
+          values.roles = [values.roles];
           const result = await signup(values);
           if (result.success) {
             navigate("/");
@@ -152,7 +158,7 @@ const SignupForm = ({ signup, roles }) => {
                     inline
                     label={role}
                     name="roles"
-                    type="checkbox"
+                    type="radio"
                     id={`roles-${role}`}
                     value={role}
                     onChange={handleChange}

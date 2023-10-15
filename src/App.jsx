@@ -23,20 +23,24 @@ function App() {
   // Effect for token refresh
   useEffect(() => {
     const getCurrentUser = async () => {
-      if (token) {
-        try {
+      try {
+        if (token) {
           const { username } = jwtDecode(token);
           BorrowcapApi.token = token;
           const currentUser = await BorrowcapApi.getCurrentUser(username);
-          const roles = await BorrowcapApi.getRoles();
-          const purposes = await BorrowcapApi.getPurposes();
           setCurrentUser(currentUser);
-          setRoles(roles);
-          setPurposes(purposes);
-        } catch (e) {
+        } else {
           setCurrentUser(null);
         }
+
+        const roles = await BorrowcapApi.getRoles();
+        const purposes = await BorrowcapApi.getPurposes();
+        setRoles(roles);
+        setPurposes(purposes);
+      } catch (e) {
+        setCurrentUser(null);
       }
+
       setInfoLoaded(true);
     };
     setInfoLoaded(false);
