@@ -53,7 +53,7 @@ const ApprovedLoans = () => {
       setApprovedLoans(requests);
     }
     fetchLoanRequests();
-  }, []);
+  }, [currentUser.id]);
 
   if (!approvedLoans.length) return <div></div>;
 

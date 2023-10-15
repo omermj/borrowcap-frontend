@@ -31,7 +31,7 @@ const FundedLoans = () => {
       setFundedLoans(requests);
     }
     fetchFundedLoans();
-  }, []);
+  }, [currentUser.id]);
 
   if (!fundedLoans.length) return <div></div>;
 

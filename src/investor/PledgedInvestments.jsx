@@ -30,7 +30,7 @@ const PledgedInvestments = () => {
       setData(requests);
     }
     fetchPledgedInvestments();
-  }, []);
+  }, [currentUser.id]);
 
   if (!data.length) return <div></div>;
 

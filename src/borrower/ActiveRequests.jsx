@@ -33,7 +33,7 @@ const ActiveRequests = () => {
       setLoanRequests(requests);
     }
     fetchLoanRequests();
-  }, []);
+  }, [currentUser.id]);
 
   if (!loanRequests.length) return <div></div>;
 
