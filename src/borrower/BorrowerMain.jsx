@@ -1,6 +1,7 @@
 import FundedLoans from "./ActiveLoans";
 import ActiveRequests from "./ActiveRequests";
 import QuickLinks from "../common/QuickLinks";
+import ApprovedLoans from "./ApprovedLoans";
 
 /** Main Landing Page for Borrower */
 
@@ -16,6 +17,9 @@ const BorrowerMain = () => {
     <div>
       {/* Active Loan Requests */}
       <ActiveRequests />
+
+      {/* Approved Loan Requests */}
+      <ApprovedLoans />
 
       {/* Funded Loans */}
       <FundedLoans />

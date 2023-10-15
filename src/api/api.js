@@ -56,6 +56,12 @@ class BorrowcapApi {
     return res.activeRequests;
   }
 
+  /** Get all Approved Requests by BorrowerId(id) */
+  static async getApprovedRequestsByBorrowerId(id) {
+    const res = await this.request(`users/${id}/approvedrequests`);
+    return res.approvedRequests;
+  }
+
   /** Get all Funded Loans by BorrowerId */
   static async getFundedLoansByBorrowerId(id) {
     const res = await this.request(`users/${id}/fundedloans`);
@@ -81,9 +87,15 @@ class BorrowcapApi {
   }
 
   /** Get details on a specific available investment */
-  static async getAvailableInvestment(id) {
+  static async getApprovedRequest(id) {
     const res = await this.request(`approvedrequests/${id}`);
     return res.approvedRequest;
+  }
+
+  /** Get active request by id */
+  static async getActiveRequest(id) {
+    const res = await this.request(`activerequests/${id}`);
+    return res.activeRequest;
   }
 
   /** Get approved requests */
@@ -100,6 +112,42 @@ class BorrowcapApi {
       "patch"
     );
     return res.approvedRequest;
+  }
+
+  /** Enable funding for Approved Request */
+  static async enableFundingForApprovedRequest(req_id) {
+    const res = await this.request(
+      `approvedrequests/${req_id}/enablefunding`,
+      {},
+      "patch"
+    );
+    return res.message;
+  }
+
+  /** Cancel an approved funding request */
+  static async cancelApprovedRequest(id) {
+    const res = await this.request(
+      `approvedrequests/${id}/cancel`,
+      {},
+      "patch"
+    );
+    return res.message;
+  }
+
+  /** Approve request (By underwritter) */
+  static async approveRequest(id, data) {
+    const res = await this.request(
+      `activerequests/${id}/approve`,
+      data,
+      "patch"
+    );
+    return res.approvedRequest;
+  }
+
+  /** Reject request (By underwriter) */
+  static async rejectRequest(id) {
+    const res = await this.request(`activerequests/${id}/reject`, {}, "patch");
+    return res;
   }
 
   /** Get current user */

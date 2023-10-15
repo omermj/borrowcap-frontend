@@ -21,4 +21,8 @@ function formatPercent(val) {
   return String(Number.parseFloat(val * 100).toFixed(2)) + "%";
 }
 
-export { formatCurrency, formatDate, formatPercent };
+function formatBoolean(val) {
+  return val ? "Yes" : "No";
+}
+
+export { formatCurrency, formatDate, formatPercent, formatBoolean };

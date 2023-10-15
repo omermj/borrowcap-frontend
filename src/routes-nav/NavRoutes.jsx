@@ -8,19 +8,42 @@ import SignupForm from "../auth/SignupForm";
 import ProtectedRoute from "./ProtectedRoute";
 import LoanApplicationForm from "../borrower/LoanApplication";
 import AvailableInvestment from "../investor/AvailableInvestment";
+import ReviewRequest from "../underwriter/ReviewRequest";
+import UserContext from "../auth/UserContext";
+import { useContext } from "react";
+import ApprovedLoan from "../borrower/ApprovedLoan";
 
 /** Site-wide routes */
 
 function NavRoutes({ login, signup, roles, purposes }) {
+  const { currentUser } = useContext(UserContext);
+
+  const homepage = () => {
+    if (currentUser) {
+      if (currentUser.roles.includes("admin")) {
+        return <UnderwriterMain />;
+      } else if (currentUser.roles.includes("borrower")) {
+        return <BorrowerMain />;
+      } else if (currentUser.roles.includes("investor")) {
+        return <InvestorMain />;
+      }
+    }
+    return <Homepage />;
+  };
+
   return (
     <div>
       <Routes>
-        <Route path="/" element={<Homepage />} />
+        <Route path="/" element={homepage()} />
         <Route element={<ProtectedRoute allowedRoles={["borrower"]} />}>
           <Route path="/borrower" element={<BorrowerMain />} />
           <Route
             path="/borrower/apply"
             element={<LoanApplicationForm purposes={purposes} />}
+          />
+          <Route
+            path="/borrower/approvedrequests/:id"
+            element={<ApprovedLoan />}
           />
         </Route>
         <Route element={<ProtectedRoute allowedRoles={["investor"]} />}>
@@ -32,6 +55,10 @@ function NavRoutes({ login, signup, roles, purposes }) {
         </Route>
         <Route element={<ProtectedRoute allowedRoles={["admin"]} />}>
           <Route path="/underwriter" element={<UnderwriterMain />} />
+          <Route
+            path="/underwriter/reviewrequest/:id"
+            element={<ReviewRequest />}
+          />
         </Route>
         <Route path="/login" element={<LoginForm login={login} />} />
         <Route

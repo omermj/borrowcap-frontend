@@ -11,7 +11,7 @@ import UserContext from "./auth/UserContext";
 import LoadingSpinner from "./common/LoadingSpinner";
 
 // Key for storing token in localStorage
-export const TOKEN_STORAGE_ID = "jobly-token";
+export const TOKEN_STORAGE_ID = "borrowcap-token";
 
 function App() {
   const [infoLoaded, setInfoLoaded] = useState(false);
@@ -19,7 +19,6 @@ function App() {
   const [currentUser, setCurrentUser] = useState(null);
   const [roles, setRoles] = useState([]);
   const [purposes, setPurposes] = useState([]);
-  // const submitLoanApplication = BorrowcapApi.submitLoanApplication;
 
   // Effect for token refresh
   useEffect(() => {
@@ -58,8 +57,9 @@ function App() {
 
   // logout user
   const logout = async () => {
-    setCurrentUser(null);
+    console.log("Logout triggered");
     setToken(null);
+    setCurrentUser(null);
   };
 
   // signup

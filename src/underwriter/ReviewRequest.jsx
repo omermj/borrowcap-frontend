@@ -10,46 +10,48 @@ import UserContext from "../auth/UserContext";
 
 /** Displays a single Available Investment */
 
-const AvailableInvestment = () => {
+const ReviewRequest = () => {
   const { currentUser } = useContext(UserContext);
   const { id } = useParams();
   const [data, setData] = useState(null);
   const navigate = useNavigate();
-  // const [infoLoaded, setInfoLoaded] = useState(false);
 
   useEffect(() => {
-    const getInvestment = async () => {
-      const result = await BorrowcapApi.getApprovedRequest(id);
+    const getReviewRequest = async () => {
+      const result = await BorrowcapApi.getActiveRequest(id);
       if (result) {
         setData(result);
-        // setInfoLoaded(true);
       }
     };
-    // setInfoLoaded(false);
-    getInvestment();
+    getReviewRequest();
   }, [id]);
 
   if (!data) return <LoadingSpinner />;
 
+  const handleReject = async () => {
+    const res = await BorrowcapApi.rejectRequest(id);
+    if (!!res) navigate("/underwriter");
+  };
+
   return (
     <div>
-      <h3>Investment Details</h3>
+      {console.log(data)}
+      <h3>Loan Request Details</h3>
       <Container>
         <Row>
           <Col>
             <div>Amount Requested: {formatCurrency(data.amtRequested)}</div>
-            <div>Amount Approved: {formatCurrency(data.amtApproved)}</div>
-            <div>Amount Funded: {formatCurrency(data.amtFunded)}</div>
             <div>Loan Purpose: {data.purpose} </div>
             <div>Application Open Date: {formatDate(data.appOpenDate)}</div>
-            <div>
-              Application Approval Date: {formatDate(data.appApprovedDate)}
-            </div>
-          </Col>
-          <Col>
-            <div>Funding Deadline: {formatDate(data.fundingDeadline)} </div>
             <div>Term: {data.term} months </div>
             <div>Installment Amount: {formatCurrency(data.installmentAmt)}</div>
+          </Col>
+          <Col>
+            <div>Username: {data.username}</div>
+            <div>First Name: {data.firstName}</div>
+            <div>Last Name: {data.lastName}</div>
+            <div>Email: {data.email}</div>
+            <div>Account Balance: {data.accountBalance}</div>
             <div>
               Borrower&apos;s Income: {formatCurrency(data.annualIncome)}
             </div>
@@ -62,12 +64,13 @@ const AvailableInvestment = () => {
           <Col>
             <Formik
               initialValues={{
-                amount: "",
+                amtApproved: "",
+                interestRate: "",
+                term: "",
               }}
               onSubmit={async (values, { setSubmitting, setErrors }) => {
-                values.investorId = currentUser.id;
-                const res = await BorrowcapApi.fundApprovedRequest(id, values);
-                if (!!res) navigate("/investor");
+                const res = await BorrowcapApi.approveRequest(id, values);
+                if (!!res) navigate("/underwriter");
               }}
             >
               {({
@@ -78,27 +81,56 @@ const AvailableInvestment = () => {
                 isSubmitting,
               }) => (
                 <Form onSubmit={handleSubmit}>
-                  <Form.Group className="mb-3" controlId="investFormAmount">
-                    <Form.Label>Amount</Form.Label>
+                  <Form.Group className="mb-3" controlId="approvalFormAmount">
+                    <Form.Label>Approved Amount</Form.Label>
                     <Form.Control
                       type="number"
-                      name="amount"
-                      placeholder={`Max amount: ${formatCurrency(
-                        data.amtApproved - data.amtFunded
-                      )}`}
+                      name="amtApproved"
                       min={0}
-                      value={values.amount}
+                      value={values.amtApproved}
+                      onChange={handleChange}
+                      required
+                    />
+                  </Form.Group>
+                  <Form.Group className="mb-3" controlId="approvalFormInterest">
+                    <Form.Label>Interest Rate</Form.Label>
+                    <Form.Control
+                      type="number"
+                      name="interestRate"
+                      min={0}
+                      max={1}
+                      step={0.001}
+                      value={values.interestRate}
+                      onChange={handleChange}
+                      required
+                    />
+                  </Form.Group>
+                  <Form.Group className="mb-3" controlId="approvalFormTerm">
+                    <Form.Label>Term</Form.Label>
+                    <Form.Control
+                      type="number"
+                      name="term"
+                      min={0}
+                      value={values.term}
                       onChange={handleChange}
                       required
                     />
                   </Form.Group>
                   <Button
-                    variant="primary"
+                    variant="success"
                     type="submit"
                     disabled={isSubmitting}
                     className="mt-4"
                   >
-                    Invest
+                    Approve
+                  </Button>
+                  <Button
+                    variant="danger"
+                    disabled={isSubmitting}
+                    className="mt-4"
+                    onClick={handleReject}
+                  >
+                    Reject
                   </Button>
                 </Form>
               )}
@@ -110,4 +142,4 @@ const AvailableInvestment = () => {
   );
 };
 
-export default AvailableInvestment;
+export default ReviewRequest;

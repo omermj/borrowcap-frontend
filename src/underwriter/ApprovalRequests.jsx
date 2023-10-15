@@ -21,6 +21,11 @@ const ApprovalRequests = () => {
     interestRate: { label: "Interest Rate", formatter: formatPercent },
     term: { label: "Term", formatter: "none" },
     installmentAmt: { label: "Installment", formatter: formatCurrency },
+    reviewBtn: {
+      label: "Review",
+      formatter: "button",
+      link: "/underwriter/reviewrequest",
+    },
   };
 
   // get active loan requests on initial render
