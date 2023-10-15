@@ -20,6 +20,7 @@ import PledgedInvestments from "../investor/PledgedInvestments";
 import ActiveInvestments from "../investor/ActiveInvestments";
 import ApprovalRequests from "../underwriter/ApprovalRequests";
 import ApprovedRequests from "../underwriter/ApprovedRequests";
+import Wallet from "../common/Wallet";
 
 /** Site-wide routes */
 
@@ -43,6 +44,10 @@ function NavRoutes({ login, signup, roles, purposes }) {
     <div>
       <Routes>
         <Route path="/" element={homepage()} />
+
+        {/* --------------- */}
+        {/* Borrower Routes */}
+        {/* --------------- */}
         <Route element={<ProtectedRoute allowedRoles={["borrower"]} />}>
           <Route path="/borrower" element={<BorrowerMain />} />
           <Route
@@ -56,7 +61,12 @@ function NavRoutes({ login, signup, roles, purposes }) {
           <Route path="/borrower/activerequests" element={<ActiveRequests />} />
           <Route path="/borrower/approvedloans" element={<ApprovedLoans />} />
           <Route path="/borrower/fundedloans" element={<FundedLoans />} />
+          <Route path="/borrower/wallet" element={<Wallet />} />
         </Route>
+
+        {/* --------------- */}
+        {/* Investor Routes */}
+        {/* --------------- */}
         <Route element={<ProtectedRoute allowedRoles={["investor"]} />}>
           <Route path="/investor" element={<InvestorMain />} />
           <Route
@@ -72,7 +82,12 @@ function NavRoutes({ login, signup, roles, purposes }) {
             path="/investor/activeinvestments"
             element={<ActiveInvestments />}
           />
+          <Route path="/investor/wallet" element={<Wallet />} />
         </Route>
+
+        {/* ------------------------ */}
+        {/* Underwriter/Admin Routes */}
+        {/* ------------------------ */}
         <Route element={<ProtectedRoute allowedRoles={["admin"]} />}>
           <Route path="/underwriter" element={<UnderwriterMain />} />
           <Route
@@ -80,11 +95,12 @@ function NavRoutes({ login, signup, roles, purposes }) {
             element={<ReviewRequest />}
           />
           <Route path="/underwriter/requests" element={<ApprovalRequests />} />
-          <Route
-            path="/underwriter/approved"
-            element={<ApprovedRequests />}
-          />
+          <Route path="/underwriter/approved" element={<ApprovedRequests />} />
         </Route>
+
+        {/* ----------- */}
+        {/* Auth Routes */}
+        {/* ----------- */}
         <Route path="/login" element={<LoginForm login={login} />} />
         <Route
           path="/signup"

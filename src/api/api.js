@@ -179,6 +179,18 @@ class BorrowcapApi {
     const res = await this.request("purposes");
     return res.purposes;
   }
+
+  /** Deposit funds in user's wallet */
+  static async depositFunds(id, data) {
+    const res = await this.request(`users/${id}/deposit`, data, "patch");
+    return res.accountBalance;
+  }
+
+  /** Withdraw funds in user's wallet */
+  static async withdrawFunds(id, data) {
+    const res = await this.request(`users/${id}/withdraw`, data, "patch");
+    return res.accountBalance;
+  }
 }
 
 export default BorrowcapApi;

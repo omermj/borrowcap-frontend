@@ -19,7 +19,7 @@ const Navigation = ({ logout }) => {
           </NavDropdown.Item>
         </NavDropdown>
         <Nav.Link href="/borrower/fundedloans">Loans</Nav.Link>
-        <Nav.Link>Wallet</Nav.Link>
+        <Nav.Link href="/borrower/wallet" >Wallet</Nav.Link>
         <Nav.Link onClick={logout}>Logout {currentUser.username}</Nav.Link>
       </Nav>
     );
@@ -31,7 +31,7 @@ const Navigation = ({ logout }) => {
         <Nav.Link href="/investor/availableinvestments">Invest</Nav.Link>
         <Nav.Link href="/investor/pledges">Pledges</Nav.Link>
         <Nav.Link href="/investor/activeinvestments">Investments</Nav.Link>
-        <Nav.Link>Wallet</Nav.Link>
+        <Nav.Link href="/investor/wallet">Wallet</Nav.Link>
         <Nav.Link onClick={logout}>Logout {currentUser.username}</Nav.Link>
       </Nav>
     );
