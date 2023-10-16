@@ -9,18 +9,6 @@ import UserContext from "../auth/UserContext";
 const FundedLoans = () => {
   const { currentUser } = useContext(UserContext);
   const [fundedLoans, setFundedLoans] = useState([]);
-  const headers = {
-    id: { label: "ID", formatter: "none" },
-    amtFunded: {
-      label: "Amount",
-      formatter: formatCurrency,
-    },
-    fundedDate: { label: "Funded Date", formatter: formatDate },
-    interestRate: { label: "Interest Rate", formatter: formatPercent },
-    term: { label: "Term", formatter: "none" },
-    installmentAmt: { label: "Installment", formatter: formatCurrency },
-    remainingBalance: { label: "Remaining Balance", formatter: formatCurrency },
-  };
 
   // get active loan requests on initial render
   useEffect(() => {
@@ -32,6 +20,33 @@ const FundedLoans = () => {
     }
     fetchFundedLoans();
   }, [currentUser.id]);
+
+  const handlePay = async (id) => {
+    await BorrowcapApi.payInstallment(id);
+    const newReq = await BorrowcapApi.getFundedLoansByBorrowerId(
+      currentUser.id
+    );
+    setFundedLoans([...newReq]);
+  };
+
+  const headers = {
+    id: { label: "ID", formatter: "none" },
+    amtFunded: {
+      label: "Amount",
+      formatter: formatCurrency,
+    },
+    fundedDate: { label: "Funded Date", formatter: formatDate },
+    interestRate: { label: "Interest Rate", formatter: formatPercent },
+    term: { label: "Term", formatter: "none" },
+    remainingBalance: { label: "Remaining Balance", formatter: formatCurrency },
+    installmentAmt: { label: "Installment", formatter: formatCurrency },
+    payBtn: {
+      label: "Pay",
+      formatter: "button",
+      link: "/fundedloans/pay",
+      onClick: handlePay,
+    },
+  };
 
   if (!fundedLoans.length) return <div></div>;
 

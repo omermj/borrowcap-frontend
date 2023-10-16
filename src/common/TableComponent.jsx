@@ -1,15 +1,25 @@
 import { Table, Button } from "react-bootstrap";
-import { formatCurrency, formatDate, formatPercent } from "../helpers/format";
+import { useEffect, useState } from "react";
 import "./TableComponent.css";
 
 const TableComponent = ({ headers, tableData }) => {
-  const valueTypes = Object.values(headers);
+  const [data, setData] = useState(tableData);
 
-  const TableButton = ({ link, label }) => (
-    <Button href={link} size="sm">
+  const TableButton = ({ link, label, onClick }) => (
+    <Button
+      href={onClick ? null : link}
+      size="sm"
+      onClick={onClick ? onClick : null}
+    >
       {label}
     </Button>
   );
+
+  useEffect(() => {
+    if (tableData) {
+      setData(tableData);
+    }
+  }, [tableData]);
 
   return (
     <div>
@@ -22,7 +32,7 @@ const TableComponent = ({ headers, tableData }) => {
           </tr>
         </thead>
         <tbody>
-          {tableData.map((row, rowIdx) => (
+          {data.map((row, rowIdx) => (
             <tr key={rowIdx}>
               {Object.keys(headers).map((headerKey, cellIdx) => {
                 const formatter = headers[headerKey].formatter;
@@ -33,6 +43,12 @@ const TableComponent = ({ headers, tableData }) => {
                       <TableButton
                         label={headers[headerKey].label}
                         link={`${headers[headerKey].link}/${row.id}`}
+                        onClick={
+                          headers[headerKey].onClick
+                            ? async () =>
+                                await headers[headerKey].onClick(row.id)
+                            : null
+                        }
                       />
                     ) : typeof formatter === "function" ? (
                       formatter(cellValue)

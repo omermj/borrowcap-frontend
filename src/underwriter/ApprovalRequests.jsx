@@ -25,6 +25,7 @@ const ApprovalRequests = () => {
       label: "Review",
       formatter: "button",
       link: "/underwriter/reviewrequest",
+      onClick: null,
     },
   };
 

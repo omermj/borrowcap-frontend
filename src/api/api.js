@@ -191,6 +191,12 @@ class BorrowcapApi {
     const res = await this.request(`users/${id}/withdraw`, data, "patch");
     return res.accountBalance;
   }
+
+  /** Pay Loan Installment */
+  static async payInstallment(id) {
+    const res = await this.request(`fundedloans/pay/${id}`, {}, "patch");
+    return res.fundedLoan;
+  }
 }
 
 export default BorrowcapApi;
