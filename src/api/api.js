@@ -168,6 +168,12 @@ class BorrowcapApi {
     return res.token;
   }
 
+  /** Update User */
+  static async updateUser(username, updateData) {
+    const res = await this.request(`users/${username}`, updateData, "patch");
+    return res.user;
+  }
+
   /** Get list of existing roles */
   static async getRoles() {
     const res = await this.request("roles");

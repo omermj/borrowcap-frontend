@@ -21,6 +21,7 @@ import ActiveInvestments from "../investor/ActiveInvestments";
 import ApprovalRequests from "../underwriter/ApprovalRequests";
 import ApprovedRequests from "../underwriter/ApprovedRequests";
 import Wallet from "../common/Wallet";
+import ProfileUpdateForm from "../common/ProfileUpdateForm";
 
 /** Site-wide routes */
 
@@ -62,6 +63,7 @@ function NavRoutes({ login, signup, roles, purposes, terms }) {
           <Route path="/borrower/approvedloans" element={<ApprovedLoans />} />
           <Route path="/borrower/fundedloans" element={<FundedLoans />} />
           <Route path="/borrower/wallet" element={<Wallet />} />
+          <Route path="/borrower/profile" element={<ProfileUpdateForm />} />
         </Route>
 
         {/* --------------- */}
@@ -83,6 +85,7 @@ function NavRoutes({ login, signup, roles, purposes, terms }) {
             element={<ActiveInvestments />}
           />
           <Route path="/investor/wallet" element={<Wallet />} />
+          <Route path="/investor/profile" element={<ProfileUpdateForm />} />
         </Route>
 
         {/* ------------------------ */}
