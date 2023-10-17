@@ -24,7 +24,7 @@ import Wallet from "../common/Wallet";
 
 /** Site-wide routes */
 
-function NavRoutes({ login, signup, roles, purposes }) {
+function NavRoutes({ login, signup, roles, purposes, terms }) {
   const { currentUser } = useContext(UserContext);
 
   const homepage = () => {
@@ -52,7 +52,7 @@ function NavRoutes({ login, signup, roles, purposes }) {
           <Route path="/borrower" element={<BorrowerMain />} />
           <Route
             path="/borrower/apply"
-            element={<LoanApplicationForm purposes={purposes} />}
+            element={<LoanApplicationForm purposes={purposes} terms={terms} />}
           />
           <Route
             path="/borrower/approvedrequests/:id"
@@ -92,7 +92,7 @@ function NavRoutes({ login, signup, roles, purposes }) {
           <Route path="/underwriter" element={<UnderwriterMain />} />
           <Route
             path="/underwriter/reviewrequest/:id"
-            element={<ReviewRequest />}
+            element={<ReviewRequest terms={terms} />}
           />
           <Route path="/underwriter/requests" element={<ApprovalRequests />} />
           <Route path="/underwriter/approved" element={<ApprovedRequests />} />

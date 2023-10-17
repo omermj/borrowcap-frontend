@@ -19,6 +19,7 @@ function App() {
   const [currentUser, setCurrentUser] = useState(null);
   const [roles, setRoles] = useState([]);
   const [purposes, setPurposes] = useState([]);
+  const [terms, setTerms] = useState([]);
 
   // Effect for token refresh
   useEffect(() => {
@@ -35,8 +36,10 @@ function App() {
 
         const roles = await BorrowcapApi.getRoles();
         const purposes = await BorrowcapApi.getPurposes();
+        const terms = await BorrowcapApi.getTerms();
         setRoles(roles);
         setPurposes(purposes);
+        setTerms(terms);
       } catch (e) {
         setCurrentUser(null);
       }
@@ -92,6 +95,7 @@ function App() {
             signup={signup}
             roles={roles}
             purposes={purposes}
+            terms={terms}
           />
         </>
       </UserContext.Provider>

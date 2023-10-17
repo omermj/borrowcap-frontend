@@ -180,6 +180,12 @@ class BorrowcapApi {
     return res.purposes;
   }
 
+  /** Get list of terms (in months) */
+  static async getTerms() {
+    const res = await this.request("terms");
+    return res.terms;
+  }
+
   /** Deposit funds in user's wallet */
   static async depositFunds(id, data) {
     const res = await this.request(`users/${id}/deposit`, data, "patch");

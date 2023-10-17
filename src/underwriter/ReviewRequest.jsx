@@ -10,7 +10,7 @@ import UserContext from "../auth/UserContext";
 
 /** Displays a single Available Investment */
 
-const ReviewRequest = () => {
+const ReviewRequest = ({ terms }) => {
   const { currentUser } = useContext(UserContext);
   const { id } = useParams();
   const [data, setData] = useState(null);
@@ -44,6 +44,7 @@ const ReviewRequest = () => {
             <div>Loan Purpose: {data.purpose} </div>
             <div>Application Open Date: {formatDate(data.appOpenDate)}</div>
             <div>Term: {data.term} months </div>
+            <div>Interest Rate: {formatPercent(data.interestRate)} </div>
             <div>Installment Amount: {formatCurrency(data.installmentAmt)}</div>
           </Col>
           <Col>
@@ -107,14 +108,18 @@ const ReviewRequest = () => {
                   </Form.Group>
                   <Form.Group className="mb-3" controlId="approvalFormTerm">
                     <Form.Label>Term</Form.Label>
-                    <Form.Control
-                      type="number"
+                    <Form.Select
+                      aria-label="Term Select"
                       name="term"
-                      min={0}
-                      value={values.term}
                       onChange={handleChange}
-                      required
-                    />
+                    >
+                      <option>Select loan term</option>
+                      {terms.map((term, idx) => (
+                        <option key={idx} value={term.months}>
+                          {term.months} months
+                        </option>
+                      ))}
+                    </Form.Select>
                   </Form.Group>
                   <Button
                     variant="success"

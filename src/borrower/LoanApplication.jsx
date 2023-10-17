@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom";
 
 /** Loan Application Form */
 
-const LoanApplicationForm = ({ purposes }) => {
+const LoanApplicationForm = ({ purposes, terms }) => {
   const { currentUser, BorrowcapApi } = useContext(UserContext);
   const navigate = useNavigate();
 
@@ -57,14 +57,18 @@ const LoanApplicationForm = ({ purposes }) => {
             </Form.Group>
             <Form.Group className="mb-3" controlId="loanFormTerm">
               <Form.Label>Term</Form.Label>
-              <Form.Control
-                type="number"
+              <Form.Select
+                aria-label="Term Select"
                 name="term"
-                placeholder=""
-                value={values.term}
                 onChange={handleChange}
-                required
-              />
+              >
+                <option>Select loan term</option>
+                {terms.map((term, idx) => (
+                  <option key={idx} value={term.months}>
+                    {term.months} months
+                  </option>
+                ))}
+              </Form.Select>
             </Form.Group>
             <Form.Group>
               <Form.Label>Purpose</Form.Label>
