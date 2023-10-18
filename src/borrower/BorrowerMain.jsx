@@ -17,7 +17,11 @@ const BorrowerMain = () => {
   return (
     <Container>
       <Row>
-        <Col sm={9}>
+      {/* <Col sm={3}> */}
+          {/* Quick Links */}
+          {/* <QuickLinks links={quickLinks} /> */}
+        {/* </Col> */}
+        <Col sm={12}>
           {/* Active Loan Requests */}
           <ActiveRequests />
 
@@ -27,10 +31,7 @@ const BorrowerMain = () => {
           {/* Funded Loans */}
           <FundedLoans />
         </Col>
-        <Col sm={3}>
-          {/* Quick Links */}
-          <QuickLinks links={quickLinks} />
-        </Col>
+        
       </Row>
     </Container>
   );

@@ -51,8 +51,10 @@ const FundedLoans = () => {
   if (!fundedLoans.length) return <div></div>;
 
   return (
-    <div>
-      <p>Funded Loans</p>
+    <div className="border mb-4">
+      <div className="py-2">
+        <span className="align-middle h5">Funded Loans</span>
+      </div>
       <TableComponent headers={headers} tableData={fundedLoans} />
     </div>
   );

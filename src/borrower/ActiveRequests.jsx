@@ -38,8 +38,8 @@ const ActiveRequests = () => {
   if (!loanRequests.length) return <div></div>;
 
   return (
-    <div>
-      <p>Loan Requests</p>
+    <div className="border mb-4">
+      <div className="py-2"><span className="align-middle h5">New Loan Requests</span></div>
       <TableComponent headers={headers} tableData={loanRequests} />
     </div>
   );

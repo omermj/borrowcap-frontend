@@ -23,9 +23,9 @@ const TableComponent = ({ headers, tableData }) => {
 
   return (
     <div>
-      <Table className="table" striped hover bordered>
+      <Table className="table" striped hover borderless>
         <thead>
-          <tr>
+          <tr className="align-middle">
             {Object.keys(headers).map((headerKey, idx) => (
               <th key={idx}>{headers[headerKey].label}</th>
             ))}
@@ -33,7 +33,7 @@ const TableComponent = ({ headers, tableData }) => {
         </thead>
         <tbody>
           {data.map((row, rowIdx) => (
-            <tr key={rowIdx}>
+            <tr key={rowIdx} className="align-middle">
               {Object.keys(headers).map((headerKey, cellIdx) => {
                 const formatter = headers[headerKey].formatter;
                 const cellValue = row[headerKey];
