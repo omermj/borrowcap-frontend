@@ -2,6 +2,7 @@ import FundedLoans from "./FundedLoans";
 import ActiveRequests from "./ActiveRequests";
 import QuickLinks from "../common/QuickLinks";
 import ApprovedLoans from "./ApprovedLoans";
+import { Container, Row, Col } from "react-bootstrap";
 
 /** Main Landing Page for Borrower */
 
@@ -14,19 +15,24 @@ const BorrowerMain = () => {
   ];
 
   return (
-    <div>
-      {/* Active Loan Requests */}
-      <ActiveRequests />
+    <Container>
+      <Row>
+        <Col sm={9}>
+          {/* Active Loan Requests */}
+          <ActiveRequests />
 
-      {/* Approved Loan Requests */}
-      <ApprovedLoans />
+          {/* Approved Loan Requests */}
+          <ApprovedLoans />
 
-      {/* Funded Loans */}
-      <FundedLoans />
-
-      {/* Quick Links */}
-      <QuickLinks links={quickLinks} />
-    </div>
+          {/* Funded Loans */}
+          <FundedLoans />
+        </Col>
+        <Col sm={3}>
+          {/* Quick Links */}
+          <QuickLinks links={quickLinks} />
+        </Col>
+      </Row>
+    </Container>
   );
 };
 
