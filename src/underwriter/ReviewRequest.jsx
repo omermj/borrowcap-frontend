@@ -35,8 +35,7 @@ const ReviewRequest = ({ terms }) => {
 
   return (
     <div>
-      {console.log(data)}
-      <h3>Loan Request Details</h3>
+      <h3 className="mb-4">Loan Request Details</h3>
       <Container>
         <Row>
           <Col>
@@ -62,84 +61,91 @@ const ReviewRequest = ({ terms }) => {
           </Col>
         </Row>
         <Row>
-          <Col>
-            <Formik
-              initialValues={{
-                amtApproved: "",
-                interestRate: "",
-                term: "",
-              }}
-              onSubmit={async (values, { setSubmitting, setErrors }) => {
-                const res = await BorrowcapApi.approveRequest(id, values);
-                if (!!res) navigate("/underwriter");
-              }}
-            >
-              {({
-                values,
-                errors,
-                handleChange,
-                handleSubmit,
-                isSubmitting,
-              }) => (
-                <Form onSubmit={handleSubmit}>
-                  <Form.Group className="mb-3" controlId="approvalFormAmount">
-                    <Form.Label>Approved Amount</Form.Label>
-                    <Form.Control
-                      type="number"
-                      name="amtApproved"
-                      min={0}
-                      value={values.amtApproved}
-                      onChange={handleChange}
-                      required
-                    />
-                  </Form.Group>
-                  <Form.Group className="mb-3" controlId="approvalFormInterest">
-                    <Form.Label>Interest Rate</Form.Label>
-                    <Form.Control
-                      type="number"
-                      name="interestRate"
-                      min={0}
-                      max={1}
-                      step={0.001}
-                      value={values.interestRate}
-                      onChange={handleChange}
-                      required
-                    />
-                  </Form.Group>
-                  <Form.Group className="mb-3" controlId="approvalFormTerm">
-                    <Form.Label>Term</Form.Label>
-                    <Form.Select
-                      aria-label="Term Select"
-                      name="term"
-                      onChange={handleChange}
+          <Col className="form-wrapper mt-3">
+            <div className="form-inner">
+              <Formik
+                initialValues={{
+                  amtApproved: "",
+                  interestRate: "",
+                  term: "",
+                }}
+                onSubmit={async (values, { setSubmitting, setErrors }) => {
+                  const res = await BorrowcapApi.approveRequest(id, values);
+                  if (!!res) navigate("/underwriter");
+                }}
+              >
+                {({
+                  values,
+                  errors,
+                  handleChange,
+                  handleSubmit,
+                  isSubmitting,
+                }) => (
+                  <Form onSubmit={handleSubmit}>
+                    <Form.Group className="mb-3" controlId="approvalFormAmount">
+                      <Form.Label>Approved Amount</Form.Label>
+                      <Form.Control
+                        type="number"
+                        name="amtApproved"
+                        min={0}
+                        value={values.amtApproved}
+                        onChange={handleChange}
+                        required
+                      />
+                    </Form.Group>
+                    <Form.Group
+                      className="mb-3"
+                      controlId="approvalFormInterest"
                     >
-                      <option>Select loan term</option>
-                      {terms.map((term, idx) => (
-                        <option key={idx} value={term.months}>
-                          {term.months} months
-                        </option>
-                      ))}
-                    </Form.Select>
-                  </Form.Group>
-                  <Button
-                    variant="success"
-                    type="submit"
-                    disabled={isSubmitting}
-                    className="mt-4"
-                  >
-                    Approve
-                  </Button>
-                  <Button
-                    variant="danger"
-                    disabled={isSubmitting}
-                    className="mt-4"
-                    onClick={handleReject}
-                  >
-                    Reject
-                  </Button>
-                </Form>
-              )}
-            </Formik>
+                      <Form.Label>Interest Rate</Form.Label>
+                      <Form.Control
+                        type="number"
+                        name="interestRate"
+                        min={0}
+                        max={1}
+                        step={0.001}
+                        value={values.interestRate}
+                        onChange={handleChange}
+                        required
+                      />
+                    </Form.Group>
+                    <Form.Group className="mb-3" controlId="approvalFormTerm">
+                      <Form.Label>Term</Form.Label>
+                      <Form.Select
+                        aria-label="Term Select"
+                        name="term"
+                        onChange={handleChange}
+                      >
+                        <option>Select loan term</option>
+                        {terms.map((term, idx) => (
+                          <option key={idx} value={term.months}>
+                            {term.months} months
+                          </option>
+                        ))}
+                      </Form.Select>
+                    </Form.Group>
+                    <div className="mt-4 text-center">
+                      <Button
+                        variant="success"
+                        type="submit"
+                        disabled={isSubmitting}
+                        className="me-3 px-3"
+                      >
+                        Approve
+                      </Button>
+                      <Button
+                        variant="danger"
+                        disabled={isSubmitting}
+                        className="me-3 px-4"
+                        onClick={handleReject}
+                      >
+                        Reject
+                      </Button>
+                    </div>
+                  </Form>
+                )}
+              </Formik>
+            </div>
           </Col>
         </Row>
       </Container>

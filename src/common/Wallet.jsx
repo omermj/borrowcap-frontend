@@ -15,16 +15,18 @@ const Wallet = () => {
   );
 
   return (
-    <div>
+    <div className="form-wrapper mx-4">
       <Container>
         <Row>
           <Col>
-            <h3>Account Balance: {formatCurrency(accountBalance)}</h3>
+            <h3 className="mb-4 text-center">
+              Account Balance: {formatCurrency(accountBalance)}
+            </h3>
           </Col>
         </Row>
         <Row>
-          <Col>
-            <h4>Deposit Funds</h4>
+          <Col className="form-inner">
+            <h6 className="mb-3 text-center">Deposit Funds</h6>
             <Formik
               initialValues={{
                 amount: "",
@@ -49,7 +51,7 @@ const Wallet = () => {
                 isSubmitting,
               }) => (
                 <Form onSubmit={handleSubmit}>
-                  <Form.Group className="mb-0" controlId="depositFormAmount">
+                  <Form.Group className="mb-2" controlId="depositFormAmount">
                     <Form.Control
                       type="number"
                       name="amount"
@@ -60,21 +62,22 @@ const Wallet = () => {
                       required
                     />
                   </Form.Group>
-                  <Button
-                    variant="primary"
-                    type="submit"
-                    disabled={isSubmitting}
-                    className="mt-3"
-                  >
-                    Deposit
-                  </Button>
+                  <div className="text-center">
+                    <Button
+                      variant="primary"
+                      type="submit"
+                      disabled={isSubmitting}
+                      className="mt-3 px-4"
+                    >
+                      Deposit
+                    </Button>
+                  </div>
                 </Form>
               )}
             </Formik>
           </Col>
-          <Col>
-            {" "}
-            <h4>Withdraw Funds</h4>
+          <Col className="form-inner mx-4">
+            <h6 className="mb-3 text-center">Withdraw Funds</h6>
             <Formik
               initialValues={{
                 amount: "",
@@ -110,14 +113,16 @@ const Wallet = () => {
                       required
                     />
                   </Form.Group>
-                  <Button
-                    variant="primary"
-                    type="submit"
-                    disabled={isSubmitting}
-                    className="mt-3"
-                  >
-                    Withdraw
-                  </Button>
+                  <div className="text-center">
+                    <Button
+                      variant="primary"
+                      type="submit"
+                      disabled={isSubmitting}
+                      className="mt-3 px-4"
+                    >
+                      Withdraw
+                    </Button>
+                  </div>
                 </Form>
               )}
             </Formik>

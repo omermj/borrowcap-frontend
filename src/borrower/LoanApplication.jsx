@@ -11,8 +11,9 @@ const LoanApplicationForm = ({ purposes, terms }) => {
   const navigate = useNavigate();
 
   return (
-    <div>
-      <h3>Loan Application</h3>
+    <div className="form-wrapper">
+      <div className="form-inner">
+      <h3 className="mb-4 text-center">Loan Application</h3>
       <Formik
         initialValues={{
           amtRequested: "",
@@ -95,17 +96,20 @@ const LoanApplicationForm = ({ purposes, terms }) => {
                   {error}
                 </div>
               ))}
+              <div className="d-grid">
             <Button
               variant="primary"
               type="submit"
               disabled={isSubmitting}
               className="mt-4"
             >
-              Submit
+              Apply
             </Button>
+            </div>
           </Form>
         )}
       </Formik>
+      </div>
     </div>
   );
 };

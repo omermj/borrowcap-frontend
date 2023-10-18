@@ -33,9 +33,9 @@ const AvailableInvestment = () => {
 
   return (
     <div>
-      <h3>Investment Details</h3>
+      <h3 className="text-center mb-4">Investment Details</h3>
       <Container>
-        <Row>
+        <Row className="mb-4">
           <Col>
             <div>Amount Requested: {formatCurrency(data.amtRequested)}</div>
             <div>Amount Approved: {formatCurrency(data.amtApproved)}</div>
@@ -59,50 +59,57 @@ const AvailableInvestment = () => {
           </Col>
         </Row>
         <Row>
-          <Col>
-            <Formik
-              initialValues={{
-                amount: "",
-              }}
-              onSubmit={async (values, { setSubmitting, setErrors }) => {
-                values.investorId = currentUser.id;
-                const res = await BorrowcapApi.fundApprovedRequest(id, values);
-                if (!!res) navigate("/investor");
-              }}
-            >
-              {({
-                values,
-                errors,
-                handleChange,
-                handleSubmit,
-                isSubmitting,
-              }) => (
-                <Form onSubmit={handleSubmit}>
-                  <Form.Group className="mb-3" controlId="investFormAmount">
-                    <Form.Label>Amount</Form.Label>
-                    <Form.Control
-                      type="number"
-                      name="amount"
-                      placeholder={`Max amount: ${formatCurrency(
-                        data.amtApproved - data.amtFunded
-                      )}`}
-                      min={0}
-                      value={values.amount}
-                      onChange={handleChange}
-                      required
-                    />
-                  </Form.Group>
-                  <Button
-                    variant="primary"
-                    type="submit"
-                    disabled={isSubmitting}
-                    className="mt-4"
-                  >
-                    Invest
-                  </Button>
-                </Form>
-              )}
-            </Formik>
+          <Col className="form-wrapper">
+            <div className="form-inner">
+              <Formik
+                initialValues={{
+                  amount: "",
+                }}
+                onSubmit={async (values, { setSubmitting, setErrors }) => {
+                  values.investorId = currentUser.id;
+                  const res = await BorrowcapApi.fundApprovedRequest(
+                    id,
+                    values
+                  );
+                  if (!!res) navigate("/investor");
+                }}
+              >
+                {({
+                  values,
+                  errors,
+                  handleChange,
+                  handleSubmit,
+                  isSubmitting,
+                }) => (
+                  <Form onSubmit={handleSubmit}>
+                    <Form.Group className="mb-3" controlId="investFormAmount">
+                      <Form.Label>Amount</Form.Label>
+                      <Form.Control
+                        type="number"
+                        name="amount"
+                        placeholder={`Max amount: ${formatCurrency(
+                          data.amtApproved - data.amtFunded
+                        )}`}
+                        min={0}
+                        value={values.amount}
+                        onChange={handleChange}
+                        required
+                      />
+                    </Form.Group>
+                    <div className="text-center mt-4">
+                      <Button
+                        variant="primary"
+                        type="submit"
+                        disabled={isSubmitting}
+                        className="px-4"
+                      >
+                        Invest
+                      </Button>
+                    </div>
+                  </Form>
+                )}
+              </Formik>
+            </div>
           </Col>
         </Row>
       </Container>
