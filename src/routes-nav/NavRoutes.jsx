@@ -22,6 +22,7 @@ import ApprovalRequests from "../underwriter/ApprovalRequests";
 import ApprovedRequests from "../underwriter/ApprovedRequests";
 import Wallet from "../common/Wallet";
 import ProfileUpdateForm from "../common/ProfileUpdateForm";
+import ChangePasswordForm from "../common/ChangePassword";
 
 /** Site-wide routes */
 
@@ -110,6 +111,7 @@ function NavRoutes({ login, signup, roles, purposes, terms }) {
           }
         >
           <Route path="/user/profile" element={<ProfileUpdateForm />} />
+          <Route path="/user/changepassword" element={<ChangePasswordForm />} />
         </Route>
 
         {/* ----------- */}

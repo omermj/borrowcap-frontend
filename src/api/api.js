@@ -174,6 +174,16 @@ class BorrowcapApi {
     return res.user;
   }
 
+  /** Change user password */
+  static async changePassword(username, data) {
+    const res = await this.request(
+      `users/${username}/changepassword`,
+      data,
+      "patch"
+    );
+    return res.user;
+  }
+
   /** Get list of existing roles */
   static async getRoles() {
     const res = await this.request("roles");
