@@ -8,6 +8,10 @@ import BorrowcapApi from "../api/api";
 const AvailableInvestments = () => {
   const [data, setData] = useState([]);
 
+  const investIcon = () => {
+    return <i className="bi-bank"></i>;
+  };
+
   // Define table headers with labels and formatters
   const headers = {
     id: { label: "ID", formatter: null },
@@ -22,6 +26,7 @@ const AvailableInvestments = () => {
       label: "Invest",
       formatter: "button",
       link: "/investor/availableinvestment",
+      icon: investIcon,
     },
   };
 

@@ -10,6 +10,10 @@ const FundedLoans = () => {
   const { currentUser } = useContext(UserContext);
   const [fundedLoans, setFundedLoans] = useState([]);
 
+  const payIcon = () => {
+    return <i className="bi-credit-card-fill"></i>;
+  };
+
   // get active loan requests on initial render
   useEffect(() => {
     async function fetchFundedLoans() {
@@ -45,6 +49,7 @@ const FundedLoans = () => {
       formatter: "button",
       link: "/fundedloans/pay",
       onClick: handlePay,
+      icon: payIcon,
     },
   };
 

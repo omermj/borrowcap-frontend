@@ -15,6 +15,10 @@ const ApprovedLoans = () => {
   const { currentUser } = useContext(UserContext);
   const [approvedLoans, setApprovedLoans] = useState([]);
 
+  const manageIcon = () => {
+    return <i className="bi-gear-wide-connected"></i>;
+  };
+
   // Define table headers with labels and formatters
   const headers = {
     id: { label: "ID", formatter: "none" },
@@ -41,6 +45,7 @@ const ApprovedLoans = () => {
       label: "Manage",
       formatter: "button",
       link: "/borrower/approvedrequests",
+      icon: manageIcon
     },
   };
 

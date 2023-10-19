@@ -8,6 +8,10 @@ import BorrowcapApi from "../api/api";
 const ApprovalRequests = () => {
   const [loanRequests, setLoanRequests] = useState([]);
 
+  const reviewIcon = () => {
+    return <i className="bi-pencil-fill"></i>;
+  };
+
   // Define table headers with labels and formatters
   const headers = {
     id: { label: "App ID", formatter: "none" },
@@ -26,6 +30,7 @@ const ApprovalRequests = () => {
       formatter: "button",
       link: "/underwriter/reviewrequest",
       onClick: null,
+      icon: reviewIcon
     },
   };
 

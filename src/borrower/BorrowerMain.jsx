@@ -3,6 +3,7 @@ import ActiveRequests from "./ActiveRequests";
 import QuickLinks from "../common/QuickLinks";
 import ApprovedLoans from "./ApprovedLoans";
 import { Container, Row, Col } from "react-bootstrap";
+import Sidebar from "../routes-nav/Sidebar";
 
 /** Main Landing Page for Borrower */
 
@@ -15,25 +16,16 @@ const BorrowerMain = () => {
   ];
 
   return (
-    <Container>
-      <Row>
-      {/* <Col sm={3}> */}
-          {/* Quick Links */}
-          {/* <QuickLinks links={quickLinks} /> */}
-        {/* </Col> */}
-        <Col sm={12}>
-          {/* Active Loan Requests */}
-          <ActiveRequests />
+    <div>
+      {/* Active Loan Requests */}
+      <ActiveRequests />
 
-          {/* Approved Loan Requests */}
-          <ApprovedLoans />
+      {/* Approved Loan Requests */}
+      <ApprovedLoans />
 
-          {/* Funded Loans */}
-          <FundedLoans />
-        </Col>
-        
-      </Row>
-    </Container>
+      {/* Funded Loans */}
+      <FundedLoans />
+    </div>
   );
 };
 

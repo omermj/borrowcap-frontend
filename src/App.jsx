@@ -9,6 +9,10 @@ import jwtDecode from "jwt-decode";
 import BorrowcapApi from "./api/api";
 import UserContext from "./auth/UserContext";
 import LoadingSpinner from "./common/LoadingSpinner";
+import "bootstrap-icons/font/bootstrap-icons.css";
+import "bootstrap/dist/js/bootstrap.bundle.js";
+import { Container, Row, Col } from "react-bootstrap";
+import Sidebar from "./routes-nav/Sidebar";
 
 // Key for storing token in localStorage
 export const TOKEN_STORAGE_ID = "borrowcap-token";
@@ -88,16 +92,25 @@ function App() {
       <UserContext.Provider
         value={{ currentUser, setCurrentUser, BorrowcapApi }}
       >
-        <>
-          <Navigation logout={logout} />
-          <NavRoutes
-            login={login}
-            signup={signup}
-            roles={roles}
-            purposes={purposes}
-            terms={terms}
-          />
-        </>
+        <Container fluid>
+          <Row>
+            {/* <Col> */}
+            <Navigation logout={logout} />
+            {/* </Col> */}
+          </Row>
+          <Row className="flex-nowrap">
+            {currentUser && <Sidebar />}
+            <Col className="mt-4">
+              <NavRoutes
+                login={login}
+                signup={signup}
+                roles={roles}
+                purposes={purposes}
+                terms={terms}
+              />
+            </Col>
+          </Row>
+        </Container>
       </UserContext.Provider>
     </BrowserRouter>
   );

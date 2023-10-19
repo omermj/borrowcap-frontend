@@ -101,7 +101,7 @@ const AvailableInvestment = () => {
                         variant="primary"
                         type="submit"
                         disabled={isSubmitting}
-                        className="px-4"
+                        className="px-4 btn-dark"
                       >
                         Invest
                       </Button>

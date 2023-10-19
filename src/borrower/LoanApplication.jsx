@@ -101,7 +101,8 @@ const LoanApplicationForm = ({ purposes, terms }) => {
               variant="primary"
               type="submit"
               disabled={isSubmitting}
-              className="mt-4"
+              className="mt-4 btn-dark"
+
             >
               Apply
             </Button>

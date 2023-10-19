@@ -101,6 +101,17 @@ function NavRoutes({ login, signup, roles, purposes, terms }) {
           <Route path="/underwriter/approved" element={<ApprovedRequests />} />
         </Route>
 
+        {/* ------------------------ */}
+        {/* Common User Routes */}
+        {/* ------------------------ */}
+        <Route
+          element={
+            <ProtectedRoute allowedRoles={["admin", "borrower", "investor"]} />
+          }
+        >
+          <Route path="/user/profile" element={<ProfileUpdateForm />} />
+        </Route>
+
         {/* ----------- */}
         {/* Auth Routes */}
         {/* ----------- */}

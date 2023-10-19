@@ -118,7 +118,7 @@ const ProfileUpdateForm = () => {
                   variant="primary"
                   type="submit"
                   disabled={isSubmitting}
-                  className="mt-4"
+                  className="mt-4 btn-dark"
                 >
                   Update
                 </Button>

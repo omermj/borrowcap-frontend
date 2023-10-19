@@ -51,6 +51,33 @@ const Navigation = ({ logout }) => {
     );
   };
 
+  const userstamp = () => {
+    return (
+      <span>
+         {currentUser.firstName}{" "}<i className="fs-6 bi-person"></i>
+      </span>
+    );
+  };
+
+  const LoggedInNav = () => {
+    return (
+      <Nav className="ms-auto ">
+        <Nav.Link href="/user/profile">
+          {" "}
+          <span>Profile</span>{" "}
+        </Nav.Link>
+        <NavDropdown title={userstamp()} id="nav-dropdown">
+          <NavDropdown.Item href="/user/changepassword">
+            Change Password
+          </NavDropdown.Item>
+          <NavDropdown.Item href="/" onClick={async () => await logout()}>
+            Logout
+          </NavDropdown.Item>
+        </NavDropdown>
+      </Nav>
+    );
+  };
+
   const LoggedOutNav = () => {
     return (
       <Nav className="ms-auto">
@@ -60,22 +87,26 @@ const Navigation = ({ logout }) => {
     );
   };
 
+  // let navToDisplay = null;
+  // if (currentUser) {
+  //   if (currentUser.roles.includes("admin")) navToDisplay = UnderwriterNav;
+  //   else if (currentUser.roles.includes("borrower")) navToDisplay = BorrowerNav;
+  //   else if (currentUser.roles.includes("investor")) navToDisplay = InvestorNav;
+  // } else navToDisplay = LoggedOutNav;
+
   let navToDisplay = null;
-  if (currentUser) {
-    if (currentUser.roles.includes("admin")) navToDisplay = UnderwriterNav;
-    else if (currentUser.roles.includes("borrower")) navToDisplay = BorrowerNav;
-    else if (currentUser.roles.includes("investor")) navToDisplay = InvestorNav;
-  } else navToDisplay = LoggedOutNav;
+  if (currentUser) navToDisplay = LoggedInNav;
+  else navToDisplay = LoggedOutNav;
 
   return (
-    <Navbar bg="dark" data-bs-theme="dark" className="mb-4">
-      <Container>
+    <Navbar bg="dark" data-bs-theme="dark" className="">
+      <div className="container-fluid">
         <Navbar.Brand href="/">BorrowCap</Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           {navToDisplay()}
         </Navbar.Collapse>
-      </Container>
+      </div>
     </Navbar>
   );
 };

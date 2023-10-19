@@ -67,7 +67,7 @@ const Wallet = () => {
                       variant="primary"
                       type="submit"
                       disabled={isSubmitting}
-                      className="mt-3 px-4"
+                      className="mt-3 px-4 btn-dark"
                     >
                       Deposit
                     </Button>
@@ -118,7 +118,7 @@ const Wallet = () => {
                       variant="primary"
                       type="submit"
                       disabled={isSubmitting}
-                      className="mt-3 px-4"
+                      className="mt-3 px-4 btn-dark"
                     >
                       Withdraw
                     </Button>

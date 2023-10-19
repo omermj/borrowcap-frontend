@@ -1,0 +1,15 @@
+.Sidebar a  {
+  color: white;
+}
+
+.Sidebar a:hover {
+  color: gray;
+}
+
+a:active {
+  color: gray;
+}
+
+.Sidebar {
+  background-color: rgb(46, 46, 46) !important;
+}
