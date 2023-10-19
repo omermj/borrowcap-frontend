@@ -23,6 +23,7 @@ import ApprovedRequests from "../underwriter/ApprovedRequests";
 import Wallet from "../common/Wallet";
 import ProfileUpdateForm from "../common/ProfileUpdateForm";
 import ChangePasswordForm from "../common/ChangePassword";
+import NotFound from "../common/NotFound";
 
 /** Site-wide routes */
 
@@ -122,6 +123,9 @@ function NavRoutes({ login, signup, roles, purposes, terms }) {
           path="/signup"
           element={<SignupForm signup={signup} roles={roles} />}
         />
+
+        {/* 404 Not Found */}
+        <Route path="*" element={<NotFound />} />
       </Routes>
     </div>
   );
