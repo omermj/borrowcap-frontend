@@ -5,6 +5,8 @@ import BorrowcapApi from "../api/api";
 import { formatCurrency } from "../helpers/format";
 import { useState, useContext } from "react";
 import UserContext from "../auth/UserContext";
+import FormError from "./FormError";
+import * as Yup from "yup";
 
 /** Component for Wallet for Borrowers and Investors */
 
@@ -13,6 +15,10 @@ const Wallet = () => {
   const [accountBalance, setAccountBalance] = useState(
     currentUser.accountBalance
   );
+
+  const amountSchema = Yup.object().shape({
+    amount: Yup.number().min(1, "Can't be less than 0").required("Required"),
+  });
 
   return (
     <div className="form-wrapper mx-4">
@@ -31,21 +37,29 @@ const Wallet = () => {
               initialValues={{
                 amount: "",
               }}
-              onSubmit={async (values, { setSubmitting, setErrors }) => {
-                values.id = currentUser.id;
-                const res = await BorrowcapApi.depositFunds(
-                  currentUser.id,
-                  values
-                );
-                if (!!res) {
-                  setAccountBalance(res.accountBalance);
-                  values.amount = "";
+              validationSchema={amountSchema}
+              onSubmit={async (values, { setSubmitting, setStatus }) => {
+                try {
+                  values.id = currentUser.id;
+                  const res = await BorrowcapApi.depositFunds(
+                    currentUser.id,
+                    values
+                  );
+                  if (!!res) {
+                    setAccountBalance(res.accountBalance);
+                    values.amount = "";
+                    setStatus({ error: null });
+                  }
+                } catch (e) {
+                  setStatus({ error: e });
                 }
               }}
             >
               {({
                 values,
                 errors,
+                status,
+                touched,
                 handleChange,
                 handleSubmit,
                 isSubmitting,
@@ -55,13 +69,18 @@ const Wallet = () => {
                     <Form.Control
                       type="number"
                       name="amount"
-                      min={0}
                       value={values.amount}
                       onChange={handleChange}
                       placeholder="Enter deposit amount"
-                      required
                     />
+                    {errors.amount && touched.amount ? (
+                      <FormError msg={errors.amount} field />
+                    ) : null}
                   </Form.Group>
+
+                  {/* Display server error message */}
+                  {status && status.error && <FormError msg={status.error} />}
+
                   <div className="text-center">
                     <Button
                       variant="primary"
@@ -82,37 +101,50 @@ const Wallet = () => {
               initialValues={{
                 amount: "",
               }}
-              onSubmit={async (values, { setSubmitting, setErrors }) => {
-                values.id = currentUser.id;
-                const res = await BorrowcapApi.withdrawFunds(
-                  currentUser.id,
-                  values
-                );
-                if (!!res) {
-                  setAccountBalance(res.accountBalance);
-                  values.amount = "";
+              validationSchema={amountSchema}
+              onSubmit={async (values, { setSubmitting, setStatus }) => {
+                try {
+                  values.id = currentUser.id;
+                  const res = await BorrowcapApi.withdrawFunds(
+                    currentUser.id,
+                    values
+                  );
+                  if (!!res) {
+                    setAccountBalance(res.accountBalance);
+                    values.amount = "";
+                    setStatus({ error: null });
+                  }
+                } catch (e) {
+                  setStatus({ error: e });
                 }
               }}
             >
               {({
                 values,
                 errors,
+                status,
+                touched,
                 handleChange,
                 handleSubmit,
                 isSubmitting,
               }) => (
                 <Form onSubmit={handleSubmit}>
-                  <Form.Group className="mb-0" controlId="withdrawFormAmount">
+                  <Form.Group className="mb-2" controlId="withdrawFormAmount">
                     <Form.Control
                       type="number"
                       name="amount"
-                      min={0}
                       value={values.amount}
                       onChange={handleChange}
                       placeholder="Enter withdrawal amount"
-                      required
                     />
+                    {errors.amount && touched.amount ? (
+                      <FormError msg={errors.amount} field />
+                    ) : null}
                   </Form.Group>
+
+                  {/* Display server error message */}
+                  {status && status.error && <FormError msg={status.error} />}
+
                   <div className="text-center">
                     <Button
                       variant="primary"
