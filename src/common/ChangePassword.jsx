@@ -1,4 +1,4 @@
-import { Formik, ErrorMessage } from "formik";
+import { Formik } from "formik";
 import { Form, Button } from "react-bootstrap";
 import { useContext } from "react";
 import UserContext from "../auth/UserContext";
@@ -8,7 +8,7 @@ import { useNavigate } from "react-router-dom";
 /** Change Password Form */
 
 const ChangePasswordForm = () => {
-  const { currentUser, setCurrentUser } = useContext(UserContext);
+  const { currentUser } = useContext(UserContext);
   const navigate = useNavigate();
 
   const errMsg = (msg) => (

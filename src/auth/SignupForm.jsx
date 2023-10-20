@@ -1,11 +1,37 @@
 import { useNavigate } from "react-router-dom";
 import { Formik, ErrorMessage } from "formik";
 import { Form, Button } from "react-bootstrap";
+import FormError from "../common/FormError";
+import * as Yup from "yup";
 
-/** Login Form */
+/** Signup Form */
 
 const SignupForm = ({ signup, roles }) => {
   const navigate = useNavigate();
+
+  // validation schema
+  const signupSchema = Yup.object().shape({
+    username: Yup.string()
+      .min(4, "Too short!")
+      .max(25, "Too long!")
+      .required("Required"),
+    password: Yup.string()
+      .min(6, "Too short!")
+      .max(255, "Too long!")
+      .required("Required"),
+    firstName: Yup.string()
+      .min(4, "Too short!")
+      .max(255, "Too long!")
+      .required("Required"),
+    lastName: Yup.string()
+      .min(4, "Too short!")
+      .max(255, "Too long!")
+      .required("Required"),
+    email: Yup.string().email("Invalid email").required("Required"),
+    annualIncome: Yup.number().min(0, "Can't be negative"),
+    otherMonthlyDebt: Yup.number().min(0, "Can't be negative"),
+    userType: Yup.string().required("Required"),
+  });
 
   // remove admin from signup roles
   if (roles.indexOf("admin") !== -1) {
@@ -22,12 +48,6 @@ const SignupForm = ({ signup, roles }) => {
     return errors;
   };
 
-  const errMsg = () => (
-    <div>
-      <small className="text-danger">Incorrect Username/Password</small>
-    </div>
-  );
-
   return (
     <div className="form-wrapper">
       <div className="form-inner">
@@ -41,27 +61,24 @@ const SignupForm = ({ signup, roles }) => {
             email: "",
             annualIncome: "",
             otherMonthlyDebt: "",
-            roles: [],
+            userType: "",
           }}
-          validate={validate}
-          onSubmit={async (values, { setSubmitting, setErrors }) => {
-            values.roles = [values.roles];
+          validationSchema={signupSchema}
+          onSubmit={async (values, { setSubmitting, setStatus }) => {
+            values.roles = [values.userType];
             const result = await signup(values);
-            if (result.success) {
-              navigate("/");
-            } else {
-              setErrors({
-                username: "Incorrect Username",
-                password: "Incorrect Password",
-              });
+            if (result.success) navigate("/");
+            else {
+              setStatus({ error: result.errors });
             }
             setSubmitting(false);
           }}
         >
           {({
             values,
-            errors,
             touched,
+            errors,
+            status,
             handleChange,
             handleBlur,
             handleSubmit,
@@ -79,6 +96,9 @@ const SignupForm = ({ signup, roles }) => {
                   autoComplete="username"
                   required
                 />
+                {errors.username && touched.username ? (
+                  <FormError msg={errors.username} field />
+                ) : null}
               </Form.Group>
               <Form.Group className="mb-3" controlId="signupPassword">
                 <Form.Label>Password</Form.Label>
@@ -91,6 +111,9 @@ const SignupForm = ({ signup, roles }) => {
                   autoComplete="current-password"
                   required
                 />
+                {errors.password && touched.password ? (
+                  <FormError msg={errors.password} field />
+                ) : null}
               </Form.Group>
               <Form.Group className="mb-3" controlId="signupFirstName">
                 <Form.Label>First Name</Form.Label>
@@ -103,6 +126,9 @@ const SignupForm = ({ signup, roles }) => {
                   autoComplete="given-name"
                   required
                 />
+                {errors.firstName && touched.firstName ? (
+                  <FormError msg={errors.firstName} field />
+                ) : null}
               </Form.Group>
               <Form.Group className="mb-3" controlId="signupLastName">
                 <Form.Label>Last Name</Form.Label>
@@ -115,6 +141,9 @@ const SignupForm = ({ signup, roles }) => {
                   autoComplete="family-name"
                   required
                 />
+                {errors.lastName && touched.lastName ? (
+                  <FormError msg={errors.lastName} field />
+                ) : null}
               </Form.Group>
               <Form.Group className="mb-3" controlId="signupEmail">
                 <Form.Label>Email</Form.Label>
@@ -127,6 +156,9 @@ const SignupForm = ({ signup, roles }) => {
                   autoComplete="email"
                   required
                 />
+                {errors.email && touched.email ? (
+                  <FormError msg={errors.email} field />
+                ) : null}
               </Form.Group>
               <Form.Group className="mb-3" controlId="signupAnnualIncome">
                 <Form.Label>Annual Income</Form.Label>
@@ -138,6 +170,9 @@ const SignupForm = ({ signup, roles }) => {
                   onChange={handleChange}
                   required
                 />
+                {errors.annualIncome && touched.annualIncome ? (
+                  <FormError msg={errors.annualIncome} field />
+                ) : null}
               </Form.Group>
               <Form.Group className="mb-3" controlId="signupOtherMonthlyDebt">
                 <Form.Label>Other Monthly Debt</Form.Label>
@@ -149,6 +184,9 @@ const SignupForm = ({ signup, roles }) => {
                   onChange={handleChange}
                   required
                 />
+                {errors.otherMonthlyDebt && touched.otherMonthlyDebt ? (
+                  <FormError msg={errors.otherMonthlyDebt} field />
+                ) : null}
               </Form.Group>
               <Form.Group>
                 <Form.Label>User Type</Form.Label>
@@ -158,7 +196,7 @@ const SignupForm = ({ signup, roles }) => {
                       key={idx}
                       inline
                       label={role}
-                      name="roles"
+                      name="userType"
                       type="radio"
                       id={`roles-${role}`}
                       value={role}
@@ -166,16 +204,13 @@ const SignupForm = ({ signup, roles }) => {
                     />
                   ))}
                 </div>
-                {/* Display error message for roles */}
-                {errors.roles && (
-                  <div className="text-danger">{errors.roles}</div>
-                )}
+                {errors.userType && touched.userType ? (
+                  <FormError msg={errors.userType} field />
+                ) : null}
               </Form.Group>
-              <ErrorMessage
-                name="username"
-                component={errMsg}
-                className="mt-3"
-              />
+              {/* Display server error message */}
+              {status && status.error && <FormError msg={status.error} />}
+              {/* <FormError msg={errMsg} /> */}
               <div className="d-grid">
                 <Button
                   variant="primary"
