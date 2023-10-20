@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import { Formik, ErrorMessage } from "formik";
+import { Formik } from "formik";
 import { Form, Button } from "react-bootstrap";
 import FormError from "../common/FormError";
 import * as Yup from "yup";
@@ -208,9 +208,10 @@ const SignupForm = ({ signup, roles }) => {
                   <FormError msg={errors.userType} field />
                 ) : null}
               </Form.Group>
+
               {/* Display server error message */}
               {status && status.error && <FormError msg={status.error} />}
-              {/* <FormError msg={errMsg} /> */}
+
               <div className="d-grid">
                 <Button
                   variant="primary"

@@ -1,6 +1,8 @@
 import { useNavigate } from "react-router-dom";
 import { Formik, ErrorMessage } from "formik";
 import { Form, Button } from "react-bootstrap";
+import FormError from "../common/FormError";
+import * as Yup from "yup";
 
 /** Login Form */
 
@@ -13,21 +15,24 @@ const LoginForm = ({ login }) => {
     </div>
   );
 
+  // validation schema
+  const loginSchema = Yup.object().shape({
+    username: Yup.string().required("Required"),
+    password: Yup.string().required("Required"),
+  });
+
   return (
     <div className="form-wrapper">
       <div className="form-inner">
         <h3 className="mb-4 text-center">Login</h3>
         <Formik
           initialValues={{ username: "", password: "" }}
-          onSubmit={async (values, { setSubmitting, setErrors }) => {
+          validationSchema={loginSchema}
+          onSubmit={async (values, { setSubmitting, setStatus }) => {
             const result = await login(values);
-            if (result.success) {
-              navigate("/");
-            } else {
-              setErrors({
-                username: "Incorrect Username",
-                password: "Incorrect Password",
-              });
+            if (result.success) navigate("/");
+            else {
+              setStatus({ error: "Incorrect Username/Password" });
             }
             setSubmitting(false);
           }}
@@ -36,6 +41,7 @@ const LoginForm = ({ login }) => {
             values,
             errors,
             touched,
+            status,
             handleChange,
             handleBlur,
             handleSubmit,
@@ -66,11 +72,10 @@ const LoginForm = ({ login }) => {
                   required
                 />
               </Form.Group>
-              <ErrorMessage
-                name="username"
-                component={errMsg}
-                className="mt-3"
-              />
+
+              {/* Display server error message */}
+              {status && status.error && <FormError msg={status.error} />}
+
               <div className="d-grid">
                 <Button
                   variant="primary"
