@@ -1,20 +1,31 @@
 import { Container, Row, Col } from "react-bootstrap";
-import { useState, useEffect, useContext } from "react";
+import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import BorrowcapApi from "../api/api";
 import LoadingSpinner from "../common/LoadingSpinner";
 import { formatCurrency, formatDate, formatPercent } from "../helpers/format";
 import { Formik } from "formik";
 import { Form, Button } from "react-bootstrap";
-import UserContext from "../auth/UserContext";
+import FormError from "../common/FormError";
+import * as Yup from "yup";
 
 /** Displays a single Available Investment */
 
 const ReviewRequest = ({ terms }) => {
-  const { currentUser } = useContext(UserContext);
   const { id } = useParams();
   const [data, setData] = useState(null);
   const navigate = useNavigate();
+
+  const reviewSchema = Yup.object().shape({
+    amtApproved: Yup.number()
+      .min(1, "Can't be negative or zero")
+      .required("Required"),
+    interestRate: Yup.number()
+      .min(0.0001, "Can't be less than 0.01% or zero")
+      .max(1, "Can't be greater than 100%")
+      .required("Required"),
+    term: Yup.string().required("Required"),
+  });
 
   useEffect(() => {
     const getReviewRequest = async () => {
@@ -69,14 +80,21 @@ const ReviewRequest = ({ terms }) => {
                   interestRate: "",
                   term: "",
                 }}
-                onSubmit={async (values, { setSubmitting, setErrors }) => {
-                  const res = await BorrowcapApi.approveRequest(id, values);
-                  if (!!res) navigate("/underwriter");
+                validationSchema={reviewSchema}
+                onSubmit={async (values, { setSubmitting, setStatus }) => {
+                  try {
+                    const res = await BorrowcapApi.approveRequest(id, values);
+                    if (!!res) navigate("/underwriter");
+                  } catch (e) {
+                    setStatus({ error: e });
+                  }
                 }}
               >
                 {({
                   values,
                   errors,
+                  touched,
+                  status,
                   handleChange,
                   handleSubmit,
                   isSubmitting,
@@ -87,11 +105,12 @@ const ReviewRequest = ({ terms }) => {
                       <Form.Control
                         type="number"
                         name="amtApproved"
-                        min={0}
                         value={values.amtApproved}
                         onChange={handleChange}
-                        required
                       />
+                      {errors.amtApproved && touched.amtApproved ? (
+                        <FormError msg={errors.amtApproved} field />
+                      ) : null}
                     </Form.Group>
                     <Form.Group
                       className="mb-3"
@@ -101,13 +120,13 @@ const ReviewRequest = ({ terms }) => {
                       <Form.Control
                         type="number"
                         name="interestRate"
-                        min={0}
-                        max={1}
                         step={0.001}
                         value={values.interestRate}
                         onChange={handleChange}
-                        required
                       />
+                      {errors.interestRate && touched.interestRate ? (
+                        <FormError msg={errors.interestRate} field />
+                      ) : null}
                     </Form.Group>
                     <Form.Group className="mb-3" controlId="approvalFormTerm">
                       <Form.Label>Term</Form.Label>
@@ -123,7 +142,14 @@ const ReviewRequest = ({ terms }) => {
                           </option>
                         ))}
                       </Form.Select>
+                      {errors.term && touched.term ? (
+                        <FormError msg={errors.term} field />
+                      ) : null}
                     </Form.Group>
+
+                    {/* Display server error message */}
+                    {status && status.error && <FormError msg={status.error} />}
+
                     <div className="mt-4 text-center">
                       <Button
                         variant="success"

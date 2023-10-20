@@ -19,8 +19,6 @@ const InvestorMain = () => {
       <PledgedInvestments />
       {/* Available Investment Opportunities */}
       <AvailableInvestments />
-      {/* Quick Links */}
-      <QuickLinks links={quickLinks} />
     </div>
   );
 };

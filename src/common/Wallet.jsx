@@ -17,7 +17,7 @@ const Wallet = () => {
   );
 
   const amountSchema = Yup.object().shape({
-    amount: Yup.number().min(1, "Can't be less than 0").required("Required"),
+    amount: Yup.number().min(1, "Can't be negative or zero").required("Required"),
   });
 
   return (

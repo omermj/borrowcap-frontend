@@ -7,6 +7,8 @@ import { formatCurrency, formatDate, formatPercent } from "../helpers/format";
 import { Formik } from "formik";
 import { Form, Button } from "react-bootstrap";
 import UserContext from "../auth/UserContext";
+import FormError from "../common/FormError";
+import * as Yup from "yup";
 
 /** Displays a single Available Investment */
 
@@ -15,17 +17,21 @@ const AvailableInvestment = () => {
   const { id } = useParams();
   const [data, setData] = useState(null);
   const navigate = useNavigate();
-  // const [infoLoaded, setInfoLoaded] = useState(false);
+
+  const investSchema = Yup.object().shape({
+    amount: Yup.number()
+      .min(1, "Can't be negative or zero")
+      .required("Required"),
+  });
 
   useEffect(() => {
     const getInvestment = async () => {
       const result = await BorrowcapApi.getApprovedRequest(id);
       if (result) {
         setData(result);
-        // setInfoLoaded(true);
       }
     };
-    // setInfoLoaded(false);
+
     getInvestment();
   }, [id]);
 
@@ -65,18 +71,25 @@ const AvailableInvestment = () => {
                 initialValues={{
                   amount: "",
                 }}
-                onSubmit={async (values, { setSubmitting, setErrors }) => {
-                  values.investorId = currentUser.id;
-                  const res = await BorrowcapApi.fundApprovedRequest(
-                    id,
-                    values
-                  );
-                  if (!!res) navigate("/investor");
+                validationSchema={investSchema}
+                onSubmit={async (values, { setSubmitting, setStatus }) => {
+                  try {
+                    values.investorId = currentUser.id;
+                    const res = await BorrowcapApi.fundApprovedRequest(
+                      id,
+                      values
+                    );
+                    if (!!res) navigate("/investor");
+                  } catch (e) {
+                    setStatus({ error: e });
+                  }
                 }}
               >
                 {({
                   values,
                   errors,
+                  status,
+                  touched,
                   handleChange,
                   handleSubmit,
                   isSubmitting,
@@ -90,12 +103,17 @@ const AvailableInvestment = () => {
                         placeholder={`Max amount: ${formatCurrency(
                           data.amtApproved - data.amtFunded
                         )}`}
-                        min={0}
                         value={values.amount}
                         onChange={handleChange}
-                        required
                       />
+                      {errors.amount && touched.amount ? (
+                        <FormError msg={errors.amount} field />
+                      ) : null}
                     </Form.Group>
+
+                    {/* Display server error message */}
+                    {status && status.error && <FormError msg={status.error} />}
+
                     <div className="text-center mt-4">
                       <Button
                         variant="primary"

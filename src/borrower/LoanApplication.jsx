@@ -15,7 +15,7 @@ const LoanApplicationForm = ({ purposes, terms }) => {
   // validation schema
   const loanApplicationSchema = Yup.object().shape({
     amtRequested: Yup.number()
-      .min(0, "Can't be less than 0")
+      .min(1, "Can't be negative or zero")
       .required("Required"),
     purposeId: Yup.number().min(0, "Required").required("Required"),
     term: Yup.string().required("Required"),
