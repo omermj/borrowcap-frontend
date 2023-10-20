@@ -6,7 +6,7 @@ const FormError = ({ msg, field = false }) => {
 
   return (
     <div className={style}>
-      {typeof msg === "Array" ? (
+      {Array.isArray(msg) ? (
         msg.map((m, idx) => (
           <div key={idx}>
             {" "}
