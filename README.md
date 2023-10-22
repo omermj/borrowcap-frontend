@@ -37,7 +37,7 @@ As an investor, you can invest in multiple loans from multiple investors. You ca
 ## Installation instructions
 1. Clone the repo to your local machine
    
-    `$ git clone https://github.com/codersixteen/stocksim.git`
+    `$ git clone https://github.com/codersixteen/borrowcap-frontend.git`
 
 2. Install required packages
 
