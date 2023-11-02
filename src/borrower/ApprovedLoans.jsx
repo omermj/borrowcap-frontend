@@ -45,17 +45,17 @@ const ApprovedLoans = () => {
       label: "Manage",
       formatter: "button",
       link: "/borrower/approvedrequests",
-      icon: manageIcon
+      icon: manageIcon,
     },
   };
 
   // get active loan requests on initial render
   useEffect(() => {
     async function fetchLoanRequests() {
-      const requests = await BorrowcapApi.getApprovedRequestsByBorrowerId(
+      const approvedRequests = await BorrowcapApi.getApprovedRequestsByUserId(
         currentUser.id
       );
-      setApprovedLoans(requests);
+      setApprovedLoans(approvedRequests.borrower);
     }
     fetchLoanRequests();
   }, [currentUser.id]);

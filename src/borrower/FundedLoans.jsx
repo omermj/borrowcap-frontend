@@ -14,23 +14,23 @@ const FundedLoans = () => {
     return <i className="bi-credit-card-fill"></i>;
   };
 
-  // get active loan requests on initial render
+  // get funded loans on initial render
   useEffect(() => {
     async function fetchFundedLoans() {
-      const requests = await BorrowcapApi.getFundedLoansByBorrowerId(
+      const fundedLoans = await BorrowcapApi.getFundedLoansByUserId(
         currentUser.id
       );
-      setFundedLoans(requests);
+      setFundedLoans(fundedLoans.borrower);
     }
     fetchFundedLoans();
   }, [currentUser.id]);
 
   const handlePay = async (id) => {
     await BorrowcapApi.payInstallment(id);
-    const newReq = await BorrowcapApi.getFundedLoansByBorrowerId(
+    const fundedLoans = await BorrowcapApi.getFundedLoansByUserId(
       currentUser.id
     );
-    setFundedLoans([...newReq]);
+    setFundedLoans([...fundedLoans.borrower]);
   };
 
   const headers = {

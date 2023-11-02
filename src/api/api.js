@@ -26,8 +26,12 @@ class BorrowcapApi {
     }
   }
 
+  /****************************************************
+   ***************** API Methods
+   ****************************************************/
+
   /**
-   * API Methods
+   * Active Requests
    */
 
   /** Get all Active Loan Requests */
@@ -44,40 +48,64 @@ class BorrowcapApi {
     return res.loanRequest;
   }
 
+  /** Get all Active Loan Requests by BorrowerId */
+  static async getLoanRequestsByBorrowerId(id) {
+    const res = await this.request(`activerequests/users/${id}`);
+    return res.activeRequests;
+  }
+
+  /** Get active request by id */
+  static async getActiveRequest(id) {
+    const res = await this.request(`activerequests/${id}`);
+    return res.activeRequest;
+  }
+
+  /** Approve request (By underwritter) */
+  static async approveRequest(id, data) {
+    const res = await this.request(
+      `activerequests/${id}/approve`,
+      data,
+      "patch"
+    );
+    return res.approvedRequest;
+  }
+
+  /** Reject request (By underwriter) */
+  static async rejectRequest(id) {
+    const res = await this.request(`activerequests/${id}/reject`, {}, "patch");
+    return res;
+  }
+
+  /**
+   * Funded Loans
+   */
+
   /** Get all Active Loan Requests */
   static async getFundedLoans() {
     const res = await this.request("fundedloans");
     return res.fundedLoans;
   }
 
-  /** Get all Active Loan Requests by BorrowerId */
-  static async getLoanRequestsByBorrowerId(id) {
-    const res = await this.request(`users/${id}/activerequests`);
-    return res.activeRequests;
-  }
-
-  /** Get all Approved Requests by BorrowerId(id) */
-  static async getApprovedRequestsByBorrowerId(id) {
-    const res = await this.request(`users/${id}/approvedrequests`);
-    return res.approvedRequests;
-  }
-
-  /** Get all Funded Loans by BorrowerId */
-  static async getFundedLoansByBorrowerId(id) {
-    const res = await this.request(`users/${id}/fundedloans`);
+  /** Get all Funded Loans by UserId */
+  static async getFundedLoansByUserId(id) {
+    const res = await this.request(`fundedloans/users/${id}`);
     return res.fundedLoans;
   }
 
-  /** Get all Active Investments by InvestorId */
-  static async getActiveInvestmentsByInvestorId(id) {
-    const res = await this.request(`users/${id}/activeinvestments`);
-    return res.activeInvestments;
+  /** Pay Loan Installment */
+  static async payInstallment(id) {
+    const res = await this.request(`fundedloans/pay/${id}`, {}, "patch");
+    return res.fundedLoan;
   }
 
-  /** Get all Pledged Investments by InvestorId */
-  static async getPledgedInvestmentsByInvestorId(id) {
-    const res = await this.request(`users/${id}/pledgedinvestments`);
-    return res.pledgedInvestments;
+  /**
+   * Approved Requests
+   */
+
+  /** Get all Approved Requests by UserId */
+  static async getApprovedRequestsByUserId(id) {
+    const res = await this.request(`approvedrequests/users/${id}`);
+    return res.approvedRequests;
   }
 
   /** Get all available investments */
@@ -90,12 +118,6 @@ class BorrowcapApi {
   static async getApprovedRequest(id) {
     const res = await this.request(`approvedrequests/${id}`);
     return res.approvedRequest;
-  }
-
-  /** Get active request by id */
-  static async getActiveRequest(id) {
-    const res = await this.request(`activerequests/${id}`);
-    return res.activeRequest;
   }
 
   /** Get approved requests */
@@ -134,21 +156,9 @@ class BorrowcapApi {
     return res.message;
   }
 
-  /** Approve request (By underwritter) */
-  static async approveRequest(id, data) {
-    const res = await this.request(
-      `activerequests/${id}/approve`,
-      data,
-      "patch"
-    );
-    return res.approvedRequest;
-  }
-
-  /** Reject request (By underwriter) */
-  static async rejectRequest(id) {
-    const res = await this.request(`activerequests/${id}/reject`, {}, "patch");
-    return res;
-  }
+  /**
+   * Users
+   */
 
   /** Get current user */
   static async getCurrentUser(username) {
@@ -184,22 +194,10 @@ class BorrowcapApi {
     return res.user;
   }
 
-  /** Get list of existing roles */
+  /** Get list of existing user roles */
   static async getRoles() {
     const res = await this.request("roles");
     return Object.keys(res.roles);
-  }
-
-  /** Get list of existing loan purpose */
-  static async getPurposes() {
-    const res = await this.request("purposes");
-    return res.purposes;
-  }
-
-  /** Get list of terms (in months) */
-  static async getTerms() {
-    const res = await this.request("terms");
-    return res.terms;
   }
 
   /** Deposit funds in user's wallet */
@@ -214,10 +212,20 @@ class BorrowcapApi {
     return res.accountBalance;
   }
 
-  /** Pay Loan Installment */
-  static async payInstallment(id) {
-    const res = await this.request(`fundedloans/pay/${id}`, {}, "patch");
-    return res.fundedLoan;
+  /**
+   * Helpers
+   */
+
+  /** Get list of existing loan purpose */
+  static async getPurposes() {
+    const res = await this.request("purposes");
+    return res.purposes;
+  }
+
+  /** Get list of terms (in months) */
+  static async getTerms() {
+    const res = await this.request("terms");
+    return res.terms;
   }
 }
 

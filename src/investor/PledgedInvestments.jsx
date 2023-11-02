@@ -24,10 +24,10 @@ const PledgedInvestments = () => {
   // get active investments on initial render
   useEffect(() => {
     async function fetchPledgedInvestments() {
-      const requests = await BorrowcapApi.getPledgedInvestmentsByInvestorId(
+      const pledgedInvestments = await BorrowcapApi.getApprovedRequestsByUserId(
         currentUser.id
       );
-      setData(requests);
+      setData(pledgedInvestments.investor);
     }
     fetchPledgedInvestments();
   }, [currentUser.id]);

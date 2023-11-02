@@ -25,8 +25,8 @@ const ActiveInvestments = () => {
   // get active investments on initial render
   useEffect(() => {
     async function fetchActiveLoans() {
-      const requests = await BorrowcapApi.getActiveInvestmentsByInvestorId(currentUser.id);
-      setData(requests);
+      const requests = await BorrowcapApi.getFundedLoansByUserId(currentUser.id);
+      setData(requests.investor);
     }
     fetchActiveLoans();
   }, []);
