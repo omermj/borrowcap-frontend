@@ -94,9 +94,7 @@ function App() {
       >
         <Container fluid>
           <Row>
-            {/* <Col> */}
             <Navigation logout={logout} />
-            {/* </Col> */}
           </Row>
           <Row className="flex-nowrap">
             {currentUser && <Sidebar />}

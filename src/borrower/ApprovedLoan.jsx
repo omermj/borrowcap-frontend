@@ -14,7 +14,7 @@ const ApprovedLoan = () => {
   const { id } = useParams();
   const [data, setData] = useState(null);
   const navigate = useNavigate();
-
+  
   useEffect(() => {
     const getApprovedRequest = async () => {
       const result = await BorrowcapApi.getApprovedRequest(id);

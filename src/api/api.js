@@ -88,13 +88,17 @@ class BorrowcapApi {
 
   /** Get all Funded Loans by UserId */
   static async getFundedLoansByUserId(id) {
-    const res = await this.request(`fundedloans/users/${id}`);
+    const res = await this.request(`fundedloans/${id}/users`);
     return res.fundedLoans;
   }
 
   /** Pay Loan Installment */
   static async payInstallment(id) {
-    const res = await this.request(`fundedloans/pay/${id}`, {}, "patch");
+    const res = await this.request(
+      `fundedloans/${id}/payinstallment`,
+      {},
+      "patch"
+    );
     return res.fundedLoan;
   }
 
@@ -137,9 +141,9 @@ class BorrowcapApi {
   }
 
   /** Enable funding for Approved Request */
-  static async enableFundingForApprovedRequest(req_id) {
+  static async enableFundingForApprovedRequest(reqId) {
     const res = await this.request(
-      `approvedrequests/${req_id}/enablefunding`,
+      `approvedrequests/${reqId}/enablefunding`,
       {},
       "patch"
     );
@@ -151,7 +155,7 @@ class BorrowcapApi {
     const res = await this.request(
       `approvedrequests/${id}/cancel`,
       {},
-      "patch"
+      "delete"
     );
     return res.message;
   }
