@@ -44,7 +44,6 @@ class BorrowcapApi {
   static async submitLoanApplication(data) {
     // const test = { ...data, borrowerId: 1 };
     const res = await this.request(`activerequests`, data, "post");
-    console.log(res);
     return res.loanRequest;
   }
 

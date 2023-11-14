@@ -68,7 +68,6 @@ function App() {
 
   // logout user
   const logout = async () => {
-    console.log("Logout triggered");
     setToken(null);
     setCurrentUser(null);
   };

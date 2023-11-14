@@ -1,6 +1,7 @@
 import { Container, Row, Col } from "react-bootstrap";
 import UserContext from "../auth/UserContext";
 import { useContext } from "react";
+import { Link } from "react-router-dom";
 import "./Sidebar.css";
 
 /** Sidebar Component */
@@ -14,59 +15,62 @@ const Sidebar = () => {
         <div className="d-flex flex-column align-items-center align-items-sm-start px-3 pt-2 text-white min-vh-100">
           <ul className="nav nav-pills flex-column mb-sm-auto mb-0 align-items-center align-items-sm-start">
             <li className="nav-item">
-              <a href="/" className="nav-link align-middle px-0">
+              <Link to="/" className="nav-link align-middle px-0">
                 <i className="fs-5 bi-house"></i>{" "}
                 <span className="ms-1 d-none d-sm-inline">Home</span>
-              </a>
+              </Link>
             </li>
             <li>
-              <a href="/borrower/apply" className="nav-link px-0 align-middle">
+              <Link to="/borrower/apply" className="nav-link px-0 align-middle">
                 <i className="fs-5 bi-coin"></i>{" "}
                 <span className="ms-1 d-none d-sm-inline">Apply</span>
-              </a>
+              </Link>
             </li>
             <li>
-              <a
-                href="#submenu1"
+              <Link
+                to="#submenu1"
                 data-bs-toggle="collapse"
                 className="nav-link px-0 align-middle"
               >
                 <i className="fs-4 bi-table"></i>{" "}
                 <span className="ms-1 d-none d-sm-inline">Applications</span>{" "}
-              </a>
+              </Link>
               <ul
                 className="collapse show nav flex-column ms-1 sidebar-collapse-transition"
                 id="submenu1"
                 data-bs-parent="#menu"
               >
                 <li className="w-100">
-                  <a href="/borrower/activerequests" className="nav-link px-0">
+                  <Link to="/borrower/activerequests" className="nav-link px-0">
                     <i className="fs-5 bi-file-spreadsheet"></i>{" "}
                     <span className="d-none d-sm-inline">Requests</span>{" "}
-                  </a>
+                  </Link>
                 </li>
                 <li>
-                  <a href="/borrower/approvedloans" className="nav-link px-0">
-                  <i className="fs-5 bi-list-check"></i>{" "}
+                  <Link to="/borrower/approvedloans" className="nav-link px-0">
+                    <i className="fs-5 bi-list-check"></i>{" "}
                     <span className="d-none d-sm-inline">Approved</span>{" "}
-                  </a>
+                  </Link>
                 </li>
               </ul>
             </li>
             <li>
-              <a
-                href="/borrower/fundedloans"
+              <Link
+                to="/borrower/fundedloans"
                 className="nav-link px-0 align-middle"
               >
                 <i className="fs-5 bi-cash-coin"></i>{" "}
                 <span className="ms-1 d-none d-sm-inline">Loans</span>
-              </a>
+              </Link>
             </li>
             <li>
-              <a href="/borrower/wallet" className="nav-link px-0 align-middle">
+              <Link
+                to="/borrower/wallet"
+                className="nav-link px-0 align-middle"
+              >
                 <i className="fs-5 bi-wallet-fill"></i>{" "}
                 <span className="ms-1 d-none d-sm-inline">Wallet</span>
-              </a>
+              </Link>
             </li>
           </ul>
         </div>
@@ -80,43 +84,46 @@ const Sidebar = () => {
         <div className="d-flex flex-column align-items-center align-items-sm-start px-3 pt-2 text-white min-vh-100">
           <ul className="nav nav-pills flex-column mb-sm-auto mb-0 align-items-center align-items-sm-start">
             <li className="nav-item">
-              <a href="/" className="nav-link align-middle px-0">
+              <Link to="/" className="nav-link align-middle px-0">
                 <i className="fs-5 bi-house"></i>{" "}
                 <span className="ms-1 d-none d-sm-inline">Home</span>
-              </a>
+              </Link>
             </li>
             <li>
-              <a
-                href="/investor/availableinvestments"
+              <Link
+                to="/investor/availableinvestments"
                 className="nav-link px-0 align-middle"
               >
                 <i className="fs-5 bi-coin"></i>{" "}
                 <span className="ms-1 d-none d-sm-inline">Invest</span>
-              </a>
+              </Link>
             </li>
             <li>
-              <a
-                href="/investor/pledges"
+              <Link
+                to="/investor/pledges"
                 className="nav-link px-0 align-middle"
               >
                 <i className="fs-5 bi-clipboard-check-fill"></i>{" "}
                 <span className="ms-1 d-none d-sm-inline">Pledges</span>
-              </a>
+              </Link>
             </li>
             <li>
-              <a
-                href="/investor/activeinvestments"
+              <Link
+                to="/investor/activeinvestments"
                 className="nav-link px-0 align-middle"
               >
                 <i className="fs-5 bi-cash-coin"></i>{" "}
                 <span className="ms-1 d-none d-sm-inline">Investments</span>
-              </a>
+              </Link>
             </li>
             <li>
-              <a href="/investor/wallet" className="nav-link px-0 align-middle">
+              <Link
+                to="/investor/wallet"
+                className="nav-link px-0 align-middle"
+              >
                 <i className="fs-5 bi-wallet-fill"></i>{" "}
                 <span className="ms-1 d-none d-sm-inline">Wallet</span>
-              </a>
+              </Link>
             </li>
           </ul>
         </div>
@@ -130,28 +137,28 @@ const Sidebar = () => {
         <div className="d-flex flex-column align-items-center align-items-sm-start px-3 pt-2 text-white min-vh-100">
           <ul className="nav nav-pills flex-column mb-sm-auto mb-0 align-items-center align-items-sm-start">
             <li className="nav-item">
-              <a href="/" className="nav-link align-middle px-0">
+              <Link to="/" className="nav-link align-middle px-0">
                 <i className="fs-5 bi-house"></i>{" "}
                 <span className="ms-1 d-none d-sm-inline">Home</span>
-              </a>
+              </Link>
             </li>
             <li>
-              <a
-                href="/underwriter/requests"
+              <Link
+                to="/underwriter/requests"
                 className="nav-link px-0 align-middle"
               >
                 <i className="fs-5 bi-cash"></i>{" "}
                 <span className="ms-1 d-none d-sm-inline">Requests</span>
-              </a>
+              </Link>
             </li>
             <li>
-              <a
-                href="/underwriter/approved"
+              <Link
+                to="/underwriter/approved"
                 className="nav-link px-0 align-middle"
               >
                 <i className="fs-5 bi-clipboard-check-fill"></i>{" "}
                 <span className="ms-1 d-none d-sm-inline">Approved</span>
-              </a>
+              </Link>
             </li>
           </ul>
         </div>

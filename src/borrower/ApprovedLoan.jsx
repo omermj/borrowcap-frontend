@@ -14,7 +14,7 @@ const ApprovedLoan = () => {
   const { id } = useParams();
   const [data, setData] = useState(null);
   const navigate = useNavigate();
-  
+
   useEffect(() => {
     const getApprovedRequest = async () => {
       const result = await BorrowcapApi.getApprovedRequest(id);
@@ -33,7 +33,6 @@ const ApprovedLoan = () => {
   const handleCancelRequest = async () => {
     const result = await BorrowcapApi.cancelApprovedRequest(id);
     if (result) navigate("/borrower");
-    console.log("Request Cancelled");
   };
 
   if (!data) return <LoadingSpinner />;
