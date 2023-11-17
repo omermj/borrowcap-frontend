@@ -13,7 +13,7 @@ import UserContext from "../auth/UserContext";
 import { useContext } from "react";
 import ApprovedLoan from "../borrower/ApprovedLoan";
 import ActiveRequests from "../borrower/ActiveRequests";
-import ApprovedLoans from "../borrower/ApprovedLoans";
+import ApprovedLoans from "../borrower/ApprovedRequests";
 import FundedLoans from "../borrower/FundedLoans";
 import AvailableInvestments from "../investor/AvailableInvestments";
 import PledgedInvestments from "../investor/PledgedInvestments";

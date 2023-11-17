@@ -26,9 +26,9 @@ it("renders table with loan requests", async () => {
     </UserContext.Provider>
   );
 
-  // Wait for api call to resolve and ppulate table
+  // Wait for api call to resolve and populate table
   await waitFor(() => {
-    expect(BorrowcapApi.getLoanRequestsByBorrowerId).toHaveBeenCalledWith(
+    expect(BorrowcapApi.getActiveRequestsByBorrowerId).toHaveBeenCalledWith(
       testUser.id
     );
   });
@@ -54,7 +54,7 @@ it("renders table with loan requests", async () => {
 // Test table rendering with no loan requests
 it("renders table with no loan requests", async () => {
   // Mock api call to return empty array
-  BorrowcapApi.getLoanRequestsByBorrowerId.mockResolvedValue([]);
+  BorrowcapApi.getActiveRequestsByBorrowerId.mockResolvedValue([]);
 
   render(
     <UserContext.Provider value={{ currentUser: testUser }}>
@@ -62,9 +62,9 @@ it("renders table with no loan requests", async () => {
     </UserContext.Provider>
   );
 
-  // Wait for api call to resolve and ppulate table
+  // Wait for api call to resolve and populate table
   await waitFor(() => {
-    expect(BorrowcapApi.getLoanRequestsByBorrowerId).toHaveBeenCalledWith(
+    expect(BorrowcapApi.getActiveRequestsByBorrowerId).toHaveBeenCalledWith(
       testUser.id
     );
   });

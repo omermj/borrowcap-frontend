@@ -48,7 +48,7 @@ class BorrowcapApi {
   }
 
   /** Get all Active Loan Requests by BorrowerId */
-  static async getLoanRequestsByBorrowerId(id) {
+  static async getActiveRequestsByBorrowerId(id) {
     const res = await this.request(`activerequests/users/${id}`);
     return res.activeRequests;
   }

@@ -1,5 +1,4 @@
 import { useState, useEffect, useContext } from "react";
-import TableComponent from "../common/TableComponent";
 import {
   formatCurrency,
   formatDate,
@@ -8,10 +7,11 @@ import {
 } from "../helpers/format";
 import BorrowcapApi from "../api/api";
 import UserContext from "../auth/UserContext";
+import TableComponent from "../common/TableComponent";
 
 /** Table showing all Active Loan Requests for logged in user */
 
-const ApprovedLoans = () => {
+const ApprovedRequests = () => {
   const { currentUser } = useContext(UserContext);
   const [approvedLoans, setApprovedLoans] = useState([]);
 
@@ -60,7 +60,8 @@ const ApprovedLoans = () => {
     fetchLoanRequests();
   }, [currentUser.id]);
 
-  if (!approvedLoans.length) return <div></div>;
+  if (!approvedLoans || !approvedLoans.length)
+    return <div>No approved loan requests.</div>;
 
   return (
     <div className="border mb-4">
@@ -72,4 +73,4 @@ const ApprovedLoans = () => {
   );
 };
 
-export default ApprovedLoans;
+export default ApprovedRequests;
