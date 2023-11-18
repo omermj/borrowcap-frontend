@@ -55,7 +55,7 @@ const ApprovedRequests = () => {
       const approvedRequests = await BorrowcapApi.getApprovedRequestsByUserId(
         currentUser.id
       );
-      setApprovedLoans(approvedRequests.borrower);
+      if (approvedRequests) setApprovedLoans(approvedRequests.borrower);
     }
     fetchLoanRequests();
   }, [currentUser.id]);
