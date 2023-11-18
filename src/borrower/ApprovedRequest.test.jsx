@@ -67,6 +67,7 @@ it("renders information properly", async () => {
   expect(screen.getByText("Cancel Request")).toBeInTheDocument();
 });
 
+// Test Enable Funding button click
 it("handles Enable Funding button click", async () => {
   render(
     <BrowserRouter>
@@ -90,5 +91,5 @@ it("handles Enable Funding button click", async () => {
       expect(BorrowcapApi.enableFundingForApprovedRequest).toHaveBeenCalled();
     });
   };
-  expect(screen.getByText("Funding Enabled: Yes")).toBeInTheDocument(0);
+  expect(screen.getByText("Funding Enabled: Yes")).toBeInTheDocument();
 });

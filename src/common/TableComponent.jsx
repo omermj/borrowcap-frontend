@@ -5,8 +5,9 @@ import "./TableComponent.css";
 const TableComponent = ({ headers, tableData }) => {
   const [data, setData] = useState(tableData);
 
-  const TableButton = ({ link, label, onClick, icon }) => (
+  const TableButton = ({ link, label, onClick, icon, testId }) => (
     <Button
+      data-testid={testId ? testId : null}
       className="btn-dark"
       href={onClick ? null : link}
       size="sm"
@@ -42,6 +43,7 @@ const TableComponent = ({ headers, tableData }) => {
                   <td key={cellIdx}>
                     {formatter === "button" ? (
                       <TableButton
+                        testId={headers[headerKey].testId}
                         label={
                           headers[headerKey].icon
                             ? headers[headerKey].icon()

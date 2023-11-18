@@ -20,7 +20,7 @@ const FundedLoans = () => {
       const fundedLoans = await BorrowcapApi.getFundedLoansByUserId(
         currentUser.id
       );
-      setFundedLoans(fundedLoans.borrower);
+      if (fundedLoans) setFundedLoans(fundedLoans.borrower);
     }
     fetchFundedLoans();
   }, [currentUser.id]);
@@ -50,10 +50,11 @@ const FundedLoans = () => {
       link: "/fundedloans/pay",
       onClick: handlePay,
       icon: payIcon,
+      testId: "pay-button",
     },
   };
 
-  if (!fundedLoans.length) return <div></div>;
+  if (!fundedLoans || !fundedLoans.length) return <div>No funded loans.</div>;
 
   return (
     <div className="border mb-4">

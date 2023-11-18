@@ -74,6 +74,20 @@ const commonBeforeEach = () => {
   BorrowcapApi.enableFundingForApprovedRequest.mockResolvedValue({
     message: "Funding is enabled",
   });
+
+  BorrowcapApi.getFundedLoansByUserId.mockResolvedValue({
+    borrower: [
+      {
+        id: 6,
+        amtFunded: "25000",
+        fundedDate: "2023/01/05",
+        interestRate: "0.07",
+        term: 36,
+        installmentAmt: "771.93",
+        remainingBalance: "25000",
+      },
+    ],
+  });
 };
 
 module.exports = { testUser, commonBeforeEach };
