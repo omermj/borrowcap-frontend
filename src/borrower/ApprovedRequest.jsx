@@ -9,7 +9,7 @@ import UserContext from "../auth/UserContext";
 
 /** Displays a single Available Investment */
 
-const ApprovedLoan = () => {
+const ApprovedRequest = () => {
   const { currentUser } = useContext(UserContext);
   const { id } = useParams();
   const [data, setData] = useState(null);
@@ -27,7 +27,12 @@ const ApprovedLoan = () => {
 
   const handleEnableFunding = async () => {
     const result = await BorrowcapApi.enableFundingForApprovedRequest(id);
-    if (result) setData({ ...data, availableForFunding: true });
+    if (result) {
+      setData((prevData) => ({
+        ...prevData,
+        availableForFunding: true,
+      }));
+    }
   };
 
   const handleCancelRequest = async () => {
@@ -81,4 +86,4 @@ const ApprovedLoan = () => {
   );
 };
 
-export default ApprovedLoan;
+export default ApprovedRequest;

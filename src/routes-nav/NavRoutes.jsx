@@ -11,7 +11,7 @@ import AvailableInvestment from "../investor/AvailableInvestment";
 import ReviewRequest from "../underwriter/ReviewRequest";
 import UserContext from "../auth/UserContext";
 import { useContext } from "react";
-import ApprovedLoan from "../borrower/ApprovedLoan";
+import ApprovedLoan from "../borrower/ApprovedRequest";
 import ActiveRequests from "../borrower/ActiveRequests";
 import ApprovedLoans from "../borrower/ApprovedRequests";
 import FundedLoans from "../borrower/FundedLoans";
