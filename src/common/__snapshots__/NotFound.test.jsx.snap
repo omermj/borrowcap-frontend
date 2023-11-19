@@ -1,0 +1,16 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`matches snapshot 1`] = `
+<DocumentFragment>
+  <div
+    class="text-start text-dark"
+  >
+    <h1>
+      404
+    </h1>
+    <h3>
+      The page you are looking for does not exist
+    </h3>
+  </div>
+</DocumentFragment>
+`;

@@ -1,0 +1,101 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`matches snapshot 1`] = `
+<DocumentFragment>
+  <div
+    class="form-wrapper mx-4"
+  >
+    <div
+      class="container"
+    >
+      <div
+        class="row"
+      >
+        <div
+          class="col"
+        >
+          <h3
+            class="mb-4 text-center"
+          >
+            Account Balance: $NaN
+          </h3>
+        </div>
+      </div>
+      <div
+        class="row"
+      >
+        <div
+          class="form-inner col"
+        >
+          <h6
+            class="mb-3 text-center"
+          >
+            Deposit Funds
+          </h6>
+          <form
+            class=""
+          >
+            <div
+              class="mb-2"
+            >
+              <input
+                class="form-control"
+                id="depositFormAmount"
+                name="amount"
+                placeholder="Enter deposit amount"
+                type="number"
+                value=""
+              />
+            </div>
+            <div
+              class="text-center"
+            >
+              <button
+                class="mt-3 px-4 btn-dark btn btn-primary"
+                type="submit"
+              >
+                Deposit
+              </button>
+            </div>
+          </form>
+        </div>
+        <div
+          class="form-inner mx-4 col"
+        >
+          <h6
+            class="mb-3 text-center"
+          >
+            Withdraw Funds
+          </h6>
+          <form
+            class=""
+          >
+            <div
+              class="mb-2"
+            >
+              <input
+                class="form-control"
+                id="withdrawFormAmount"
+                name="amount"
+                placeholder="Enter withdrawal amount"
+                type="number"
+                value=""
+              />
+            </div>
+            <div
+              class="text-center"
+            >
+              <button
+                class="mt-3 px-4 btn-dark btn btn-primary"
+                type="submit"
+              >
+                Withdraw
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
+`;

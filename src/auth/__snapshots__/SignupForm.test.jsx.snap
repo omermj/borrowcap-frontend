@@ -1,0 +1,216 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`matches snapshot 1`] = `
+<DocumentFragment>
+  <div
+    class="form-wrapper"
+  >
+    <div
+      class="form-inner"
+    >
+      <h3
+        class="mb-4 text-center"
+      >
+        Signup
+      </h3>
+      <form
+        class=""
+      >
+        <div
+          class="mb-3"
+        >
+          <label
+            class="form-label"
+            for="signupUsername"
+          >
+            Username
+          </label>
+          <input
+            autocomplete="username"
+            class="form-control"
+            id="signupUsername"
+            name="username"
+            placeholder="Enter username"
+            required=""
+            type="text"
+            value=""
+          />
+        </div>
+        <div
+          class="mb-3"
+        >
+          <label
+            class="form-label"
+            for="signupPassword"
+          >
+            Password
+          </label>
+          <input
+            autocomplete="current-password"
+            class="form-control"
+            id="signupPassword"
+            name="password"
+            placeholder="Enter password"
+            required=""
+            type="password"
+            value=""
+          />
+        </div>
+        <div
+          class="mb-3"
+        >
+          <label
+            class="form-label"
+            for="signupFirstName"
+          >
+            First Name
+          </label>
+          <input
+            autocomplete="given-name"
+            class="form-control"
+            id="signupFirstName"
+            name="firstName"
+            placeholder="Enter first name"
+            required=""
+            type="text"
+            value=""
+          />
+        </div>
+        <div
+          class="mb-3"
+        >
+          <label
+            class="form-label"
+            for="signupLastName"
+          >
+            Last Name
+          </label>
+          <input
+            autocomplete="family-name"
+            class="form-control"
+            id="signupLastName"
+            name="lastName"
+            placeholder="Enter last name"
+            required=""
+            type="text"
+            value=""
+          />
+        </div>
+        <div
+          class="mb-3"
+        >
+          <label
+            class="form-label"
+            for="signupEmail"
+          >
+            Email
+          </label>
+          <input
+            autocomplete="email"
+            class="form-control"
+            id="signupEmail"
+            name="email"
+            placeholder="Enter email"
+            required=""
+            type="email"
+            value=""
+          />
+        </div>
+        <div
+          class="mb-3"
+        >
+          <label
+            class="form-label"
+            for="signupAnnualIncome"
+          >
+            Annual Income
+          </label>
+          <input
+            class="form-control"
+            id="signupAnnualIncome"
+            name="annualIncome"
+            placeholder="Enter annual income"
+            required=""
+            type="number"
+            value=""
+          />
+        </div>
+        <div
+          class="mb-3"
+        >
+          <label
+            class="form-label"
+            for="signupOtherMonthlyDebt"
+          >
+            Other Monthly Debt
+          </label>
+          <input
+            class="form-control"
+            id="signupOtherMonthlyDebt"
+            name="otherMonthlyDebt"
+            placeholder="Enter other monthly debt"
+            required=""
+            type="number"
+            value=""
+          />
+        </div>
+        <div>
+          <label
+            class="form-label"
+          >
+            User Type
+          </label>
+          <div>
+            <div
+              class="form-check form-check-inline"
+            >
+              <input
+                class="form-check-input"
+                id="roles-investor"
+                name="userType"
+                type="radio"
+                value="investor"
+              />
+              <label
+                class="form-check-label"
+                for="roles-investor"
+                title=""
+              >
+                investor
+              </label>
+            </div>
+            <div
+              class="form-check form-check-inline"
+            >
+              <input
+                class="form-check-input"
+                id="roles-borrower"
+                name="userType"
+                type="radio"
+                value="borrower"
+              />
+              <label
+                class="form-check-label"
+                for="roles-borrower"
+                title=""
+              >
+                borrower
+              </label>
+            </div>
+          </div>
+        </div>
+        <div
+          class="d-grid"
+        >
+          <button
+            class="mt-4 btn-dark btn btn-primary"
+            type="submit"
+          >
+            Submit
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</DocumentFragment>
+`;
