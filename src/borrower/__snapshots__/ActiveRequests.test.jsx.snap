@@ -2,8 +2,26 @@
 
 exports[`matches snapshot 1`] = `
 <DocumentFragment>
-  <div>
-    No active loan requests.
+  <div
+    class="border mb-4"
+  >
+    <div
+      class="py-2"
+    >
+      <span
+        class="align-middle h5"
+      >
+        New Loan Requests
+      </span>
+    </div>
+    <div
+      class=" mb-2 fst-italic fw-light"
+    >
+       
+      <small>
+        No active loan requests.
+      </small>
+    </div>
   </div>
 </DocumentFragment>
 `;

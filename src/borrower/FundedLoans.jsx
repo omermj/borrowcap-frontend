@@ -54,14 +54,19 @@ const FundedLoans = () => {
     },
   };
 
-  if (!fundedLoans || !fundedLoans.length) return <div>No funded loans.</div>;
-
   return (
     <div className="border mb-4">
       <div className="py-2">
         <span className="align-middle h5">Funded Loans</span>
       </div>
-      <TableComponent headers={headers} tableData={fundedLoans} />
+      {!fundedLoans || !fundedLoans.length ? (
+        <div className=" mb-2 fst-italic fw-light">
+          {" "}
+          <small>No funded loans.</small>
+        </div>
+      ) : (
+        <TableComponent headers={headers} tableData={fundedLoans} />
+      )}
     </div>
   );
 };

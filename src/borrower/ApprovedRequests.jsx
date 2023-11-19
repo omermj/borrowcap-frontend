@@ -60,15 +60,19 @@ const ApprovedRequests = () => {
     fetchLoanRequests();
   }, [currentUser.id]);
 
-  if (!approvedLoans || !approvedLoans.length)
-    return <div>No approved loan requests.</div>;
-
   return (
     <div className="border mb-4">
       <div className="py-2">
         <span className="align-middle h5">Approved Loan Requests</span>
       </div>
-      <TableComponent headers={headers} tableData={approvedLoans} />
+      {!approvedLoans || !approvedLoans.length ? (
+        <div className=" mb-2 fst-italic fw-light">
+          {" "}
+          <small>No approved loan requests.</small>
+        </div>
+      ) : (
+        <TableComponent headers={headers} tableData={approvedLoans} />
+      )}
     </div>
   );
 };

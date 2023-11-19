@@ -35,14 +35,19 @@ const ActiveRequests = () => {
     fetchLoanRequests();
   }, [currentUser.id]);
 
-  if (!loanRequests.length) return <div>No active loan requests.</div>;
-
   return (
     <div className="border mb-4">
       <div className="py-2">
         <span className="align-middle h5">New Loan Requests</span>
       </div>
-      <TableComponent headers={headers} tableData={loanRequests} />
+      {!loanRequests.length ? (
+        <div className=" mb-2 fst-italic fw-light">
+          {" "}
+          <small>No active loan requests.</small>
+        </div>
+      ) : (
+        <TableComponent headers={headers} tableData={loanRequests} />
+      )}
     </div>
   );
 };
