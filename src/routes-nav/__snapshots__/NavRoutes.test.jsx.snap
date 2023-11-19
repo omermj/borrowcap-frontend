@@ -1,0 +1,73 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`matches snapshot 1`] = `
+<DocumentFragment>
+  <div>
+    <div>
+      <div
+        class="border mb-4"
+      >
+        <div
+          class="py-2"
+        >
+          <span
+            class="align-middle h5"
+          >
+            New Loan Requests
+          </span>
+        </div>
+        <div
+          class=" mb-2 fst-italic fw-light"
+        >
+           
+          <small>
+            No active loan requests.
+          </small>
+        </div>
+      </div>
+      <div
+        class="border mb-4"
+      >
+        <div
+          class="py-2"
+        >
+          <span
+            class="align-middle h5"
+          >
+            Approved Loan Requests
+          </span>
+        </div>
+        <div
+          class=" mb-2 fst-italic fw-light"
+        >
+           
+          <small>
+            No approved loan requests.
+          </small>
+        </div>
+      </div>
+      <div
+        class="border mb-4"
+      >
+        <div
+          class="py-2"
+        >
+          <span
+            class="align-middle h5"
+          >
+            Funded Loans
+          </span>
+        </div>
+        <div
+          class=" mb-2 fst-italic fw-light"
+        >
+           
+          <small>
+            No funded loans.
+          </small>
+        </div>
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
+`;

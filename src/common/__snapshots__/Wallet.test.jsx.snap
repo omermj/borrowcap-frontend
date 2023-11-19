@@ -17,7 +17,7 @@ exports[`matches snapshot 1`] = `
           <h3
             class="mb-4 text-center"
           >
-            Account Balance: $NaN
+            Account Balance: $20,000.00
           </h3>
         </div>
       </div>

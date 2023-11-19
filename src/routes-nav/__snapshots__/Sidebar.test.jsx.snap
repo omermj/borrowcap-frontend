@@ -1,0 +1,144 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`matches snapshot 1`] = `
+<DocumentFragment>
+  <div
+    class="Sidebar col-auto col-md-3 col-xl-2 px-sm-2 px-0 bg-dark col"
+  >
+    <div
+      class="d-flex flex-column align-items-center align-items-sm-start px-3 pt-2 text-white min-vh-100"
+    >
+      <ul
+        class="nav nav-pills flex-column mb-sm-auto mb-0 align-items-center align-items-sm-start"
+      >
+        <li
+          class="nav-item"
+        >
+          <a
+            class="nav-link align-middle px-0"
+            href="/"
+          >
+            <i
+              class="fs-5 bi-house"
+            />
+             
+            <span
+              class="ms-1 d-none d-sm-inline"
+            >
+              Home
+            </span>
+          </a>
+        </li>
+        <li>
+          <a
+            class="nav-link px-0 align-middle"
+            href="/borrower/apply"
+          >
+            <i
+              class="fs-5 bi-coin"
+            />
+             
+            <span
+              class="ms-1 d-none d-sm-inline"
+            >
+              Apply
+            </span>
+          </a>
+        </li>
+        <li>
+          <a
+            class="nav-link px-0 align-middle"
+            data-bs-toggle="collapse"
+            href="/#submenu1"
+          >
+            <i
+              class="fs-4 bi-table"
+            />
+             
+            <span
+              class="ms-1 d-none d-sm-inline"
+            >
+              Applications
+            </span>
+             
+          </a>
+          <ul
+            class="collapse show nav flex-column ms-1 sidebar-collapse-transition"
+            data-bs-parent="#menu"
+            id="submenu1"
+          >
+            <li
+              class="w-100"
+            >
+              <a
+                class="nav-link px-0"
+                href="/borrower/activerequests"
+              >
+                <i
+                  class="fs-5 bi-file-spreadsheet"
+                />
+                 
+                <span
+                  class="d-none d-sm-inline"
+                >
+                  Requests
+                </span>
+                 
+              </a>
+            </li>
+            <li>
+              <a
+                class="nav-link px-0"
+                href="/borrower/approvedloans"
+              >
+                <i
+                  class="fs-5 bi-list-check"
+                />
+                 
+                <span
+                  class="d-none d-sm-inline"
+                >
+                  Approved
+                </span>
+                 
+              </a>
+            </li>
+          </ul>
+        </li>
+        <li>
+          <a
+            class="nav-link px-0 align-middle"
+            href="/borrower/fundedloans"
+          >
+            <i
+              class="fs-5 bi-cash-coin"
+            />
+             
+            <span
+              class="ms-1 d-none d-sm-inline"
+            >
+              Loans
+            </span>
+          </a>
+        </li>
+        <li>
+          <a
+            class="nav-link px-0 align-middle"
+            href="/borrower/wallet"
+          >
+            <i
+              class="fs-5 bi-wallet-fill"
+            />
+             
+            <span
+              class="ms-1 d-none d-sm-inline"
+            >
+              Wallet
+            </span>
+          </a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</DocumentFragment>
+`;

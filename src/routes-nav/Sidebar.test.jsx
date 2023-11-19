@@ -1,5 +1,5 @@
 import { render } from "@testing-library/react";
-import Wallet from "./Wallet";
+import Sidebar from "./Sidebar";
 import { BrowserRouter } from "react-router-dom";
 import UserContext from "../auth/UserContext";
 
@@ -8,9 +8,9 @@ it("renders without crashing", () => {
   render(
     <BrowserRouter>
       <UserContext.Provider
-        value={{ currentUser: { username: "test", accountBalance: "20000" } }}
+        value={{ currentUser: { username: "test", roles: ["borrower"] } }}
       >
-        <Wallet />
+        <Sidebar />
       </UserContext.Provider>
     </BrowserRouter>
   );
@@ -21,9 +21,9 @@ it("matches snapshot", () => {
   const { asFragment } = render(
     <BrowserRouter>
       <UserContext.Provider
-        value={{ currentUser: { username: "test", accountBalance: "20000" } }}
+        value={{ currentUser: { username: "test", roles: ["borrower"] } }}
       >
-        <Wallet />
+        <Sidebar />
       </UserContext.Provider>
     </BrowserRouter>
   );
