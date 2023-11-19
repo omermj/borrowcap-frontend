@@ -26,6 +26,18 @@ const commonBeforeEach = async () => {
       },
     ],
   });
+  await BorrowcapApi.getAvailableInvestments.mockResolvedValue([
+    {
+      id: 7,
+      amtApproved: "8000",
+      amtFunded: "0",
+      purpose: "Medical",
+      approvedDate: "2023/01/01",
+      fundingDeadline: "2023/02/1",
+      interestRate: "0.07",
+      term: 24,
+    },
+  ]);
 };
 
 module.exports = { testUser, commonBeforeEach };
