@@ -51,6 +51,25 @@ const commonBeforeEach = async () => {
       },
     ],
   });
+  BorrowcapApi.getApprovedRequest.mockResolvedValue({
+    id: 8,
+    borrowerId: 2,
+    amtRequested: "13000",
+    amtApproved: "12000",
+    amtFunded: "6000",
+    purpose: "Education",
+    purposeId: 3,
+    appOpenDate: "2023-01-01",
+    appApprovedDate: "2023/01/05",
+    fundingDeadline: "2023/02/05",
+    interestRate: "0.07",
+    term: 24,
+    installmentAmt: "537.27",
+    availableForFunding: true,
+    isFunded: false,
+    annualIncome: "100000",
+    otherMonthlyDebt: "1200",
+  });
 };
 
 module.exports = { testUser, commonBeforeEach };

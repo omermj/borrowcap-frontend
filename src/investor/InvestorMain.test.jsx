@@ -1,8 +1,8 @@
 import { render, act } from "@testing-library/react";
 import UserContext from "../auth/UserContext.jsx";
-import { commonBeforeEach, testUser } from "./_testCommon.js";
+import { testUser } from "./_testCommon.js";
 import { expect, it } from "vitest";
-import BorrowerMain from "./BorrowerMain.jsx";
+import InvestorMain from "./InvestorMain.jsx";
 import { BrowserRouter } from "react-router-dom";
 
 // Smoke test
@@ -11,7 +11,7 @@ it("renders without crashing", () => {
     render(
       <BrowserRouter>
         <UserContext.Provider value={{ currentUser: testUser }}>
-          <BorrowerMain />
+          <InvestorMain />
         </UserContext.Provider>
       </BrowserRouter>
     );
@@ -23,7 +23,7 @@ it("matches the snapshot", () => {
   const { asFragment } = render(
     <BrowserRouter>
       <UserContext.Provider value={{ currentUser: testUser }}>
-        <BorrowerMain />
+        <InvestorMain />
       </UserContext.Provider>
     </BrowserRouter>
   );

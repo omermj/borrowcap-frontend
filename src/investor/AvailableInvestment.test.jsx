@@ -1,52 +1,44 @@
-import {
-  render,
-  waitFor,
-  screen,
-  fireEvent,
-  act,
-} from "@testing-library/react";
+import { render, waitFor, screen, act } from "@testing-library/react";
+import AvailableInvestment from "./AvailableInvestment.jsx";
+import { expect, it } from "vitest";
 import UserContext from "../auth/UserContext.jsx";
 import { commonBeforeEach, testUser } from "./_testCommon.js";
 import BorrowcapApi from "../api/api.js";
-import { expect, it } from "vitest";
-import ApprovedRequest from "./ApprovedRequest.jsx";
 import { BrowserRouter } from "react-router-dom";
 
 // Mock api calls
 vi.mock("../api/api");
-beforeEach(() => commonBeforeEach);
+beforeEach(commonBeforeEach);
 
 // Smoke test
 it("renders without crashing", () => {
-  act(() => {
-    render(
-      <BrowserRouter>
-        <UserContext.Provider value={{ currentUser: testUser }}>
-          <ApprovedRequest />
-        </UserContext.Provider>
-      </BrowserRouter>
-    );
-  });
-});
-
-// Snapshot test
-it("matches the snapshot", () => {
-  const { asFragment } = render(
+  render(
     <BrowserRouter>
       <UserContext.Provider value={{ currentUser: testUser }}>
-        <ApprovedRequest />
+        <AvailableInvestment />
       </UserContext.Provider>
     </BrowserRouter>
   );
-  expect(asFragment).toMatchSnapshot();
 });
 
-// Test Approved Request data
+// Snapshot test
+it("matches snapshot", () => {
+  const { asFragment } = render(
+    <BrowserRouter>
+      <UserContext.Provider value={{ currentUser: testUser }}>
+        <AvailableInvestment />
+      </UserContext.Provider>
+    </BrowserRouter>
+  );
+  expect(asFragment()).toMatchSnapshot();
+});
+
+// Test Available Investment data
 it("renders information properly", async () => {
   render(
     <BrowserRouter>
       <UserContext.Provider value={{ currentUser: testUser }}>
-        <ApprovedRequest />
+        <AvailableInvestment />
       </UserContext.Provider>
     </BrowserRouter>
   );
@@ -63,16 +55,15 @@ it("renders information properly", async () => {
   expect(screen.getByText("Loan Purpose: Education")).toBeInTheDocument();
 
   // Verify buttons rendered properly
-  expect(screen.getByText("Enable Funding")).toBeInTheDocument();
-  expect(screen.getByText("Cancel Request")).toBeInTheDocument();
+  expect(screen.getByText("Invest")).toBeInTheDocument();
 });
 
-// Test Enable Funding button click
+// Test Invest button click
 it("handles Enable Funding button click", async () => {
   render(
     <BrowserRouter>
       <UserContext.Provider value={{ currentUser: testUser }}>
-        <ApprovedRequest />
+        <AvailableInvestment />
       </UserContext.Provider>
     </BrowserRouter>
   );
@@ -84,18 +75,11 @@ it("handles Enable Funding button click", async () => {
 
   // Click enable funding button
   async () => {
-    const enableFundingButton = screen.getByText("Enable Funding");
-    fireEvent.click(enableFundingButton);
+    const investButton = screen.getByText("Invest");
+    fireEvent.click(investButton);
 
     await waitFor(() => {
-      expect(BorrowcapApi.enableFundingForApprovedRequest).toHaveBeenCalled();
+      expect(BorrowcapApi.fundApprovedRequest).toHaveBeenCalled();
     });
   };
-
-  // resolve api again
-  await waitFor(() => {
-    expect(BorrowcapApi.getApprovedRequest).toHaveBeenCalled();
-  });
-
-  expect(screen.getByText("Funding Enabled: Yes")).toBeInTheDocument();
 });
