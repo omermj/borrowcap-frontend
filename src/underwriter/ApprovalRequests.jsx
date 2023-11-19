@@ -30,7 +30,7 @@ const ApprovalRequests = () => {
       formatter: "button",
       link: "/underwriter/reviewrequest",
       onClick: null,
-      icon: reviewIcon
+      icon: reviewIcon,
     },
   };
 
@@ -43,12 +43,19 @@ const ApprovalRequests = () => {
     fetchLoanRequests();
   }, []);
 
-  if (!loanRequests.length) return <div></div>;
-
   return (
-    <div>
-      <p>Approval Requests</p>
-      <TableComponent headers={headers} tableData={loanRequests} />
+    <div className="border mb-4">
+      <div className="py-2">
+        <span className="align-middle h5">Approval Requests</span>
+      </div>
+      {!loanRequests.length ? (
+        <div className=" mb-2 fst-italic fw-light">
+          {" "}
+          <small>No approval requests.</small>
+        </div>
+      ) : (
+        <TableComponent headers={headers} tableData={loanRequests} />
+      )}
     </div>
   );
 };

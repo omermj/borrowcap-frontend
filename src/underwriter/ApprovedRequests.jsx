@@ -36,12 +36,19 @@ const ApprovedRequests = () => {
     fetchApprovedRequests();
   }, []);
 
-  if (!data.length) return <div></div>;
-
   return (
-    <div>
-      <p>Approved Requests</p>
-      <TableComponent headers={headers} tableData={data} />
+    <div className="border mb-4">
+      <div className="py-2">
+        <span className="align-middle h5">Approved Requests</span>
+      </div>
+      {!data.length ? (
+        <div className=" mb-2 fst-italic fw-light">
+          {" "}
+          <small>No approved requests.</small>
+        </div>
+      ) : (
+        <TableComponent headers={headers} tableData={data} />
+      )}
     </div>
   );
 };

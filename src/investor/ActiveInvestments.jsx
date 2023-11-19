@@ -25,18 +25,27 @@ const ActiveInvestments = () => {
   // get active investments on initial render
   useEffect(() => {
     async function fetchActiveLoans() {
-      const requests = await BorrowcapApi.getFundedLoansByUserId(currentUser.id);
+      const requests = await BorrowcapApi.getFundedLoansByUserId(
+        currentUser.id
+      );
       setData(requests.investor);
     }
     fetchActiveLoans();
   }, []);
 
-  if (!data.length) return <div></div>;
-
   return (
-    <div>
-      <p>Active Investments</p>
-      <TableComponent headers={headers} tableData={data} />
+    <div className="border mb-4">
+      <div className="py-2">
+        <span className="align-middle h5">Active Investments</span>
+      </div>
+      {!data.length ? (
+        <div className=" mb-2 fst-italic fw-light">
+          {" "}
+          <small>No active investments.</small>
+        </div>
+      ) : (
+        <TableComponent headers={headers} tableData={data} />
+      )}
     </div>
   );
 };

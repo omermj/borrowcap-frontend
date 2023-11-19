@@ -39,12 +39,19 @@ const AvailableInvestments = () => {
     fetchAvailableInvestments();
   }, []);
 
-  if (!data.length) return <div></div>;
-
   return (
-    <div>
-      <p>Available Investments</p>
-      <TableComponent headers={headers} tableData={data} />
+    <div className="border mb-4">
+      <div className="py-2">
+        <span className="align-middle h5">Available Investments</span>
+      </div>
+      {!data.length ? (
+        <div className=" mb-2 fst-italic fw-light">
+          {" "}
+          <small>No available investments.</small>
+        </div>
+      ) : (
+        <TableComponent headers={headers} tableData={data} />
+      )}
     </div>
   );
 };
