@@ -1,0 +1,27 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`matches snapshot 1`] = `
+<DocumentFragment>
+  <div
+    class="border mb-4"
+  >
+    <div
+      class="py-2"
+    >
+      <span
+        class="align-middle h5"
+      >
+        Active Investments
+      </span>
+    </div>
+    <div
+      class=" mb-2 fst-italic fw-light"
+    >
+       
+      <small>
+        No active investments.
+      </small>
+    </div>
+  </div>
+</DocumentFragment>
+`;
