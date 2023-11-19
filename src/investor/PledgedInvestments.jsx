@@ -3,12 +3,13 @@ import TableComponent from "../common/TableComponent";
 import { formatCurrency, formatDate, formatPercent } from "../helpers/format";
 import BorrowcapApi from "../api/api";
 import UserContext from "../auth/UserContext";
+import LoadingSpinner from "../common/LoadingSpinner";
 
 /** Table showing all Active Investments made by the logged in user */
 
 const PledgedInvestments = () => {
-  const [data, setData] = useState([]);
   const { currentUser } = useContext(UserContext);
+  const [data, setData] = useState([]);
 
   // Define table headers with labels and formatters
   const headers = {
