@@ -5,6 +5,10 @@ import { expect, it } from "vitest";
 import BorrowerMain from "./BorrowerMain.jsx";
 import { BrowserRouter } from "react-router-dom";
 
+// Mock api calls
+vi.mock("../api/api");
+beforeEach(commonBeforeEach);
+
 // Smoke test
 it("renders without crashing", () => {
   act(() => {

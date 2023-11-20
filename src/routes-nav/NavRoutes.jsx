@@ -1,4 +1,6 @@
 import { Route, Routes } from "react-router-dom";
+import { useContext } from "react";
+import UserContext from "../auth/UserContext";
 import BorrowerMain from "../borrower/BorrowerMain";
 import Homepage from "../homepage/Homepage";
 import InvestorMain from "../investor/InvestorMain";
@@ -9,8 +11,6 @@ import ProtectedRoute from "./ProtectedRoute";
 import LoanApplicationForm from "../borrower/LoanApplication";
 import AvailableInvestment from "../investor/AvailableInvestment";
 import ReviewRequest from "../underwriter/ReviewRequest";
-import UserContext from "../auth/UserContext";
-import { useContext } from "react";
 import ApprovedLoan from "../borrower/ApprovedRequest";
 import ActiveRequests from "../borrower/ActiveRequests";
 import ApprovedLoans from "../borrower/ApprovedRequests";

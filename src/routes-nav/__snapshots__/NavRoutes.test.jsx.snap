@@ -13,7 +13,7 @@ exports[`matches snapshot 1`] = `
           <span
             class="align-middle h5"
           >
-            New Loan Requests
+            Approval Requests
           </span>
         </div>
         <div
@@ -21,7 +21,7 @@ exports[`matches snapshot 1`] = `
         >
            
           <small>
-            No active loan requests.
+            No approval requests.
           </small>
         </div>
       </div>
@@ -34,7 +34,7 @@ exports[`matches snapshot 1`] = `
           <span
             class="align-middle h5"
           >
-            Approved Loan Requests
+            Approved Requests
           </span>
         </div>
         <div
@@ -42,28 +42,7 @@ exports[`matches snapshot 1`] = `
         >
            
           <small>
-            No approved loan requests.
-          </small>
-        </div>
-      </div>
-      <div
-        class="border mb-4"
-      >
-        <div
-          class="py-2"
-        >
-          <span
-            class="align-middle h5"
-          >
-            Funded Loans
-          </span>
-        </div>
-        <div
-          class=" mb-2 fst-italic fw-light"
-        >
-           
-          <small>
-            No funded loans.
+            No approved requests.
           </small>
         </div>
       </div>
