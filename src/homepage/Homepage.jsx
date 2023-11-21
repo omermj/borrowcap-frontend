@@ -8,6 +8,7 @@
  */
 
 import { Link } from "react-router-dom";
+import landingImg from "../assets/landing-page-image.png";
 
 const Homepage = () => {
   return (
@@ -31,7 +32,7 @@ const Homepage = () => {
           </Link>
         </div>
         <div className="col">
-          <img src="src/assets/landing-page-image.png" width={400} />
+          <img src={landingImg} width={400} />
         </div>
       </div>
     </div>
