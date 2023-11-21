@@ -91,8 +91,8 @@ function App() {
       <UserContext.Provider
         value={{ currentUser, setCurrentUser, BorrowcapApi }}
       >
-        <Container fluid>
-          <Row>
+        <Container fluid className="">
+          <Row className="">
             <Navigation logout={logout} />
           </Row>
           <Row className="flex-nowrap">

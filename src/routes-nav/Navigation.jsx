@@ -21,7 +21,7 @@ const Navigation = ({ logout }) => {
           {" "}
           <span>Profile</span>{" "}
         </Nav.Link>
-        <NavDropdown title={userstamp()} id="nav-dropdown">
+        <NavDropdown title={userstamp()} id="nav-dropdown" align={"end"}>
           <NavDropdown.Item as={Link} to="/user/changepassword">
             Change Password
           </NavDropdown.Item>
