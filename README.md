@@ -32,7 +32,7 @@ As an investor, you can invest in multiple loans from multiple investors. You ca
 - API Calls: Axios
 
 ## Backend API
-- Backend API for BorrowCap can be accessed here: [BorrowCap-Backend](https://github.com/codersixteen/borrowcap-backend)
+- Backend API for BorrowCap can be accessed here: [BorrowCap-Backend](https://github.com/omermj/borrowcap-backend)
 
 ## Installation instructions
 1. Clone the repo to your local machine
