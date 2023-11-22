@@ -1,20 +1,21 @@
 import { Table, Button } from "react-bootstrap";
 import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import "./TableComponent.css";
 
 const TableComponent = ({ headers, tableData }) => {
   const [data, setData] = useState(tableData);
 
   const TableButton = ({ link, label, onClick, icon, testId }) => (
-    <Button
+    <Link
       data-testid={testId ? testId : null}
-      className="btn-dark"
-      href={onClick ? null : link}
+      className="btn btn-dark btn-sm"
+      to={onClick ? null : link}
       size="sm"
       onClick={onClick ? onClick : null}
     >
       {icon ? icon() : label}
-    </Button>
+    </Link>
   );
 
   useEffect(() => {

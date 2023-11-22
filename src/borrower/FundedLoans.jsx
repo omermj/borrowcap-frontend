@@ -26,6 +26,7 @@ const FundedLoans = () => {
   }, [currentUser.id]);
 
   const handlePay = async (id) => {
+    // e.preventDefault();
     await BorrowcapApi.payInstallment(id);
     const fundedLoans = await BorrowcapApi.getFundedLoansByUserId(
       currentUser.id
