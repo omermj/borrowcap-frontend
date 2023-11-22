@@ -55,7 +55,7 @@ const Navigation = ({ logout }) => {
   else navToDisplay = LoggedOutNav;
 
   return (
-    <Navbar bg="dark" data-bs-theme="dark" className="">
+    <Navbar bg="dark" data-bs-theme="dark" className="" expand="sm" >
       <div className="container-fluid">
         <Navbar.Brand as={Link} to="/">
           BorrowCap

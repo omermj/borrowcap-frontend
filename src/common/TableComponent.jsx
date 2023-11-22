@@ -24,7 +24,7 @@ const TableComponent = ({ headers, tableData }) => {
   }, [tableData]);
 
   return (
-    <div>
+    <div className="table-responsive" >
       <Table className="table" striped hover borderless>
         <thead>
           <tr className="align-middle">
