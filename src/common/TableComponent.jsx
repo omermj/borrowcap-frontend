@@ -25,8 +25,14 @@ const TableComponent = ({ headers, tableData }) => {
   }, [tableData]);
 
   return (
-    <div className="table-responsive" >
-      <Table className="table" striped hover borderless>
+    <div className="table-responsive">
+      <Table
+        className="table"
+        striped
+        hover
+        borderless
+        style={{ minWidth: "800px" }}
+      >
         <thead>
           <tr className="align-middle">
             {Object.keys(headers).map((headerKey, idx) => (

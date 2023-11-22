@@ -62,7 +62,7 @@ const ReviewRequest = ({ terms }) => {
             <div>First Name: {data.firstName}</div>
             <div>Last Name: {data.lastName}</div>
             <div>Email: {data.email}</div>
-            <div>Account Balance: {data.accountBalance}</div>
+            <div>Account Balance: {formatCurrency(data.accountBalance)}</div>
             <div>
               Borrower&apos;s Income: {formatCurrency(data.annualIncome)}
             </div>
