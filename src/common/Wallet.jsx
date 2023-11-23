@@ -1,9 +1,10 @@
 import { Col, Container, Row } from "react-bootstrap";
 import { Formik } from "formik";
 import { Form, Button } from "react-bootstrap";
-import BorrowcapApi from "../api/api";
 import { formatCurrency } from "../helpers/format";
 import { useState, useContext } from "react";
+import { toast } from "react-toastify";
+import BorrowcapApi from "../api/api";
 import UserContext from "../auth/UserContext";
 import FormError from "./FormError";
 import * as Yup from "yup";
@@ -17,8 +18,15 @@ const Wallet = () => {
   );
 
   const amountSchema = Yup.object().shape({
-    amount: Yup.number().min(1, "Can't be negative or zero").required("Required"),
+    amount: Yup.number()
+      .min(1, "Can't be negative or zero")
+      .required("Required"),
   });
+
+  const notifyDeposit = () =>
+    toast.success("Amount has been deposited successfully.");
+  const notifyWithdraw = () =>
+    toast.success("Amount has been withdrawn successfully.");
 
   return (
     <div className="form-wrapper mx-4">
@@ -50,6 +58,7 @@ const Wallet = () => {
                     values.amount = "";
                     setStatus({ error: null });
                   }
+                  notifyDeposit();
                 } catch (e) {
                   setStatus({ error: e });
                 }
@@ -114,6 +123,7 @@ const Wallet = () => {
                     values.amount = "";
                     setStatus({ error: null });
                   }
+                  notifyWithdraw();
                 } catch (e) {
                   setStatus({ error: e });
                 }

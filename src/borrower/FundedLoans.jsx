@@ -1,7 +1,8 @@
 import { useState, useEffect, useContext } from "react";
+import { formatCurrency, formatDate, formatPercent } from "../helpers/format";
+import { toast } from "react-toastify";
 import TableComponent from "../common/TableComponent";
 import BorrowcapApi from "../api/api";
-import { formatCurrency, formatDate, formatPercent } from "../helpers/format";
 import UserContext from "../auth/UserContext";
 
 /** Table showing all Fundend Loans for logged in user */
@@ -13,6 +14,9 @@ const FundedLoans = () => {
   const payIcon = () => {
     return <i className="bi-credit-card-fill"></i>;
   };
+
+  const notifyPayInstallment = () =>
+    toast.success("Installment has been paid successfully.");
 
   // get funded loans on initial render
   useEffect(() => {
@@ -32,6 +36,7 @@ const FundedLoans = () => {
       currentUser.id
     );
     setFundedLoans([...fundedLoans.borrower]);
+    notifyPayInstallment();
   };
 
   const headers = {

@@ -1,18 +1,20 @@
+import { useState, useEffect } from "react";
 import { BrowserRouter } from "react-router-dom";
-import "bootstrap/dist/css/bootstrap.min.css";
-import "./App.css";
+import { Container, Row, Col } from "react-bootstrap";
+import { ToastContainer } from "react-toastify";
 import NavRoutes from "./routes-nav/NavRoutes";
 import Navigation from "./routes-nav/Navigation";
 import useLocalStorage from "./hooks/useLocalStorage";
-import { useState, useEffect } from "react";
 import jwtDecode from "jwt-decode";
 import BorrowcapApi from "./api/api";
 import UserContext from "./auth/UserContext";
 import LoadingSpinner from "./common/LoadingSpinner";
+import Sidebar from "./routes-nav/Sidebar";
 import "bootstrap-icons/font/bootstrap-icons.css";
 import "bootstrap/dist/js/bootstrap.bundle.js";
-import { Container, Row, Col } from "react-bootstrap";
-import Sidebar from "./routes-nav/Sidebar";
+import "bootstrap/dist/css/bootstrap.min.css";
+import "./App.css";
+import "react-toastify/dist/ReactToastify.min.css";
 
 // Key for storing token in localStorage
 export const TOKEN_STORAGE_ID = "borrowcap-token";
@@ -108,6 +110,7 @@ function App() {
             </Col>
           </Row>
         </Container>
+        <ToastContainer />
       </UserContext.Provider>
     </BrowserRouter>
   );

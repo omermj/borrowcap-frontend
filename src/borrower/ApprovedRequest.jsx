@@ -1,19 +1,23 @@
 import { Container, Row, Col } from "react-bootstrap";
-import { useState, useEffect, useContext } from "react";
+import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
+import { Button } from "react-bootstrap";
+import { toast } from "react-toastify";
+import { formatCurrency, formatDate } from "../helpers/format";
 import BorrowcapApi from "../api/api";
 import LoadingSpinner from "../common/LoadingSpinner";
-import { formatCurrency, formatDate, formatPercent } from "../helpers/format";
-import { Form, Button } from "react-bootstrap";
-import UserContext from "../auth/UserContext";
 
 /** Displays a single Available Investment */
 
 const ApprovedRequest = () => {
-  const { currentUser } = useContext(UserContext);
   const { id } = useParams();
   const [data, setData] = useState(null);
   const navigate = useNavigate();
+
+  const notifyEnableFunding = () =>
+    toast.success("Funding has been enabled on the approved request.");
+  const notifyCancelRequest = () =>
+    toast.info("Approved request has been cancelled.");
 
   useEffect(() => {
     const getApprovedRequest = async () => {
@@ -33,11 +37,13 @@ const ApprovedRequest = () => {
         availableForFunding: true,
       }));
     }
+    notifyEnableFunding();
   };
 
   const handleCancelRequest = async () => {
     const result = await BorrowcapApi.cancelApprovedRequest(id);
     if (result) navigate("/borrower");
+    notifyCancelRequest();
   };
 
   if (!data) return <LoadingSpinner />;
@@ -66,7 +72,7 @@ const ApprovedRequest = () => {
             </div>
           </Col>
         </Row>
-        <Row>
+        <Row className="mt-4">
           <Col>
             <Button
               onClick={handleEnableFunding}

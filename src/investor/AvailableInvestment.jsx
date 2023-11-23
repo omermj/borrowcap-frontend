@@ -1,11 +1,12 @@
 import { Container, Row, Col } from "react-bootstrap";
 import { useState, useEffect, useContext } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import BorrowcapApi from "../api/api";
-import LoadingSpinner from "../common/LoadingSpinner";
-import { formatCurrency, formatDate, formatPercent } from "../helpers/format";
+import { formatCurrency, formatDate } from "../helpers/format";
 import { Formik } from "formik";
 import { Form, Button } from "react-bootstrap";
+import { toast } from "react-toastify";
+import BorrowcapApi from "../api/api";
+import LoadingSpinner from "../common/LoadingSpinner";
 import UserContext from "../auth/UserContext";
 import FormError from "../common/FormError";
 import * as Yup from "yup";
@@ -17,6 +18,8 @@ const AvailableInvestment = () => {
   const { id } = useParams();
   const [data, setData] = useState(null);
   const navigate = useNavigate();
+
+  const notifySuccess = () => toast.success("Amount is pledged successfully.");
 
   const investSchema = Yup.object().shape({
     amount: Yup.number()
@@ -80,6 +83,7 @@ const AvailableInvestment = () => {
                       values
                     );
                     if (!!res) navigate("/investor");
+                    notifySuccess();
                   } catch (e) {
                     setStatus({ error: e });
                   }

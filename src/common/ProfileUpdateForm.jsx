@@ -1,6 +1,7 @@
 import { Formik } from "formik";
 import { Form, Button } from "react-bootstrap";
 import { useContext } from "react";
+import { toast } from "react-toastify";
 import UserContext from "../auth/UserContext";
 import BorrowcapApi from "../api/api";
 
@@ -9,10 +10,19 @@ import BorrowcapApi from "../api/api";
 const ProfileUpdateForm = () => {
   const { currentUser, setCurrentUser } = useContext(UserContext);
 
+  const errMsg = (msg) => (
+    <div className="mt-3 text-center">
+      <small className="text-danger">{msg}</small>
+    </div>
+  );
+
+  const notifySuccess = () =>
+    toast.success("Profile has been updated successfully.");
+
   return (
     <div className="form-wrapper">
       <div className="form-inner">
-        <h3 className="text-center mb-4">Profile Update Form</h3>
+        <h3 className="text-center mb-4">Profile Update</h3>
         <Formik
           initialValues={{
             username: currentUser.username,
@@ -22,29 +32,25 @@ const ProfileUpdateForm = () => {
             annualIncome: currentUser.annualIncome,
             otherMonthlyDebt: currentUser.otherMonthlyDebt,
           }}
-          onSubmit={async (values, { setSubmitting, setErrors }) => {
+          onSubmit={async (values, { setSubmitting, setStatus }) => {
             let updatedUser;
             try {
               updatedUser = await BorrowcapApi.updateUser(
                 currentUser.username,
-                values
+                {
+                  ...values,
+                  annualIncome: +values.annualIncome,
+                  otherMonthlyDebt: +values.otherMonthlyDebt,
+                }
               );
+              setCurrentUser({ ...currentUser, ...updatedUser });
+              notifySuccess();
             } catch (e) {
-              console.log(e);
-              return;
+              setStatus({ error: e });
             }
-            setCurrentUser({ ...currentUser, ...updatedUser });
           }}
         >
-          {({
-            values,
-            errors,
-            touched,
-            handleChange,
-            handleBlur,
-            handleSubmit,
-            isSubmitting,
-          }) => (
+          {({ values, status, handleChange, handleSubmit, isSubmitting }) => (
             <Form onSubmit={handleSubmit}>
               <Form.Group className="mb-3" controlId="signupUsername">
                 <Form.Label>Username</Form.Label>
@@ -113,6 +119,7 @@ const ProfileUpdateForm = () => {
                   required
                 />
               </Form.Group>
+              {status && status.error && errMsg(status.error)}
               <div className="d-grid">
                 <Button
                   variant="primary"

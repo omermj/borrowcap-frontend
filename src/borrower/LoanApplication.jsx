@@ -1,8 +1,9 @@
 import { useContext } from "react";
 import { Formik } from "formik";
 import { Form, Button } from "react-bootstrap";
-import UserContext from "../auth/UserContext";
+import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
+import UserContext from "../auth/UserContext";
 import FormError from "../common/FormError";
 import * as Yup from "yup";
 
@@ -11,6 +12,9 @@ import * as Yup from "yup";
 const LoanApplicationForm = ({ purposes, terms }) => {
   const { currentUser, BorrowcapApi } = useContext(UserContext);
   const navigate = useNavigate();
+
+  const notifySuccess = () =>
+    toast.success("Loan application created successfully.");
 
   // validation schema
   const loanApplicationSchema = Yup.object().shape({
@@ -37,7 +41,10 @@ const LoanApplicationForm = ({ purposes, terms }) => {
               values.purposeId = +values.purposeId;
               values.borrowerId = currentUser.id;
               const result = await BorrowcapApi.submitLoanApplication(values);
-              if (!!result) navigate("/borrower");
+              if (!!result) {
+                navigate("/borrower");
+                notifySuccess();
+              }
             } catch (e) {
               console.log("Error:", e);
               setStatus({

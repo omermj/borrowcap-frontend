@@ -1,9 +1,10 @@
 import { Formik } from "formik";
 import { Form, Button } from "react-bootstrap";
 import { useContext } from "react";
+import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 import UserContext from "../auth/UserContext";
 import BorrowcapApi from "../api/api";
-import { useNavigate } from "react-router-dom";
 
 /** Change Password Form */
 
@@ -17,6 +18,9 @@ const ChangePasswordForm = () => {
     </div>
   );
 
+  const notifySuccess = () =>
+    toast.success("Password has been changed successfully.");
+
   return (
     <div className="form-wrapper">
       <div className="form-inner">
@@ -29,11 +33,16 @@ const ChangePasswordForm = () => {
           }}
           onSubmit={async (values, { setSubmitting, setStatus }) => {
             try {
+              if (values.newPassword !== values.newPasswordRetype) {
+                setStatus({ error: "Passwords do not match." });
+                return;
+              }
               const user = await BorrowcapApi.changePassword(
                 currentUser.username,
                 values
               );
               if (user) navigate("/");
+              notifySuccess();
             } catch (e) {
               setStatus({ error: e });
             }

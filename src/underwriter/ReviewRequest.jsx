@@ -1,11 +1,12 @@
 import { Container, Row, Col } from "react-bootstrap";
 import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import BorrowcapApi from "../api/api";
-import LoadingSpinner from "../common/LoadingSpinner";
 import { formatCurrency, formatDate, formatPercent } from "../helpers/format";
 import { Formik } from "formik";
 import { Form, Button } from "react-bootstrap";
+import { toast } from "react-toastify";
+import BorrowcapApi from "../api/api";
+import LoadingSpinner from "../common/LoadingSpinner";
 import FormError from "../common/FormError";
 import * as Yup from "yup";
 
@@ -15,6 +16,11 @@ const ReviewRequest = ({ terms }) => {
   const { id } = useParams();
   const [data, setData] = useState(null);
   const navigate = useNavigate();
+
+  const notifyApprove = () =>
+    toast.success("Loan application has been approved.");
+
+  const notifyReject = () => toast.info("Loan application has been rejected.");
 
   const reviewSchema = Yup.object().shape({
     amtApproved: Yup.number()
@@ -42,6 +48,7 @@ const ReviewRequest = ({ terms }) => {
   const handleReject = async () => {
     const res = await BorrowcapApi.rejectRequest(id);
     if (!!res) navigate("/underwriter");
+    notifyReject();
   };
 
   return (
@@ -85,6 +92,7 @@ const ReviewRequest = ({ terms }) => {
                   try {
                     const res = await BorrowcapApi.approveRequest(id, values);
                     if (!!res) navigate("/underwriter");
+                    notifyApprove();
                   } catch (e) {
                     setStatus({ error: e });
                   }
