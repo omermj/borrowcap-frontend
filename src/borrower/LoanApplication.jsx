@@ -37,6 +37,7 @@ const LoanApplicationForm = ({ purposes, terms }) => {
           }}
           validationSchema={loanApplicationSchema}
           onSubmit={async (values, { setSubmitting, setStatus }) => {
+            console.log(values);
             try {
               values.purposeId = +values.purposeId;
               values.borrowerId = currentUser.id;
@@ -97,22 +98,20 @@ const LoanApplicationForm = ({ purposes, terms }) => {
                   <FormError msg={errors.term} field />
                 ) : null}
               </Form.Group>
-              <Form.Group>
+              <Form.Group className="mb-3" controlId="loanFormPurpose">
                 <Form.Label>Purpose</Form.Label>
-                <div>
+                <Form.Select
+                  aria-label="Purpose Select"
+                  name="purposeId"
+                  onChange={handleChange}
+                >
+                  <option>Select loan purpose</option>
                   {Object.entries(purposes).map(([purpose, id]) => (
-                    <Form.Check
-                      key={id}
-                      inline
-                      label={purpose}
-                      name="purposeId"
-                      type="radio"
-                      id={`purpose-${purpose}`}
-                      value={id}
-                      onChange={handleChange}
-                    />
+                    <option key={id} value={id}>
+                      {purpose}
+                    </option>
                   ))}
-                </div>
+                </Form.Select>
                 {errors.purposeId && touched.purposeId ? (
                   <FormError msg={errors.purposeId} field />
                 ) : null}
