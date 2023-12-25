@@ -38,8 +38,8 @@ const Wallet = () => {
             </h3>
           </Col>
         </Row>
-        <Row>
-          <Col className="form-inner">
+        <Row className="">
+          <div className="col-md-6 form-inner mx-auto my-4">
             <h6 className="mb-3 text-center">Deposit Funds</h6>
             <Formik
               initialValues={{
@@ -103,8 +103,8 @@ const Wallet = () => {
                 </Form>
               )}
             </Formik>
-          </Col>
-          <Col className="form-inner mx-4">
+          </div>
+          <div className="col-md-6 form-inner mx-auto my-4">
             <h6 className="mb-3 text-center">Withdraw Funds</h6>
             <Formik
               initialValues={{
@@ -168,7 +168,7 @@ const Wallet = () => {
                 </Form>
               )}
             </Formik>
-          </Col>
+          </div>
         </Row>
       </Container>
     </div>

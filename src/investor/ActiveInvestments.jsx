@@ -1,5 +1,6 @@
 import { useState, useEffect, useContext } from "react";
 import TableComponent from "../common/TableComponent";
+import TableHeader from "../common/TableHeader";
 import { formatCurrency, formatDate, formatPercent } from "../helpers/format";
 import BorrowcapApi from "../api/api";
 import UserContext from "../auth/UserContext";
@@ -35,9 +36,7 @@ const ActiveInvestments = () => {
 
   return (
     <div className="border mb-4">
-      <div className="py-2">
-        <span className="align-middle h5">Active Investments</span>
-      </div>
+      <TableHeader text={"Active Investments"} />
       {!data.length ? (
         <div className=" mb-2 fst-italic fw-light">
           {" "}

@@ -1,4 +1,4 @@
-.Sidebar a  {
+.Sidebar a {
   color: white;
 }
 
@@ -12,5 +12,5 @@ a:active {
 
 .Sidebar {
   background-color: rgb(46, 46, 46) !important;
-  max-width: 200px;
+  width: 250px !important;
 }

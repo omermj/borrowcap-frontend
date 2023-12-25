@@ -8,6 +8,7 @@ import {
 import BorrowcapApi from "../api/api";
 import UserContext from "../auth/UserContext";
 import TableComponent from "../common/TableComponent";
+import TableHeader from "../common/TableHeader";
 
 /** Table showing all Active Loan Requests for logged in user */
 
@@ -62,9 +63,7 @@ const ApprovedRequests = () => {
 
   return (
     <div className="border mb-4">
-      <div className="py-2">
-        <span className="align-middle h5">Approved Loan Requests</span>
-      </div>
+      <TableHeader text={"Approved Loan Requests"} />
       {!approvedLoans || !approvedLoans.length ? (
         <div className=" mb-2 fst-italic fw-light">
           {" "}

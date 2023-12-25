@@ -15,6 +15,7 @@ import "bootstrap/dist/js/bootstrap.bundle.js";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
 import "react-toastify/dist/ReactToastify.min.css";
+import "./routes-nav/Sidebar.css";
 
 // Key for storing token in localStorage
 export const TOKEN_STORAGE_ID = "borrowcap-token";
@@ -93,14 +94,25 @@ function App() {
       <UserContext.Provider
         value={{ currentUser, setCurrentUser, BorrowcapApi }}
       >
+        {/* TOP NAVIGATION */}
+        <Navigation logout={logout} />
+        {/* BODY */}
         <Container fluid className="">
-          <Row className="">
-            <Navigation logout={logout} />
-          </Row>
           <Row className="flex-nowrap">
-            {currentUser && <Sidebar />}
-            <Col className="mt-4">
+            {/* SIDEBAR */}
+            {currentUser && (
+              <Col className="Sidebar col-sm-2 d-flex flex-column flex-shrink-0 px-sm-2 px-0 bg-dark">
+                <Sidebar />
+              </Col>
+            )}
+            {/* PAGE CONTENT */}
+            <Col
+              className={`col-sm-${
+                currentUser ? "10" : "12"
+              } mt-4 d-flex flex-column`}
+            >
               <NavRoutes
+                className="flex-grow-1"
                 login={login}
                 signup={signup}
                 roles={roles}

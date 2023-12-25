@@ -3,6 +3,7 @@ import { formatCurrency, formatDate, formatPercent } from "../helpers/format";
 import UserContext from "../auth/UserContext";
 import BorrowcapApi from "../api/api";
 import TableComponent from "../common/TableComponent";
+import TableHeader from "../common/TableHeader";
 
 /** Table showing all Active Loan Requests for logged in user */
 
@@ -37,9 +38,7 @@ const ActiveRequests = () => {
 
   return (
     <div className="border mb-4">
-      <div className="py-2">
-        <span className="align-middle h5">New Loan Requests</span>
-      </div>
+      <TableHeader text={"New Loan Requests"} />
       {!loanRequests.length ? (
         <div className=" mb-2 fst-italic fw-light">
           {" "}

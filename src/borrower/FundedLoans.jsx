@@ -2,6 +2,7 @@ import { useState, useEffect, useContext } from "react";
 import { formatCurrency, formatDate, formatPercent } from "../helpers/format";
 import { toast } from "react-toastify";
 import TableComponent from "../common/TableComponent";
+import TableHeader from "../common/TableHeader";
 import BorrowcapApi from "../api/api";
 import UserContext from "../auth/UserContext";
 
@@ -62,9 +63,7 @@ const FundedLoans = () => {
 
   return (
     <div className="border mb-4">
-      <div className="py-2">
-        <span className="align-middle h5">Funded Loans</span>
-      </div>
+      <TableHeader text={"Funded Loans"} />
       {!fundedLoans || !fundedLoans.length ? (
         <div className=" mb-2 fst-italic fw-light">
           {" "}

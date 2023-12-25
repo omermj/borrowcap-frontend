@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import TableComponent from "../common/TableComponent";
+import TableHeader from "../common/TableHeader";
 import { formatCurrency, formatDate, formatPercent } from "../helpers/format";
 import BorrowcapApi from "../api/api";
 
@@ -38,9 +39,7 @@ const ApprovedRequests = () => {
 
   return (
     <div className="border mb-4">
-      <div className="py-2">
-        <span className="align-middle h5">Approved Requests</span>
-      </div>
+      <TableHeader text={"Approved Requests"} />
       {!data.length ? (
         <div className=" mb-2 fst-italic fw-light">
           {" "}
