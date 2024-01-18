@@ -12,7 +12,7 @@ import landingImg from "../assets/landing-page-image.png";
 
 const Homepage = () => {
   return (
-    <div className="container">
+    <div className="container text-center">
       <div className="row">
         <h1>Welcome to BorrowCap!</h1>
       </div>
@@ -27,7 +27,7 @@ const Homepage = () => {
             inventore facere quia distinctio perspiciatis incidunt! Amet ipsum
             totam repellat quod magni mollitia perferendis, unde ab modi!
           </p>
-          <Link className="btn btn-dark btn-lg mt-4" to="/signup">
+          <Link className="btn btn-dark mt-4" to="/signup">
             Get Started
           </Link>
         </div>
@@ -35,7 +35,7 @@ const Homepage = () => {
           <img
             src={landingImg}
             width={400}
-            className="img-fluid mt-md-0 mt-3"
+            className="img-fluid mt-md-0 mt-5"
             alt="Landing"
           />
         </div>

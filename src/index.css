@@ -2,7 +2,6 @@
 
 root {
   font-family: "Fira Sans", sans-serif;
-  /* line-height: 1.5; */
   font-weight: 400;
 }
 
@@ -28,8 +27,13 @@ html,
 .App,
 #root {
   width: 100%;
-  height: 100%;
+  height: 100vh;
 }
+
+/* .content {
+  height: 100%;
+  width: 100%;
+} */
 
 .form-wrapper {
   width: 100%;

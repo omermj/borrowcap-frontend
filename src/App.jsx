@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
 import { BrowserRouter } from "react-router-dom";
-import { Container, Row, Col } from "react-bootstrap";
 import { ToastContainer } from "react-toastify";
 import NavRoutes from "./routes-nav/NavRoutes";
 import Navigation from "./routes-nav/Navigation";
@@ -9,13 +8,12 @@ import jwtDecode from "jwt-decode";
 import BorrowcapApi from "./api/api";
 import UserContext from "./auth/UserContext";
 import LoadingSpinner from "./common/LoadingSpinner";
-import Sidebar from "./routes-nav/Sidebar";
+import SideMenu from "./routes-nav/SideMenu/SideMenu";
 import "bootstrap-icons/font/bootstrap-icons.css";
 import "bootstrap/dist/js/bootstrap.bundle.js";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
 import "react-toastify/dist/ReactToastify.min.css";
-import "./routes-nav/Sidebar.css";
 
 // Key for storing token in localStorage
 export const TOKEN_STORAGE_ID = "borrowcap-token";
@@ -94,34 +92,30 @@ function App() {
       <UserContext.Provider
         value={{ currentUser, setCurrentUser, BorrowcapApi }}
       >
-        {/* TOP NAVIGATION */}
-        <Navigation logout={logout} />
-        {/* BODY */}
-        <Container fluid className="">
-          <Row className="flex-nowrap">
-            {/* SIDEBAR */}
-            {currentUser && (
-              <Col className="Sidebar col-sm-2 d-flex flex-column flex-shrink-0 px-sm-2 px-0 bg-dark">
-                <Sidebar />
-              </Col>
-            )}
+        <div className="d-flex" style={{ minHeight: "100%" }}>
+          {/* SIDEBAR */}
+          {currentUser && (
+            <div>
+              <SideMenu />
+            </div>
+          )}
+          <div className="" style={{ minHeight: "100%", width: "100%" }}>
+            {/* TOP NAVIGATION */}
+            <div>
+              <Navigation logout={logout} />
+            </div>
             {/* PAGE CONTENT */}
-            <Col
-              className={`col-sm-${
-                currentUser ? "10" : "12"
-              } mt-4 d-flex flex-column`}
-            >
+            <div className="m-3">
               <NavRoutes
-                className="flex-grow-1"
                 login={login}
                 signup={signup}
                 roles={roles}
                 purposes={purposes}
                 terms={terms}
               />
-            </Col>
-          </Row>
-        </Container>
+            </div>
+          </div>
+        </div>
         <ToastContainer />
       </UserContext.Provider>
     </BrowserRouter>

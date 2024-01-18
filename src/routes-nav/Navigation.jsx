@@ -55,11 +55,13 @@ const Navigation = ({ logout }) => {
   else navToDisplay = LoggedOutNav;
 
   return (
-    <Navbar bg="dark" data-bs-theme="dark" className="" expand="sm" >
+    <Navbar bg="light" data-bs-theme="light" expand="sm">
       <div className="container-fluid">
-        <Navbar.Brand as={Link} to="/">
-          BorrowCap
-        </Navbar.Brand>
+        {!currentUser && (
+          <Navbar.Brand as={Link} to="/">
+            BorrowCap
+          </Navbar.Brand>
+        )}
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           {navToDisplay()}
