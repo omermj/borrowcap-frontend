@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import TableComponent from "../common/TableComponent";
-import TableHeader from "../common/TableHeader";
+import TableHeader from "../common/Table/TableHeader";
 import { formatCurrency, formatDate, formatPercent } from "../helpers/format";
 import BorrowcapApi from "../api/api";
 

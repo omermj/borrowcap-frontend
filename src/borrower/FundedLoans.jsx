@@ -2,19 +2,21 @@ import { useState, useEffect, useContext } from "react";
 import { formatCurrency, formatDate, formatPercent } from "../helpers/format";
 import { toast } from "react-toastify";
 import TableComponent from "../common/TableComponent";
-import TableHeader from "../common/TableHeader";
+import TableHeader from "../common/Table/TableHeader";
+import TableButton from "../common/Table/TableButton";
 import BorrowcapApi from "../api/api";
 import UserContext from "../auth/UserContext";
+import MUITable from "../common/Table/MUITable";
+
+const payIcon = () => {
+  return <i className="bi-credit-card-fill"></i>;
+};
 
 /** Table showing all Fundend Loans for logged in user */
 
 const FundedLoans = () => {
   const { currentUser } = useContext(UserContext);
   const [fundedLoans, setFundedLoans] = useState([]);
-
-  const payIcon = () => {
-    return <i className="bi-credit-card-fill"></i>;
-  };
 
   const notifyPayInstallment = () =>
     toast.success("Installment has been paid successfully.");
@@ -61,8 +63,89 @@ const FundedLoans = () => {
     },
   };
 
+  const columns = [
+    {
+      field: "id",
+      headerName: "ID",
+      flex: 0.25,
+      headerAlign: "center",
+      align: "center",
+      minWidth: 50,
+    },
+    {
+      field: "amtFunded",
+      headerName: "Amount",
+      flex: 1,
+      headerAlign: "center",
+      align: "center",
+      valueFormatter: ({ value }) => formatCurrency(value),
+      minWidth: 150,
+    },
+    {
+      field: "fundedDate",
+      headerName: "Funded Date",
+      flex: 1,
+      headerAlign: "center",
+      align: "center",
+      valueFormatter: ({ value }) => formatDate(value),
+      minWidth: 150,
+    },
+    {
+      field: "interestRate",
+      headerName: "Interest Rate",
+      flex: 1,
+      headerAlign: "center",
+      align: "center",
+      valueFormatter: ({ value }) => formatPercent(value),
+      minWidth: 150,
+    },
+    {
+      field: "term",
+      headerName: "Term",
+      flex: 0.25,
+      headerAlign: "center",
+      align: "center",
+      minWidth: 50,
+    },
+    {
+      field: "remainingBalance",
+      headerName: "Remaining Balance",
+      flex: 1,
+      headerAlign: "center",
+      align: "center",
+      valueFormatter: ({ value }) => formatCurrency(value),
+      minWidth: 150,
+    },
+    {
+      field: "installmentAmt",
+      headerName: "Installment",
+      flex: 1,
+      headerAlign: "center",
+      align: "center",
+      valueFormatter: ({ value }) => formatCurrency(value),
+      minWidth: 150,
+    },
+    {
+      field: "pay",
+      headerName: "Pay",
+      flex: 0.75,
+      sortable: false,
+      headerAlign: "center",
+      align: "center",
+      renderCell: (params) => {
+        return (
+          <TableButton
+            icon={payIcon}
+            link={`/fundedloans/pay/${params.id}`}
+            onClick={() => handlePay(params.id)}
+          />
+        );
+      },
+    },
+  ];
+
   return (
-    <div className="border mb-4">
+    <div className="mb-4">
       <TableHeader text={"Funded Loans"} />
       {!fundedLoans || !fundedLoans.length ? (
         <div className=" mb-2 fst-italic fw-light">
@@ -70,7 +153,8 @@ const FundedLoans = () => {
           <small>No funded loans.</small>
         </div>
       ) : (
-        <TableComponent headers={headers} tableData={fundedLoans} />
+        // <TableComponent headers={headers} tableData={fundedLoans} />
+        <MUITable headers={columns} tableData={fundedLoans} />
       )}
     </div>
   );
