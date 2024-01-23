@@ -9,7 +9,6 @@ import BorrowcapApi from "../api/api";
 import UserContext from "../auth/UserContext";
 import TableHeader from "../common/Table/TableHeader";
 import MUITable from "../common/Table/MUITable";
-import { Link } from "react-router-dom";
 import TableButton from "../common/Table/TableButton";
 
 const manageIcon = () => {
@@ -26,102 +25,103 @@ const ApprovedRequests = () => {
     {
       field: "id",
       headerName: "ID",
-      flex: 0.25,
+      minWidth: 50,
+      flex: 0.5,
       headerAlign: "center",
       align: "center",
-      minWidth: 50,
     },
     {
       field: "amtRequested",
       headerName: "Requested Amount",
+      minWidth: 150,
       flex: 1,
       headerAlign: "center",
       align: "center",
       valueFormatter: ({ value }) => formatCurrency(value),
-      minWidth: 150,
     },
     {
       field: "amtApproved",
       headerName: "Approved Amount",
+      minWidth: 150,
       flex: 1,
       headerAlign: "center",
       align: "center",
       valueFormatter: ({ value }) => formatCurrency(value),
-      minWidth: 150,
     },
     {
       field: "amtFunded",
       headerName: "Funded Amount",
+      minWidth: 150,
       flex: 1,
       headerAlign: "center",
       align: "center",
       valueFormatter: ({ value }) => formatCurrency(value),
-      minWidth: 150,
     },
     {
       field: "purpose",
       headerName: "Purpose",
-      flex: 0.5,
+      minWidth: 100,
+      flex: 0.75,
       headerAlign: "center",
       align: "center",
-      minWidth: 100,
     },
     {
       field: "appApprovedDate",
       headerName: "Approval Date",
+      minWidth: 150,
       flex: 1,
       headerAlign: "center",
       align: "center",
       valueFormatter: ({ value }) => formatDate(value),
-      minWidth: 150,
     },
     {
       field: "fundingDeadline",
       headerName: "Funding Deadline",
+      minWidth: 150,
       flex: 1,
       headerAlign: "center",
       align: "center",
       valueFormatter: ({ value }) => formatDate(value),
-      minWidth: 150,
     },
     {
       field: "interestRate",
       headerName: "Interest Rate",
-      flex: 0.5,
+      minWidth: 100,
+      flex: 0.75,
       headerAlign: "center",
       align: "center",
       valueFormatter: ({ value }) => formatPercent(value),
-      minWidth: 150,
     },
     {
       field: "term",
       headerName: "Term",
-      flex: 0.25,
+      minWidth: 50,
+      flex: 0.5,
       headerAlign: "center",
       align: "center",
-      minWidth: 50,
     },
     {
       field: "installmentAmt",
       headerName: "Installment",
-      flex: 1,
+      minWidth: 120,
+      flex: 0.75,
       headerAlign: "center",
       align: "center",
       valueFormatter: ({ value }) => formatCurrency(value),
-      minWidth: 150,
     },
     {
       field: "availableForFunding",
       headerName: "Funding Active",
-      flex: 0.5,
+      minWidth: 120,
+      flex: 0.75,
       headerAlign: "center",
       align: "center",
       valueFormatter: ({ value }) => formatBoolean(value),
-      minWidth: 150,
     },
     {
       field: "manage",
       headerName: "Manage",
+      minWidth: 100,
       flex: 0.75,
       sortable: false,
       headerAlign: "center",
@@ -160,7 +160,9 @@ const ApprovedRequests = () => {
           <small>No approved loan requests.</small>
         </div>
       ) : (
-        <MUITable headers={columns} tableData={approvedLoans} />
+        <div>
+          <MUITable headers={columns} tableData={approvedLoans} />
+        </div>
       )}
     </div>
   );

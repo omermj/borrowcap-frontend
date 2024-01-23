@@ -2,11 +2,13 @@ import { DataGrid } from "@mui/x-data-grid";
 
 const MUITable = ({ headers, tableData }) => {
   return (
-    <div style={{ width: "100%" }}>
+    <div>
       <DataGrid
         columns={headers}
         rows={tableData}
         sx={{
+          minWidth: "800px",
+          width: "100%",
           overflowX: "scroll",
           marginTop: "10px",
           border: 0,

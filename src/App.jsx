@@ -14,6 +14,7 @@ import "bootstrap/dist/js/bootstrap.bundle.js";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
 import "react-toastify/dist/ReactToastify.min.css";
+import ApprovedRequests from "./borrower/ApprovedRequests";
 
 // Key for storing token in localStorage
 export const TOKEN_STORAGE_ID = "borrowcap-token";
@@ -99,7 +100,7 @@ function App() {
               <SideMenu />
             </div>
           )}
-          <div className="" style={{ minHeight: "100%", width: "100%" }}>
+          <div style={{ minHeight: "100%", width: "100%" }}>
             {/* TOP NAVIGATION */}
             <div>
               <Navigation logout={logout} />
@@ -113,9 +114,16 @@ function App() {
                 purposes={purposes}
                 terms={terms}
               />
+              {/* <ApprovedRequests /> */}
             </div>
           </div>
         </div>
+
+        {/* <div style={{ width: "100%" }}>
+          <Navigation logout={logout} />
+          <ApprovedRequests />
+        </div> */}
+
         <ToastContainer />
       </UserContext.Provider>
     </BrowserRouter>
