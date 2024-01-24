@@ -27,7 +27,7 @@ const Homepage = () => {
             inventore facere quia distinctio perspiciatis incidunt! Amet ipsum
             totam repellat quod magni mollitia perferendis, unde ab modi!
           </p>
-          <Link className="btn btn-dark mt-4" to="/signup">
+          <Link className="btn btn-dark btn-lg  mt-4" to="/signup">
             Get Started
           </Link>
         </div>

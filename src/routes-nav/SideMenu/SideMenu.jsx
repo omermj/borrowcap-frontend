@@ -106,6 +106,11 @@ const SideMenu = () => {
           title="Approved"
           to="/underwriter/approved"
         />
+        <SideMenuItem
+          icon={<i className="bi bi-gear-fill h4 m-0" />}
+          title="Settings"
+          to="/"
+        />
       </>
     );
   };

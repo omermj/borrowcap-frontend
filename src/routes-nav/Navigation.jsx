@@ -2,6 +2,7 @@ import { Link, NavLink } from "react-router-dom";
 import { Container, Nav, Navbar, NavDropdown } from "react-bootstrap";
 import UserContext from "../auth/UserContext";
 import { useContext } from "react";
+import NavigationLogo from "../common/NavigationLogo";
 
 const Navigation = ({ logout }) => {
   const { currentUser } = useContext(UserContext);
@@ -59,7 +60,10 @@ const Navigation = ({ logout }) => {
       <div className="container-fluid">
         {!currentUser && (
           <Navbar.Brand as={Link} to="/">
-            BorrowCap
+            <div className="d-flex align-items-center">
+              <NavigationLogo />
+              <span>BorrowCap</span>
+            </div>
           </Navbar.Brand>
         )}
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
