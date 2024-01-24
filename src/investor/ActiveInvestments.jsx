@@ -1,9 +1,9 @@
 import { useState, useEffect, useContext } from "react";
-import TableComponent from "../common/TableComponent";
 import TableHeader from "../common/Table/TableHeader";
 import { formatCurrency, formatDate, formatPercent } from "../helpers/format";
 import BorrowcapApi from "../api/api";
 import UserContext from "../auth/UserContext";
+import MUITable from "../common/Table/MUITable";
 
 /** Table showing all Active Investments made by the logged in user */
 
@@ -12,16 +12,78 @@ const ActiveInvestments = () => {
   const [data, setData] = useState([]);
 
   // Define table headers with labels and formatters
-  const headers = {
-    id: { label: "ID", formatter: "none" },
-    amtInvested: { label: "Invested Amount", formatter: formatCurrency },
-    amtFunded: { label: "Loan Amount", formatter: formatCurrency },
-    fundedDate: { label: "Funded Date", formatter: formatDate },
-    interestRate: { label: "Interest Rate", formatter: formatPercent },
-    term: { label: "Term", formatter: "none" },
-    installmentAmt: { label: "Installment Amount", formatter: formatCurrency },
-    remainingBalance: { label: "Remaining Balance", formatter: formatCurrency },
-  };
+  const columns = [
+    {
+      field: "id",
+      headerName: "ID",
+      minWidth: 50,
+      flex: 0.5,
+      headerAlign: "center",
+      align: "center",
+    },
+    {
+      field: "amtInvested",
+      headerName: "Invested Amount",
+      minWidth: 150,
+      flex: 1,
+      headerAlign: "center",
+      align: "center",
+      valueFormatter: ({ value }) => formatCurrency(value),
+    },
+    {
+      field: "amtFunded",
+      headerName: "Funded Amount",
+      minWidth: 150,
+      flex: 1,
+      headerAlign: "center",
+      align: "center",
+      valueFormatter: ({ value }) => formatCurrency(value),
+    },
+    {
+      field: "fundedDate",
+      headerName: "Funded Date",
+      minWidth: 150,
+      flex: 1,
+      headerAlign: "center",
+      align: "center",
+      valueFormatter: ({ value }) => formatDate(value),
+    },
+    {
+      field: "interestRate",
+      headerName: "Interest Rate",
+      minWidth: 100,
+      flex: 0.75,
+      headerAlign: "center",
+      align: "center",
+      valueFormatter: ({ value }) => formatPercent(value),
+    },
+    {
+      field: "term",
+      headerName: "Term",
+      minWidth: 50,
+      flex: 0.5,
+      headerAlign: "center",
+      align: "center",
+    },
+    {
+      field: "installmentAmt",
+      headerName: "Installment",
+      minWidth: 120,
+      flex: 0.75,
+      headerAlign: "center",
+      align: "center",
+      valueFormatter: ({ value }) => formatCurrency(value),
+    },
+    {
+      field: "remainingBalance",
+      headerName: "Remaining Balance",
+      minWidth: 150,
+      flex: 1,
+      headerAlign: "center",
+      align: "center",
+      valueFormatter: ({ value }) => formatCurrency(value),
+    },
+  ];
 
   // get active investments on initial render
   useEffect(() => {
@@ -35,15 +97,15 @@ const ActiveInvestments = () => {
   }, []);
 
   return (
-    <div className="border mb-4">
-      <TableHeader text={"Active Investments"} />
+    <div className="mb-4">
+      <TableHeader text={"Investments"} />
       {!data.length ? (
         <div className=" mb-2 fst-italic fw-light">
           {" "}
           <small>No active investments.</small>
         </div>
       ) : (
-        <TableComponent headers={headers} tableData={data} />
+        <MUITable headers={columns} tableData={data} />
       )}
     </div>
   );
