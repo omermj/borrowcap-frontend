@@ -5,6 +5,7 @@ import { formatCurrency, formatDate, formatPercent } from "../helpers/format";
 import { Formik } from "formik";
 import { Form, Button } from "react-bootstrap";
 import { toast } from "react-toastify";
+import { useSelector } from "react-redux";
 import BorrowcapApi from "../api/api";
 import LoadingSpinner from "../common/LoadingSpinner";
 import FormError from "../common/FormError";
@@ -12,9 +13,11 @@ import * as Yup from "yup";
 
 /** Displays a single Available Investment */
 
-const ReviewRequest = ({ terms }) => {
+const ReviewRequest = () => {
+  const currentUser = useSelector((state) => state.userState.user);
   const { id } = useParams();
   const [data, setData] = useState(null);
+  const [terms, setTerms] = useState([]);
   const navigate = useNavigate();
 
   const notifyApprove = () =>
@@ -35,9 +38,12 @@ const ReviewRequest = ({ terms }) => {
 
   useEffect(() => {
     const getReviewRequest = async () => {
+      BorrowcapApi.token = currentUser.token;
       const result = await BorrowcapApi.getActiveRequest(id);
+      const terms = await BorrowcapApi.getTerms();
       if (result) {
         setData(result);
+        setTerms(terms);
       }
     };
     getReviewRequest();
@@ -46,6 +52,7 @@ const ReviewRequest = ({ terms }) => {
   if (!data) return <LoadingSpinner />;
 
   const handleReject = async () => {
+    BorrowcapApi.token = currentUser.token;
     const res = await BorrowcapApi.rejectRequest(id);
     if (!!res) navigate("/underwriter");
     notifyReject();
@@ -90,6 +97,7 @@ const ReviewRequest = ({ terms }) => {
                 validationSchema={reviewSchema}
                 onSubmit={async (values, { setSubmitting, setStatus }) => {
                   try {
+                    BorrowcapApi.token = currentUser.token;
                     const res = await BorrowcapApi.approveRequest(id, values);
                     if (!!res) navigate("/underwriter");
                     notifyApprove();

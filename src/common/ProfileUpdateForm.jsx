@@ -1,14 +1,13 @@
 import { Formik } from "formik";
 import { Form, Button } from "react-bootstrap";
-import { useContext } from "react";
+import { useSelector } from "react-redux";
 import { toast } from "react-toastify";
-import UserContext from "../auth/UserContext";
 import BorrowcapApi from "../api/api";
 
 /** Profile Update Form */
 
 const ProfileUpdateForm = () => {
-  const { currentUser, setCurrentUser } = useContext(UserContext);
+  const currentUser = useSelector((state) => state.userState.user);
 
   const errMsg = (msg) => (
     <div className="mt-3 text-center">
@@ -35,6 +34,7 @@ const ProfileUpdateForm = () => {
           onSubmit={async (values, { setSubmitting, setStatus }) => {
             let updatedUser;
             try {
+              BorrowcapApi.token = currentUser.token;
               updatedUser = await BorrowcapApi.updateUser(
                 currentUser.username,
                 {

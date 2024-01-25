@@ -1,19 +1,33 @@
 import { useNavigate } from "react-router-dom";
-import { Formik, ErrorMessage } from "formik";
+import { Formik } from "formik";
 import { Form, Button } from "react-bootstrap";
 import FormError from "../common/FormError";
 import * as Yup from "yup";
+import BorrowcapApi from "../api/api";
+import { useDispatch, useSelector } from "react-redux";
+import { loginUser } from "../features/user/userSlice";
+import jwtDecode from "jwt-decode";
 
 /** Login Form */
 
 const LoginForm = ({ login }) => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const user = useSelector((state) => state.userState.user);
 
-  const errMsg = () => (
-    <div>
-      <small className="text-danger">Incorrect Username/Password</small>
-    </div>
-  );
+  // login user
+  const loginFunc = async (loginData) => {
+    try {
+      const { user, token } = await BorrowcapApi.login(loginData);
+      if (token) {
+        dispatch(loginUser({ user, token }));
+        return { success: true };
+      }
+    } catch (e) {
+      console.error("Login failed", e);
+      return { success: false, e };
+    }
+  };
 
   // validation schema
   const loginSchema = Yup.object().shape({
@@ -29,7 +43,7 @@ const LoginForm = ({ login }) => {
           initialValues={{ username: "", password: "" }}
           validationSchema={loginSchema}
           onSubmit={async (values, { setSubmitting, setStatus }) => {
-            const result = await login(values);
+            const result = await loginFunc(values);
             if (result.success) navigate("/");
             else {
               setStatus({ error: "Incorrect Username/Password" });
@@ -39,8 +53,6 @@ const LoginForm = ({ login }) => {
         >
           {({
             values,
-            errors,
-            touched,
             status,
             handleChange,
             handleBlur,

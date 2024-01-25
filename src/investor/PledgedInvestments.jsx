@@ -1,14 +1,14 @@
-import { useState, useEffect, useContext } from "react";
+import { useState, useEffect } from "react";
+import { useSelector } from "react-redux";
 import TableHeader from "../common/Table/TableHeader";
 import { formatCurrency, formatDate, formatPercent } from "../helpers/format";
 import BorrowcapApi from "../api/api";
-import UserContext from "../auth/UserContext";
 import MUITable from "../common/Table/MUITable";
 
 /** Table showing all Active Investments made by the logged in user */
 
 const PledgedInvestments = () => {
-  const { currentUser } = useContext(UserContext);
+  const currentUser = useSelector((state) => state.userState.user);
   const [data, setData] = useState([]);
 
   // Define table headers with labels and formatters
@@ -79,13 +79,14 @@ const PledgedInvestments = () => {
   // get active investments on initial render
   useEffect(() => {
     async function fetchPledgedInvestments() {
+      BorrowcapApi.token = currentUser.token;
       const pledgedInvestments = await BorrowcapApi.getApprovedRequestsByUserId(
         currentUser.id
       );
       setData(pledgedInvestments.investor);
     }
     fetchPledgedInvestments();
-  }, [currentUser.id]);
+  }, [currentUser.id, currentUser.token]);
 
   return (
     <div className="mb-4">

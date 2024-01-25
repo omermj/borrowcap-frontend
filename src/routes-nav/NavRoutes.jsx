@@ -1,6 +1,5 @@
 import { Route, Routes } from "react-router-dom";
-import { useContext } from "react";
-import UserContext from "../auth/UserContext";
+import { useSelector } from "react-redux";
 import BorrowerMain from "../borrower/BorrowerMain";
 import Homepage from "../homepage/Homepage";
 import InvestorMain from "../investor/InvestorMain";
@@ -27,8 +26,8 @@ import NotFound from "../common/NotFound";
 
 /** Site-wide routes */
 
-function NavRoutes({ login, signup, roles, purposes, terms }) {
-  const { currentUser } = useContext(UserContext);
+function NavRoutes({ signup, roles }) {
+  const currentUser = useSelector((state) => state.userState.user);
 
   const homepage = () => {
     if (currentUser) {
@@ -53,10 +52,7 @@ function NavRoutes({ login, signup, roles, purposes, terms }) {
         {/* --------------- */}
         <Route element={<ProtectedRoute allowedRoles={["borrower"]} />}>
           <Route path="/borrower" element={<BorrowerMain />} />
-          <Route
-            path="/borrower/apply"
-            element={<LoanApplicationForm purposes={purposes} terms={terms} />}
-          />
+          <Route path="/borrower/apply" element={<LoanApplicationForm />} />
           <Route
             path="/borrower/approvedrequests/:id"
             element={<ApprovedLoan />}
@@ -97,7 +93,7 @@ function NavRoutes({ login, signup, roles, purposes, terms }) {
           <Route path="/underwriter" element={<UnderwriterMain />} />
           <Route
             path="/underwriter/reviewrequest/:id"
-            element={<ReviewRequest terms={terms} />}
+            element={<ReviewRequest />}
           />
           <Route path="/underwriter/requests" element={<ApprovalRequests />} />
           <Route path="/underwriter/approved" element={<ApprovedRequests />} />
@@ -118,7 +114,7 @@ function NavRoutes({ login, signup, roles, purposes, terms }) {
         {/* ----------- */}
         {/* Auth Routes */}
         {/* ----------- */}
-        <Route path="/login" element={<LoginForm login={login} />} />
+        <Route path="/login" element={<LoginForm />} />
         <Route
           path="/signup"
           element={<SignupForm signup={signup} roles={roles} />}

@@ -1,15 +1,15 @@
 import { Formik } from "formik";
 import { Form, Button } from "react-bootstrap";
-import { useContext } from "react";
+import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
-import UserContext from "../auth/UserContext";
+
 import BorrowcapApi from "../api/api";
 
 /** Change Password Form */
 
 const ChangePasswordForm = () => {
-  const { currentUser } = useContext(UserContext);
+  const currentUser = useSelector((state) => state.userState.user);
   const navigate = useNavigate();
 
   const errMsg = (msg) => (
@@ -37,6 +37,7 @@ const ChangePasswordForm = () => {
                 setStatus({ error: "Passwords do not match." });
                 return;
               }
+              BorrowcapApi.token = currentUser.token;
               const user = await BorrowcapApi.changePassword(
                 currentUser.username,
                 values

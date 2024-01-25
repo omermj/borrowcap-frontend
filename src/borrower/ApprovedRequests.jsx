@@ -1,4 +1,5 @@
-import { useState, useEffect, useContext } from "react";
+import { useState, useEffect } from "react";
+import { useSelector } from "react-redux";
 import {
   formatCurrency,
   formatDate,
@@ -6,7 +7,6 @@ import {
   formatBoolean,
 } from "../helpers/format";
 import BorrowcapApi from "../api/api";
-import UserContext from "../auth/UserContext";
 import TableHeader from "../common/Table/TableHeader";
 import MUITable from "../common/Table/MUITable";
 import TableButton from "../common/Table/TableButton";
@@ -17,7 +17,7 @@ const manageIcon = () => {
 
 /** Table showing all Active Loan Requests for logged in user */
 const ApprovedRequests = () => {
-  const { currentUser } = useContext(UserContext);
+  const currentUser = useSelector((state) => state.userState.user);
   const [approvedLoans, setApprovedLoans] = useState([]);
 
   // Define table headers with labels and formatters
@@ -143,6 +143,7 @@ const ApprovedRequests = () => {
   // get active loan requests on initial render
   useEffect(() => {
     async function fetchLoanRequests() {
+      BorrowcapApi.token = currentUser.token;
       const approvedRequests = await BorrowcapApi.getApprovedRequestsByUserId(
         currentUser.id
       );

@@ -2,17 +2,17 @@ import { Col, Container, Row } from "react-bootstrap";
 import { Formik } from "formik";
 import { Form, Button } from "react-bootstrap";
 import { formatCurrency } from "../helpers/format";
-import { useState, useContext } from "react";
+import { useState } from "react";
 import { toast } from "react-toastify";
 import BorrowcapApi from "../api/api";
-import UserContext from "../auth/UserContext";
+import { useSelector } from "react-redux";
 import FormError from "./FormError";
 import * as Yup from "yup";
 
 /** Component for Wallet for Borrowers and Investors */
 
 const Wallet = () => {
-  const { currentUser } = useContext(UserContext);
+  const currentUser = useSelector((state) => state.userState.user);
   const [accountBalance, setAccountBalance] = useState(
     currentUser.accountBalance
   );
@@ -49,6 +49,7 @@ const Wallet = () => {
               onSubmit={async (values, { setSubmitting, setStatus }) => {
                 try {
                   values.id = currentUser.id;
+                  BorrowcapApi.token = currentUser.token;
                   const res = await BorrowcapApi.depositFunds(
                     currentUser.id,
                     values
@@ -114,6 +115,7 @@ const Wallet = () => {
               onSubmit={async (values, { setSubmitting, setStatus }) => {
                 try {
                   values.id = currentUser.id;
+                  BorrowcapApi.token = currentUser.token;
                   const res = await BorrowcapApi.withdrawFunds(
                     currentUser.id,
                     values

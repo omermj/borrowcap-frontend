@@ -1,11 +1,12 @@
-import { Link, NavLink } from "react-router-dom";
-import { Container, Nav, Navbar, NavDropdown } from "react-bootstrap";
-import UserContext from "../auth/UserContext";
-import { useContext } from "react";
+import { Link } from "react-router-dom";
+import { Nav, Navbar, NavDropdown } from "react-bootstrap";
 import NavigationLogo from "../common/NavigationLogo";
+import { useSelector, useDispatch } from "react-redux";
+import { logoutUser } from "../features/user/userSlice";
 
-const Navigation = ({ logout }) => {
-  const { currentUser } = useContext(UserContext);
+const Navigation = () => {
+  const dispatch = useDispatch();
+  const currentUser = useSelector((state) => state.userState.user);
 
   const userstamp = () => {
     return (
@@ -29,7 +30,7 @@ const Navigation = ({ logout }) => {
           <NavDropdown.Item
             as={Link}
             to="/"
-            onClick={async () => await logout()}
+            onClick={() => dispatch(logoutUser())}
           >
             Logout
           </NavDropdown.Item>

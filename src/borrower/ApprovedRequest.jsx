@@ -6,10 +6,12 @@ import { toast } from "react-toastify";
 import { formatCurrency, formatDate } from "../helpers/format";
 import BorrowcapApi from "../api/api";
 import LoadingSpinner from "../common/LoadingSpinner";
+import { useSelector } from "react-redux";
 
 /** Displays a single Available Investment */
 
 const ApprovedRequest = () => {
+  const currentUser = useSelector((state) => state.userState.user);
   const { id } = useParams();
   const [data, setData] = useState(null);
   const navigate = useNavigate();
@@ -21,6 +23,7 @@ const ApprovedRequest = () => {
 
   useEffect(() => {
     const getApprovedRequest = async () => {
+      BorrowcapApi.token = currentUser.token;
       const result = await BorrowcapApi.getApprovedRequest(id);
       if (result) {
         setData(result);
@@ -30,6 +33,7 @@ const ApprovedRequest = () => {
   }, [id]);
 
   const handleEnableFunding = async () => {
+    BorrowcapApi.token = currentUser.token;
     const result = await BorrowcapApi.enableFundingForApprovedRequest(id);
     if (result) {
       setData((prevData) => ({
@@ -41,6 +45,7 @@ const ApprovedRequest = () => {
   };
 
   const handleCancelRequest = async () => {
+    BorrowcapApi.token = currentUser.token;
     const result = await BorrowcapApi.cancelApprovedRequest(id);
     if (result) navigate("/borrower");
     notifyCancelRequest();

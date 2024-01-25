@@ -1,10 +1,10 @@
 import { useState, useEffect } from "react";
-import TableComponent from "../common/TableComponent";
 import TableHeader from "../common/Table/TableHeader";
 import { formatCurrency, formatDate, formatPercent } from "../helpers/format";
 import BorrowcapApi from "../api/api";
 import MUITable from "../common/Table/MUITable";
 import TableButton from "../common/Table/TableButton";
+import { useSelector } from "react-redux";
 
 const reviewIcon = () => {
   return <i className="bi-pencil-fill"></i>;
@@ -12,6 +12,7 @@ const reviewIcon = () => {
 
 /** Table showing all Active Loan Requests for logged in user */
 const ApprovalRequests = () => {
+  const currentUser = useSelector((state) => state.userState.user);
   const [loanRequests, setLoanRequests] = useState([]);
 
   // Define table headers with labels and formatters
@@ -109,6 +110,7 @@ const ApprovalRequests = () => {
   // get active loan requests on initial render
   useEffect(() => {
     async function fetchLoanRequests() {
+      BorrowcapApi.token = currentUser.token;
       const requests = await BorrowcapApi.getLoanRequests();
       setLoanRequests(requests);
     }

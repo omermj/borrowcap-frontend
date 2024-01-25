@@ -1,6 +1,6 @@
-import { useState, useEffect, useContext } from "react";
+import { useState, useEffect } from "react";
+import { useSelector } from "react-redux";
 import { formatCurrency, formatDate, formatPercent } from "../helpers/format";
-import UserContext from "../auth/UserContext";
 import BorrowcapApi from "../api/api";
 import TableHeader from "../common/Table/TableHeader";
 import MUITable from "../common/Table/MUITable";
@@ -8,7 +8,7 @@ import MUITable from "../common/Table/MUITable";
 /** Table showing all Active Loan Requests for logged in user */
 
 const ActiveRequests = () => {
-  const { currentUser } = useContext(UserContext);
+  const currentUser = useSelector((state) => state.userState.user);
   const [loanRequests, setLoanRequests] = useState([]);
 
   // Table headers
@@ -78,13 +78,14 @@ const ActiveRequests = () => {
   // get active loan requests on initial render
   useEffect(() => {
     async function fetchLoanRequests() {
+      BorrowcapApi.token = currentUser.token;
       const requests = await BorrowcapApi.getActiveRequestsByBorrowerId(
         currentUser.id
       );
       setLoanRequests(requests);
     }
     fetchLoanRequests();
-  }, [currentUser.id]);
+  }, [currentUser.id, currentUser.token]);
 
   return (
     <div className="mb-4">

@@ -1,34 +1,17 @@
 import { useState, useEffect } from "react";
-import TableComponent from "../common/TableComponent";
 import TableHeader from "../common/Table/TableHeader";
 import { formatCurrency, formatDate, formatPercent } from "../helpers/format";
 import BorrowcapApi from "../api/api";
 import MUITable from "../common/Table/MUITable";
+import { useSelector } from "react-redux";
 
 /** Table showing all Active Loan Requests for logged in user */
 
 const ApprovedRequests = () => {
+  const currentUser = useSelector((state) => state.userState.user);
   const [data, setData] = useState([]);
 
   // Define table headers with labels and formatters
-  const headers = {
-    id: { label: "App ID", formatter: "none" },
-    borrowerId: { label: "Borrower ID", formatter: "none" },
-    amtRequested: {
-      label: "Requested Amount",
-      formatter: formatCurrency,
-    },
-    amtApproved: {
-      label: "Approved Amount",
-      formatter: formatCurrency,
-    },
-    purpose: { label: "Purpose", formatter: "none" },
-    appApprovedDate: { label: "Approval Date", formatter: formatDate },
-    interestRate: { label: "Interest Rate", formatter: formatPercent },
-    term: { label: "Term", formatter: "none" },
-    installmentAmt: { label: "Installment", formatter: formatCurrency },
-  };
-
   const columns = [
     {
       field: "id",
@@ -112,6 +95,7 @@ const ApprovedRequests = () => {
   // get active loan requests on initial render
   useEffect(() => {
     async function fetchApprovedRequests() {
+      BorrowcapApi.token = currentUser.token;
       const requests = await BorrowcapApi.getApprovedRequests();
       setData(requests);
     }

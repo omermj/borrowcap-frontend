@@ -1,13 +1,11 @@
 import { Sidebar, Menu, sidebarClasses } from "react-pro-sidebar";
-import Logo from "../../assets/Logo.jpeg";
 import { useEffect, useState } from "react";
 import SideMenuItem from "./SideMenuItem";
-import UserContext from "../../auth/UserContext";
-import { useContext } from "react";
+import { useSelector } from "react-redux";
 import NavigationLogo from "../../common/NavigationLogo";
 
 const SideMenu = () => {
-  const { currentUser } = useContext(UserContext);
+  const currentUser = useSelector((state) => state.userState.user);
   const [isCollapsed, setIsCollapsed] = useState(false);
 
   // Collapse SideMenu when screen size is below 768px

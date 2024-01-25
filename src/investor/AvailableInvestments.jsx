@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
-import TableComponent from "../common/TableComponent";
 import TableHeader from "../common/Table/TableHeader";
+import { useSelector } from "react-redux";
 import { formatCurrency, formatDate, formatPercent } from "../helpers/format";
 import BorrowcapApi from "../api/api";
 import MUITable from "../common/Table/MUITable";
@@ -12,6 +12,7 @@ const investIcon = () => {
 
 /** Table showing all Active Investments made by the logged in user */
 const AvailableInvestments = () => {
+  const currentUser = useSelector((state) => state.userState.user);
   const [data, setData] = useState([]);
 
   // Define table headers with labels and formatters
@@ -110,11 +111,12 @@ const AvailableInvestments = () => {
   // get active investments on initial render
   useEffect(() => {
     async function fetchAvailableInvestments() {
+      BorrowcapApi.token = currentUser.token;
       const requests = await BorrowcapApi.getAvailableInvestments();
       setData(requests);
     }
     fetchAvailableInvestments();
-  }, []);
+  }, [currentUser.token]);
 
   return (
     <div className="mb-4">

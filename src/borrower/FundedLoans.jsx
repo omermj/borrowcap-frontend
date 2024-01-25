@@ -1,11 +1,10 @@
-import { useState, useEffect, useContext } from "react";
+import { useState, useEffect } from "react";
+import { useSelector } from "react-redux";
 import { formatCurrency, formatDate, formatPercent } from "../helpers/format";
 import { toast } from "react-toastify";
-import TableComponent from "../common/TableComponent";
 import TableHeader from "../common/Table/TableHeader";
 import TableButton from "../common/Table/TableButton";
 import BorrowcapApi from "../api/api";
-import UserContext from "../auth/UserContext";
 import MUITable from "../common/Table/MUITable";
 
 const payIcon = () => {
@@ -15,7 +14,7 @@ const payIcon = () => {
 /** Table showing all Fundend Loans for logged in user */
 
 const FundedLoans = () => {
-  const { currentUser } = useContext(UserContext);
+  const currentUser = useSelector((state) => state.userState.user);
   const [fundedLoans, setFundedLoans] = useState([]);
 
   const notifyPayInstallment = () =>
@@ -24,43 +23,24 @@ const FundedLoans = () => {
   // get funded loans on initial render
   useEffect(() => {
     async function fetchFundedLoans() {
+      BorrowcapApi.token = currentUser.token;
       const fundedLoans = await BorrowcapApi.getFundedLoansByUserId(
         currentUser.id
       );
       if (fundedLoans) setFundedLoans(fundedLoans.borrower);
     }
     fetchFundedLoans();
-  }, [currentUser.id]);
+  }, [currentUser.id, currentUser.token]);
 
   const handlePay = async (id) => {
     // e.preventDefault();
+    BorrowcapApi.token = currentUser.token;
     await BorrowcapApi.payInstallment(id);
     const fundedLoans = await BorrowcapApi.getFundedLoansByUserId(
       currentUser.id
     );
     setFundedLoans([...fundedLoans.borrower]);
     notifyPayInstallment();
-  };
-
-  const headers = {
-    id: { label: "ID", formatter: "none" },
-    amtFunded: {
-      label: "Amount",
-      formatter: formatCurrency,
-    },
-    fundedDate: { label: "Funded Date", formatter: formatDate },
-    interestRate: { label: "Interest Rate", formatter: formatPercent },
-    term: { label: "Term", formatter: "none" },
-    remainingBalance: { label: "Remaining Balance", formatter: formatCurrency },
-    installmentAmt: { label: "Installment", formatter: formatCurrency },
-    payBtn: {
-      label: "Pay",
-      formatter: "button",
-      link: "/fundedloans/pay",
-      onClick: handlePay,
-      icon: payIcon,
-      testId: "pay-button",
-    },
   };
 
   const columns = [

@@ -1,11 +1,10 @@
-import { Outlet, useNavigate, Navigate, Route } from "react-router-dom";
-import { useContext } from "react";
-import UserContext from "../auth/UserContext";
+import { Outlet, Navigate } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 /** Protected Route Wrapper */
 
 const ProtectedRoute = ({ allowedRoles, redirectPath = "/login" }) => {
-  const { currentUser } = useContext(UserContext);
+  const currentUser = useSelector((state) => state.userState.user);
 
   // if currentUser doesnt exist or if currentUser is not authorized
   if (

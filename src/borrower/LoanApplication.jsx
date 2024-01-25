@@ -1,16 +1,19 @@
-import { useContext } from "react";
+import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
 import { Formik } from "formik";
 import { Form, Button } from "react-bootstrap";
 import { toast } from "react-toastify";
-import { useNavigate } from "react-router-dom";
-import UserContext from "../auth/UserContext";
 import FormError from "../common/FormError";
 import * as Yup from "yup";
+import BorrowcapApi from "../api/api";
 
 /** Loan Application Form */
 
-const LoanApplicationForm = ({ purposes, terms }) => {
-  const { currentUser, BorrowcapApi } = useContext(UserContext);
+const LoanApplicationForm = () => {
+  const currentUser = useSelector((state) => state.userState.user);
+  const [purposes, setPurposes] = useState([]);
+  const [terms, setTerms] = useState([]);
   const navigate = useNavigate();
 
   const notifySuccess = () =>
@@ -24,6 +27,22 @@ const LoanApplicationForm = ({ purposes, terms }) => {
     purposeId: Yup.number().min(0, "Required").required("Required"),
     term: Yup.string().required("Required"),
   });
+
+  // Get purposes and terms
+  useEffect(() => {
+    const getPurposesAndTerms = async () => {
+      try {
+        BorrowcapApi.token = currentUser.token;
+        const purposes = await BorrowcapApi.getPurposes();
+        const terms = await BorrowcapApi.getTerms();
+        setPurposes(purposes);
+        setTerms(terms);
+      } catch (e) {
+        console.error("Error: ", e);
+      }
+    };
+    getPurposesAndTerms();
+  }, [currentUser.token]);
 
   return (
     <div className="form-wrapper">
@@ -41,6 +60,7 @@ const LoanApplicationForm = ({ purposes, terms }) => {
             try {
               values.purposeId = +values.purposeId;
               values.borrowerId = currentUser.id;
+              BorrowcapApi.token = currentUser.token;
               const result = await BorrowcapApi.submitLoanApplication(values);
               if (!!result) {
                 navigate("/borrower");

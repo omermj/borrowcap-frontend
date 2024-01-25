@@ -1,5 +1,6 @@
 import { Container, Row, Col } from "react-bootstrap";
-import { useState, useEffect, useContext } from "react";
+import { useState, useEffect } from "react";
+import { useSelector } from "react-redux";
 import { useParams, useNavigate } from "react-router-dom";
 import { formatCurrency, formatDate } from "../helpers/format";
 import { Formik } from "formik";
@@ -7,14 +8,13 @@ import { Form, Button } from "react-bootstrap";
 import { toast } from "react-toastify";
 import BorrowcapApi from "../api/api";
 import LoadingSpinner from "../common/LoadingSpinner";
-import UserContext from "../auth/UserContext";
 import FormError from "../common/FormError";
 import * as Yup from "yup";
 
 /** Displays a single Available Investment */
 
 const AvailableInvestment = () => {
-  const { currentUser } = useContext(UserContext);
+  const currentUser = useSelector((state) => state.userState.user);
   const { id } = useParams();
   const [data, setData] = useState(null);
   const navigate = useNavigate();
@@ -29,6 +29,7 @@ const AvailableInvestment = () => {
 
   useEffect(() => {
     const getInvestment = async () => {
+      BorrowcapApi.token = currentUser.token;
       const result = await BorrowcapApi.getApprovedRequest(id);
       if (result) {
         setData(result);
@@ -36,7 +37,7 @@ const AvailableInvestment = () => {
     };
 
     getInvestment();
-  }, [id]);
+  }, [id, currentUser.token]);
 
   if (!data) return <LoadingSpinner />;
 
@@ -78,6 +79,7 @@ const AvailableInvestment = () => {
                 onSubmit={async (values, { setSubmitting, setStatus }) => {
                   try {
                     values.investorId = currentUser.id;
+                    BorrowcapApi.token = currentUser.token;
                     const res = await BorrowcapApi.fundApprovedRequest(
                       id,
                       values
