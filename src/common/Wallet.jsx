@@ -5,17 +5,16 @@ import { formatCurrency } from "../helpers/format";
 import { useState } from "react";
 import { toast } from "react-toastify";
 import BorrowcapApi from "../api/api";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { updateAccountBalance } from "../features/user/userSlice";
 import FormError from "./FormError";
 import * as Yup from "yup";
 
 /** Component for Wallet for Borrowers and Investors */
 
 const Wallet = () => {
+  const dispatch = useDispatch();
   const currentUser = useSelector((state) => state.userState.user);
-  const [accountBalance, setAccountBalance] = useState(
-    currentUser.accountBalance
-  );
 
   const amountSchema = Yup.object().shape({
     amount: Yup.number()
@@ -34,7 +33,7 @@ const Wallet = () => {
         <Row>
           <Col>
             <h3 className="mb-4 text-center">
-              Account Balance: {formatCurrency(accountBalance)}
+              Account Balance: {formatCurrency(currentUser.accountBalance)}
             </h3>
           </Col>
         </Row>
@@ -55,7 +54,7 @@ const Wallet = () => {
                     values
                   );
                   if (!!res) {
-                    setAccountBalance(res.accountBalance);
+                    dispatch(updateAccountBalance(res.accountBalance));
                     values.amount = "";
                     setStatus({ error: null });
                   }
@@ -121,7 +120,7 @@ const Wallet = () => {
                     values
                   );
                   if (!!res) {
-                    setAccountBalance(res.accountBalance);
+                    dispatch(updateAccountBalance(res.accountBalance));
                     values.amount = "";
                     setStatus({ error: null });
                   }

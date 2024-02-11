@@ -7,7 +7,8 @@ import useLocalStorage from "./hooks/useLocalStorage";
 import BorrowcapApi from "./api/api";
 import LoadingSpinner from "./common/LoadingSpinner";
 import SideMenu from "./routes-nav/SideMenu/SideMenu";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { fetchUserData } from "./features/user/userSlice";
 import "bootstrap-icons/font/bootstrap-icons.css";
 import "bootstrap/dist/js/bootstrap.bundle.js";
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -18,9 +19,9 @@ import "react-toastify/dist/ReactToastify.min.css";
 export const TOKEN_STORAGE_ID = "borrowcap-token";
 
 function App() {
+  const dispatch = useDispatch();
   const [infoLoaded, setInfoLoaded] = useState(false);
   const [token, setToken] = useLocalStorage(TOKEN_STORAGE_ID);
-  // const [currentUser, setCurrentUser] = useState(null);
   const currentUser = useSelector((state) => state.userState.user);
   const [roles, setRoles] = useState([]);
 
@@ -31,10 +32,10 @@ function App() {
         BorrowcapApi.token = token;
         const roles = await BorrowcapApi.getRoles();
         setRoles(roles);
+        dispatch(fetchUserData(currentUser));
       } catch (e) {
         console.log("Error: ", e);
       }
-
       setInfoLoaded(true);
     };
     setInfoLoaded(false);

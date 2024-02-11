@@ -1,11 +1,12 @@
 import { useState, useEffect } from "react";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { formatCurrency, formatDate, formatPercent } from "../helpers/format";
 import { toast } from "react-toastify";
 import TableHeader from "../common/Table/TableHeader";
 import TableButton from "../common/Table/TableButton";
 import BorrowcapApi from "../api/api";
 import MUITable from "../common/Table/MUITable";
+import { updateStatistics } from "../features/user/userSlice";
 
 const payIcon = () => {
   return <i className="bi-credit-card-fill"></i>;
@@ -14,6 +15,7 @@ const payIcon = () => {
 /** Table showing all Fundend Loans for logged in user */
 
 const FundedLoans = () => {
+  const dispatch = useDispatch();
   const currentUser = useSelector((state) => state.userState.user);
   const [fundedLoans, setFundedLoans] = useState([]);
 
@@ -39,7 +41,9 @@ const FundedLoans = () => {
     const fundedLoans = await BorrowcapApi.getFundedLoansByUserId(
       currentUser.id
     );
+    const updatedUser = await BorrowcapApi.getCurrentUser(currentUser.username);
     setFundedLoans([...fundedLoans.borrower]);
+    dispatch(updateStatistics({ user: updatedUser }));
     notifyPayInstallment();
   };
 

@@ -67,7 +67,7 @@ const SignupForm = ({ signup, roles }) => {
           onSubmit={async (values, { setSubmitting, setStatus }) => {
             values.roles = [values.userType];
             const result = await signup(values);
-            if (result.success) navigate("/");
+            if (result.success) navigate("/login");
             else {
               setStatus({ error: result.errors });
             }

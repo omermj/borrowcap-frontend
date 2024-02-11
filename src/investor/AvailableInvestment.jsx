@@ -1,6 +1,7 @@
 import { Container, Row, Col } from "react-bootstrap";
 import { useState, useEffect } from "react";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { fetchUserData } from "../features/user/userSlice";
 import { useParams, useNavigate } from "react-router-dom";
 import { formatCurrency, formatDate } from "../helpers/format";
 import { Formik } from "formik";
@@ -14,6 +15,7 @@ import * as Yup from "yup";
 /** Displays a single Available Investment */
 
 const AvailableInvestment = () => {
+  const dispatch = useDispatch();
   const currentUser = useSelector((state) => state.userState.user);
   const { id } = useParams();
   const [data, setData] = useState(null);
@@ -85,6 +87,7 @@ const AvailableInvestment = () => {
                       values
                     );
                     if (!!res) navigate("/investor");
+                    dispatch(fetchUserData(currentUser));
                     notifySuccess();
                   } catch (e) {
                     setStatus({ error: e });

@@ -4,7 +4,6 @@ import axios from "axios";
 
 const BASE_URL = import.meta.env.VITE_API_BASE_URL || "http://localhost:3001";
 
-
 /** API Class used to provide access to BorrowCap Backend */
 
 class BorrowcapApi {
@@ -214,6 +213,12 @@ class BorrowcapApi {
   static async withdrawFunds(id, data) {
     const res = await this.request(`users/${id}/withdraw`, data, "patch");
     return res.accountBalance;
+  }
+
+  /** Fetch user statistics */
+  static async fetchStats(id) {
+    const res = await this.request(`users/${id}/stats`);
+    return res.stats;
   }
 
   /**

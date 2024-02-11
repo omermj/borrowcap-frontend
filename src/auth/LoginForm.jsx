@@ -6,17 +6,16 @@ import * as Yup from "yup";
 import BorrowcapApi from "../api/api";
 import { useDispatch, useSelector } from "react-redux";
 import { loginUser } from "../features/user/userSlice";
-import jwtDecode from "jwt-decode";
 
 /** Login Form */
 
-const LoginForm = ({ login }) => {
+const LoginForm = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const user = useSelector((state) => state.userState.user);
 
   // login user
-  const loginFunc = async (loginData) => {
+  const login = async (loginData) => {
     try {
       const { user, token } = await BorrowcapApi.login(loginData);
       if (token) {
@@ -43,7 +42,7 @@ const LoginForm = ({ login }) => {
           initialValues={{ username: "", password: "" }}
           validationSchema={loginSchema}
           onSubmit={async (values, { setSubmitting, setStatus }) => {
-            const result = await loginFunc(values);
+            const result = await login(values);
             if (result.success) navigate("/");
             else {
               setStatus({ error: "Incorrect Username/Password" });

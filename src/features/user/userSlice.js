@@ -1,4 +1,5 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import BorrowcapApi from "../../api/api";
 
 // Key for storing token in localStorage
 export const TOKEN_STORAGE_ID = "borrowcap-token";
@@ -10,6 +11,15 @@ const getUserFromLocalStorage = () => {
 const initialState = {
   user: getUserFromLocalStorage(),
 };
+
+export const fetchUserData = createAsyncThunk(
+  "user/fetchUserData",
+  async (user) => {
+    BorrowcapApi.token = user.token;
+    const response = await BorrowcapApi.getCurrentUser(user.username);
+    return response;
+  }
+);
 
 const userSlice = createSlice({
   name: "user",
@@ -26,8 +36,24 @@ const userSlice = createSlice({
       localStorage.removeItem("user");
       localStorage.removeItem(TOKEN_STORAGE_ID);
     },
+    updateStatistics: (state, action) => {
+      const user = { ...action.payload.user, token: state.user.token };
+      state.user = user;
+      localStorage.setItem("user", JSON.stringify(user));
+    },
+    updateAccountBalance: (state, action) => {
+      state.user.accountBalance = action.payload;
+      localStorage.setItem("user", JSON.stringify(state.user));
+    },
+  },
+  extraReducers: (builder) => {
+    builder.addCase(fetchUserData.fulfilled, (state, action) => {
+      state.user = { ...state.user, ...action.payload };
+      localStorage.setItem("user", JSON.stringify(state.user));
+    });
   },
 });
 
-export const { loginUser, logoutUser } = userSlice.actions;
+export const { loginUser, logoutUser, updateStatistics, updateAccountBalance } =
+  userSlice.actions;
 export default userSlice.reducer;
